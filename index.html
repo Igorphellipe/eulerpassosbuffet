@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Euler Passos - Buffet</title>
+    <meta name="description" content="Desde 2001, o Euler Passos Buffet leva o melhor da gastronomia mineira a eventos, casamentos e churrascos. Experiências únicas com sabor, elegância e tradição.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+    <link href="https://fonts.cdnfonts.com/css/aloevera" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" type="image/png" href="imagens/favicon-32x32.png"/>
+    <link rel="shortcut icon" href="imagens/favicon-32x32.png" type="image/x-icon"/>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <nav class="nav container">
+            <div class="nav__brand">
+               <a href="#home"> <img src="imagens/Euler-Passos-Logo-Verde-Oliva.png" alt="Euler-Passos-Logo-Verde-Oliva"> </a> 
+            </div>
+            <ul class="nav__menu" id="nav-menu">
+                <li class="nav__item">
+                    <a href="#home" class="nav__link active">Home</a>
+                </li>
+                <li class="nav__item">
+                    <a href="#cardapios" class="nav__link">Cardápios</a>
+                </li>
+                <li class="nav__item">
+                    <a href="#contato" class="nav__link">Contato</a>
+                </li>
+              <!--  <li class="nav__item">
+                    <a href="#avaliacoes" class="nav__link">Avaliações</a>
+                </li> -->
+            </ul>
+            <div class="nav__toggle" id="nav-toggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <!-- Home Section -->
+        <section id="home" class="hero">
+            <div class="hero__content">
+                <div class="container">
+                    <h1 class="hero__title">Celebre com Sabor, Encante com Experiência</h1>
+                    <p class="hero__description">Somos especialistas em momentos memoráveis — onde boa comida, calor humano e sabor de verdade se encontram.</p>
+                    <a href="#cardapios" class="btn btn--primary btn--lg">Nossos Serviços</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Nossa História Section -->
+        <section class="historia py-16">
+            <div class="container">
+                <div class="historia__content">
+                    <div class="historia__text">
+                        <h2>Nossa História</h2>
+                        <p>Fundado em 2001, o Euler Passos Buffet nasceu com o propósito de levar o melhor da gastronomia mineira para eventos inesquecíveis. Começamos com pequenos churrascos personalizados, sempre priorizando o sabor autêntico, a confiança dos clientes e o prazer de servir bem.</p>
+                        <p>Com o passar dos anos, o buffet se destacou pela qualidade no atendimento, pela culinária artesanal e pela experiência completa em eventos sociais e corporativos. Hoje, oferecemos almoços, jantares, churrascos e crepes para casamentos, aniversários, confraternizações e eventos VIP em toda a região.</p>
+                        <p>Nosso compromisso é simples e verdadeiro: criar experiências gastronômicas marcantes, unindo sabor, elegância e hospitalidade mineira. No Euler Passos Buffet, cada evento é único — e cada cliente, parte da nossa história.</p>
+                    </div>
+                    <div class="historia__image">
+                        <div class="image-placeholder"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Por que nos escolher Section -->
+        <section class="diferenciais py-16">
+            <div class="container">
+                <h2 class="section-title">Por que nos escolher</h2>
+                <div class="diferenciais__grid">
+                    <div class="diferencial__card">
+                        <div class="diferencial__icon">⭐</div>
+                        <h3>Experiência</h3>
+                        <p>Mais de 15 anos atendendo eventos com excelência e profissionalismo.</p>
+                    </div>
+                    <div class="diferencial__card">
+                        <div class="diferencial__icon">🥘</div>
+                        <h3>Qualidade</h3>
+                        <p>Ingredientes selecionados e receitas desenvolvidas por chefs especializados.</p>
+                    </div>
+                    <div class="diferencial__card">
+                        <div class="diferencial__icon">🍴</div>
+                        <h3>Variedade</h3>
+                        <p>Cardápios diversificados para todos os tipos de eventos e preferências.</p>
+                    </div>
+                    <div class="diferencial__card">
+                        <div class="diferencial__icon">🎉</div>
+                        <h3>Atendimento</h3>
+                        <p>Suporte personalizado desde o planejamento até a execução do seu evento.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Cardápios Section -->
+        <section id="cardapios" class="cardapios py-16">
+            <div class="container">
+                <h2 class="section-title">Nossos Serviços</h2>
+                <div class="cardapios__grid">
+                    <div class="servico__card" data-service="churrasco">
+                        <div class="servico__icon"><img src="imagens/churrasco.jpg" alt="churrasco"></div>
+                        <h3>Churrasco</h3>
+                        <p>Carnes nobres grelhadas na brasa</p>
+                        <button class="btn btn--primary">Ver Cardápio</button>
+                    </div>
+                    <div class="servico__card" data-service="crepe">
+                        <div class="servico__icon"><img src="imagens/crepe.jpg" alt="Crepe de frango"></div>
+                        <h3>Crepe</h3>
+                        <p>Crepes doces e salgados gourmet</p>
+                        <button class="btn btn--primary">Ver Cardápio</button>
+                    </div>
+                    <div class="servico__card" data-service="massa">
+                        <div class="servico__icon"><img src="imagens/massas.jpg" alt="Massa-carbonara"></div>
+                        <h3>Massa</h3>
+                        <p>Massas artesanais com molhos especiais</p>
+                        <button class="btn btn--primary">Ver Cardápio</button>
+                    </div>
+                    <div class="servico__card" data-service="jantar">
+                        <div class="servico__icon"><img src="imagens/jantar.jpg" alt="Jantar-filé-mion"></div>
+                        <h3>Jantar</h3>
+                        <p>Menu executivo completo</p>
+                        <button class="btn btn--primary">Ver Cardápio</button>
+                    </div>
+                    <div class="servico__card" data-service="almoco">
+                        <div class="servico__icon"><img src="imagens/Almoço.jpg" alt="Almoço-bacalhau"></div>
+                        <h3>Almoço</h3>
+                        <p>Buffet livre variado</p>
+                        <button class="btn btn--primary">Ver Cardápio</button>
+                    </div>
+                    <div class="servico__card" data-service="coquetel">
+                        <div class="servico__icon"><img src="imagens/coquetel volante.jpg" alt="Canapés"></div>
+                        <h3>Coquetel Volante</h3>
+                        <p>Finger foods e canapés sofisticados</p>
+                        <button class="btn btn--primary">Ver Cardápio</button>
+                    </div>
+                    <div class="servico__card" data-service="boteco">
+                        <div class="servico__icon"><img src="imagens/boteco.jpg" alt="Torresmo-e-mandioca"></div>
+                        <h3>Comida de Boteco</h3>
+                        <p>Petiscos tradicionais brasileiros</p>
+                        <button class="btn btn--primary">Ver Cardápio</button>
+                    </div>
+                    <div class="servico__card" data-service="junina">
+                        <div class="servico__icon"><img src="imagens/Festa junina.jpg" alt="comida-festa-junina"></div>
+                        <h3>Festa Junina</h3>
+                        <p>Comidas típicas e decoração temática</p>
+                        <button class="btn btn--primary">Ver Cardápio</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contato Section -->
+        <section id="contato" class="contato py-16">
+            <div class="container">
+                <h2 class="section-title">Entre em Contato</h2>
+                <div class="contato__content">
+                    <div class="contato__form">
+                        <h3>Solicite um Orçamento</h3>
+                        <form class="form" id="contato-form">
+                            <div class="form-group">
+                                <label for="nome" class="form-label">Nome Completo</label>
+                                <input type="text" id="nome" class="form-control" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="email" class="form-label">E-mail</label>
+                                <input type="email" id="email" class="form-control" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="telefone" class="form-label">Telefone</label>
+                                <input type="tel" id="telefone" class="form-control" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="data-nascimento" class="form-label">Data de Nascimento (se aniversário)</label>
+                                <input type="date" id="data-nascimento" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label for="tipo-evento" class="form-label">Tipo de Evento</label>
+                                <select id="tipo-evento" class="form-control">
+                                    <option value="">Selecione</option>
+                                    <option value="aniversario">Aniversário</option>
+                                    <option value="casamento">Casamento</option>
+                                    <option value="corporativo">Evento Corporativo</option>
+                                    <option value="formatura">Formatura</option>
+                                    <option value="outro">Outro</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="mensagem" class="form-label">Mensagem</label>
+                                <textarea id="mensagem" class="form-control" rows="4" placeholder="Descreva seu evento e necessidades especiais"></textarea>
+                            </div>
+                            <button type="submit" class="btn btn--primary btn--full-width">Enviar para WhatsApp</button>
+                        </form>
+                    </div>
+                    <div class="contato__info">
+                        <h3>Informações de Contato</h3>
+                        <div class="info-item">
+                            <strong>📍 Endereço:</strong>
+                            <p>St. de Clubes Esportivos Sul Trecho 2 - Plano Piloto, 70297-400 <br>Brasília - DF</p>
+                        </div>
+                        <div class="info-item">
+                            <strong>📞 Telefone:</strong>
+                            <p>(61) 99905-3461</p>
+                        </div>
+                        <div class="info-item">
+                            <strong>✉️ E-mail:</strong>
+                            <p>contato@eulerpasosbuffet.com.br</p>
+                        </div>
+                        <div class="info-item">
+                            <strong>🕐 Horário de Funcionamento:</strong>
+                            <p>Segunda a Sexta: 8h às 18h<br>Sábado: 8h às 14h</p>
+                        </div>
+                        <div class="mapa">
+                            <div class="mapa-placeholder">
+                                <iframe  src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d740.0097562707647!2d-47.84857443970133!3d-15.82002533570581!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1spt-BR!2sbr!4v1761695114317!5m2!1spt-BR!2sbr" 
+                                    width="300" 
+                                    height="250" 
+                                    style="border:0;" 
+                                    allowfullscreen="" 
+                                    loading="lazy" 
+                                    referrerpolicy="no-referrer-when-downgrade">
+                                </iframe>
+                                <p>📍 Localização no Mapa</p>
+                                
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Receitas Section -->
+        <section id="receitas" class="receitas py-16">
+            <div class="container">
+                <h2 class="section-title">Nossas Receitas</h2>
+                <div class="receitas__grid">
+                    <div class="receita__card">
+                        <div class="receita__image image-placeholder"></div>
+                        <h3>Churrasco de Picanha</h3>
+                        <p>Deliciosa picanha grelhada na brasa, servida com farofa e vinagrete.</p>
+                        <a href="#" class="btn btn--secondary">Vizualizar receita</a>
+                    </div>
+                    <div class="receita__card">
+                        <div class="receita__image image-placeholder"></div>
+                        <h3>Crepe de Nutella com Morango</h3>
+                        <p>Crepe doce recheado com Nutella e morangos frescos, finalizado com chantilly.</p>
+                        <a href="#" class="btn btn--secondary">Vizualizar receita</a>
+                    </div>
+                    <div class="receita__card">
+                        <div class="receita__image image-placeholder"></div>
+                        <h3>Espaguete à Carbonara</h3>
+                        <p>Massas artesanais ao molho carbonara clássico, com pancetta crocante.</p>
+                        <a href="#" class="btn btn--secondary">Vizualizar receita</a>
+                    </div>
+            </div>
+        </section>
+
+        <!-- Avaliações Section -->
+         <!-- 
+        <section id="avaliacoes" class="avaliacoes py-16">
+            <div class="container">
+                <h2 class="section-title">O que nossos clientes dizem</h2>
+                <div class="avaliacoes__grid">
+                    <div class="avaliacao__card">
+                        <div class="avaliacao__stars">⭐⭐⭐⭐⭐</div>
+                        <p>"Serviço excepcional! O buffet de churrasco foi um sucesso total no aniversário da minha mãe."</p>
+                        <div class="avaliacao__author">
+                            <strong>Maria Silva</strong>
+                            <span>Há 2 semanas</span>
+                        </div>
+                    </div>
+                    <div class="avaliacao__card">
+                        <div class="avaliacao__stars">⭐⭐⭐⭐⭐</div>
+                        <p>"Qualidade impecável e atendimento diferenciado. Recomendo para qualquer evento!"</p>
+                        <div class="avaliacao__author">
+                            <strong>João Santos</strong>
+                            <span>Há 1 mês</span>
+                        </div>
+                    </div>
+                    <div class="avaliacao__card">
+                        <div class="avaliacao__stars">⭐⭐⭐⭐⭐</div>
+                        <p>"Os crepes estavam divinos! Toda a família adorou. Com certeza contrataremos novamente."</p>
+                        <div class="avaliacao__author">
+                            <strong>Ana Costa</strong>
+                            <span>Há 3 semanas</span>
+                        </div>
+                    </div>
+                    <div class="avaliacao__card">
+                        <div class="avaliacao__stars">⭐⭐⭐⭐⭐</div>
+                        <p>"Buffet completo e saboroso. A festa junina ficou perfeita com vocês!"</p>
+                        <div class="avaliacao__author">
+                            <strong>Carlos Oliveira</strong>
+                            <span>Há 1 semana</span>
+                        </div>
+                    </div>
+                    <div class="avaliacao__card">
+                        <div class="avaliacao__stars">⭐⭐⭐⭐⭐</div>
+                        <p>"Profissionalismo do início ao fim. O jantar executivo superou nossas expectativas."</p>
+                        <div class="avaliacao__author">
+                            <strong>Fernanda Lima</strong>
+                            <span>Há 4 semanas</span>
+                        </div>
+                    </div>
+                    <div class="avaliacao__card">
+                        <div class="avaliacao__stars">⭐⭐⭐⭐⭐</div>
+                        <p>"Comida de boteco autêntica e saborosa. Evento foi um sucesso graças a vocês!"</p>
+                        <div class="avaliacao__author">
+                            <strong>Roberto Ferreira</strong>
+                            <span>Há 5 dias</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+-->
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer__content">
+                <div class="footer__brand">
+                    <h3> <img src="imagens/favicon-32x32.png" alt="Euler-Passos-Logo-Verde-Oliva"> Euler Passos Buffet.</h3>
+                    <p>Sabores que marcam momentos especiais</p>
+                </div>
+                <div class="footer__contact">
+                    <p><strong>Contato:</strong> (61) 99905-3461</p>
+                    <p><strong>E-mail:</strong> contato@eulerpasosbuffet.com.br</p>
+                    <p><strong>Endereço:</strong> St. de Clubes Esportivos Sul Trecho 2 - Plano Piloto, Brasília - DF, 70297-400</p>
+                </div>
+            </div>
+            <div class="footer__bottom">
+                <p>&copy; 2025 Euler Passos Buffet. Todos os direitos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Modal para Cardápios -->
+    <div class="modal hidden" id="cardapio-modal">
+        <div class="modal__backdrop"></div>
+        <div class="modal__content">
+            <button class="modal__close" id="modal-close">&times;</button>
+            <div class="modal__header">
+                <div class="modal__icon" id="modal-icon">🥩</div>
+                <h2 id="modal-title">Churrasco</h2>
+                <p id="modal-description">Carnes nobres grelhadas na brasa</p>
+            </div>
+            <div class="modal__body">
+                <div class="cardapio-detalhes">
+                    <h3>Cardápio Completo</h3>
+                    <ul id="modal-menu"></ul>
+                </div>
+                <div class="orcamento-form">
+                    <h3>Solicitar Orçamento</h3>
+                    <form id="orcamento-form">
+                        <div class="form-group">
+                            <label for="orcamento-nome" class="form-label">Nome</label>
+                            <input type="text" id="orcamento-nome" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="orcamento-email" class="form-label">E-mail</label>
+                            <input type="email" id="orcamento-email" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="orcamento-telefone" class="form-label">Telefone</label>
+                            <input type="tel" id="orcamento-telefone" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="orcamento-data" class="form-label">Data do Evento</label>
+                            <input type="date" id="orcamento-data" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="orcamento-pessoas" class="form-label">Número de Pessoas</label>
+                            <input type="number" id="orcamento-pessoas" class="form-control" min="10" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="orcamento-observacoes" class="form-label">Observações</label>
+                            <textarea id="orcamento-observacoes" class="form-control" rows="3"></textarea>
+                        </div>
+                        <button type="submit" class="btn btn--primary btn--full-width">Enviar para WhatsApp</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
