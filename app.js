@@ -4,66 +4,97 @@ const servicesData = {
     id: "churrasco",
     name: "Churrasco",
     description: "Carnes nobres grelhadas na brasa",
-    icon: "🥩",
-    menu: ["Picanha grelhada", "Costela defumada", "Linguiça artesanal", "Frango temperado", "Pão de alho", "Farofa especial", "Vinagrete", "Salada verde"]
+    menu: {
+      ENTRADAS: ["Picanha grelhada", "Costela defumada", "Linguiça artesanal", "Frango temperado", "Pão de alho"],
+      PRINCIPAL: ["Picanha", "Maminha", "Fraldinha", "Alcatra", "Carne de Sol", "Costela Suína", "Lombinho Suíno", "Linguiça de Frango e Suína", "Frango desossado", "Coração de Frango"],
+      GUARNIÇÕES: ["Arroz", "Feijão tropeiro", "Mandioca com manteiga", "Vinagrete", "Pão com alho", "Salada verde"],
+      BEBIDAS: ["Refrigerantes", "Sucos naturais"]
+    }
   },
   crepe: {
     id: "crepe",
     name: "Crepe",
     description: "Crepes doces e salgados gourmet",
-    icon: "🥞",
-    menu: ["Crepe de frango", "Crepe de camarão", "Crepe Nutella", "Crepe de morango", "Crepe vegetariano", "Crepe de queijo", "Crepe de chocolate", "Crepe de frutas"]
+    menu: {
+      CREPES_DOCE: ["Crepe de frango", "Crepe de camarão", "Crepe Nutella", "Crepe de morango"],
+      CREPES_SALGADOS: ["Crepe vegetariano", "Crepe de queijo", "Crepe de chocolate", "Crepe de frutas"],
+      BEBIDAS: ["Refrigerantes", "Sucos naturais"]
+    }
+
   },
   massa: {
     id: "massa",
-    name: "Massa",
+    name: "Massas",
     description: "Massas artesanais com molhos especiais",
-    icon: "🍝",
-    menu: ["Spaghetti Carbonara", "Penne Arrabbiata", "Lasanha à Bolonhesa", "Ravioli de ricota", "Nhoque ao molho pesto", "Fettuccine Alfredo", "Risotto de camarão", "Salada Caesar"]
+    menu: { 
+      MASSAS: ["Spaghetti Carbonara", "Penne Arrabbiata", "Lasanha à Bolonhesa", "Ravioli de ricota"],
+      ACOMPANHAMENTOS: ["Nhoque ao molho pesto", "Fettuccine Alfredo", "Risotto de camarão", "Salada Caesar"],
+      BEBIDAS: ["Refrigerantes", "Sucos naturais"]
+    }
   },
   jantar: {
     id: "jantar",
     name: "Jantar",
     description: "Menu executivo completo",
-    icon: "🍽️",
-    menu: ["Entrada: Bruschetta", "Salmão grelhado", "Filé mignon", "Risotto de funghi", "Legumes salteados", "Batata rústica", "Sobremesa: Petit gateau", "Vinho selecionado"]
+    menu: {
+      ENTRADAS: ["Entrada: Bruschetta", "Salmão grelhado", "Filé mignon", "Risotto de funghi", "Legumes salteados", "Batata rústica"],
+      PRATO_PRINCIPAL:  ["Sobremesa: Petit gateau", "Vinho selecionado"],
+      GUARNIÇÕES: ["Arroz branco", "Arroz à grega", "Salada verde", "Legumes na manteiga"],
+      BEBIDAS: ["Refrigerantes", "Sucos naturais"]
+    }
   },
   almoco: {
     id: "almoco",
     name: "Almoço",
     description: "Buffet livre variado",
-    icon: "🍛",
-    menu: ["Arroz branco e integral", "Feijão tropeiro", "Carne de panela", "Frango xadrez", "Peixe assado", "Saladas variadas", "Legumes refogados", "Sobremesas caseiras"]
+    menu:{
+      ENTRADAS: ["Entrada: Bruschetta", "Salmão grelhado", "Filé mignon", "Risotto de funghi", "Legumes salteados", "Batata rústica"],
+      PRATO_PRINCIPAL:  ["Sobremesa: Petit gateau", "Vinho selecionado"],
+      GUARNIÇÕES: ["Arroz branco", "Arroz à grega", "Salada verde", "Legumes na manteiga"],
+      BEBIDAS: ["Refrigerantes", "Sucos naturais"]
+    }
   },
   coquetel: {
     id: "coquetel",
     name: "Coquetel Volante",
     description: "Finger foods e canapés sofisticados",
-    icon: "🍸",
-    menu: ["Canapés de salmão", "Mini sanduíches", "Coxinhas gourmet", "Empadas variadas", "Bruschetta caprese", "Tortinhas doces", "Drinks especiais", "Espumante"]
+    menu: {
+      SALGADOS_ASSADOS: ["Canapés de salmão", "Mini sanduíches", "Coxinhas gourmet", "Empadas variadas", "Bruschetta caprese", "Tortinhas doces", "Drinks especiais", "Espumante"],
+      SALGADOS_FRIOS: ["Tábua de frios", "Sushi e sashimi", "Salada de camarão", "Mini wraps", "Canapés vegetarianos", "Mini quiches", "Drinks especiais", "Espumante"],
+      BEBIDAS: ["Drinks especiais", "Espumante"]
+    }
   },
   boteco: {
     id: "boteco",
     name: "Comida de Boteco",
     description: "Petiscos tradicionais brasileiros",
-    icon: "🍺",
-    menu: ["Pastel de queijo", "Coxinha de frango", "Bolinho de bacalhau", "Torresmo crocante", "Linguiça acebolada", "Mandioca frita", "Cerveja gelada", "Caipirinha"]
+    menu: {
+      PETISCOS: ["Pastel de queijo", "Coxinha de frango", "Bolinho de bacalhau", "Torresmo crocante", "Linguiça acebolada", "Mandioca frita", "Cerveja gelada", "Caipirinha"],
+      CALDOS: ["Caldo de feijão", "Caldo verde", "Caldo de mandioca com carne seca"],
+      GUARNIÇÕES: ["Arroz Carreteiro", "Feijão tropeiro"],
+      BEBIDAS: ["Cerveja gelada", "Caipirinha"]
+    }
   },
   junina: {
     id: "junina",
     name: "Festa Junina",
     description: "Comidas típicas e decoração temática",
-    icon: "🌽",
-    menu: ["Pamonha doce", "Canjica cremosa", "Milho cozido", "Quentão", "Pé de moleque", "Cocada", "Paçoca caseira", "Vinho quente"]
+    menu: {
+      PRATOS_TIPICOS: ["Pamonha doce", "Canjica cremosa", "Milho cozido", "Quentão", "Pé de moleque", "Cocada", "Paçoca caseira", "Vinho quente"],
+      CALDOS: ["Caldo verde", "Caldo de mandioca com carne seca"],
+      CHURRASQUINHO: ["Espetinho de carne", "Espetinho de frango", "Espetinho de linguiça"],
+      BEBIDAS: ["Quentão", "Vinho quente"]
+    }
   }
 };
 
 // Informações da empresa
 const companyInfo = {
-  name: "Buffet & Eventos Premium",
-  phone: "(11) 99999-9999",
-  email: "contato@buffetpremium.com.br",
-  address: "Rua das Flores, 123 - Centro, São Paulo - SP"
+  name: "Euler Passos Buffet",
+  phone: "(61) 99905-3461",
+  email: "contato@eulerpassosbuffet.com.br",
+  address: "St. de Clubes Esportivos Sul Trecho 2 - Plano Piloto, 70297-400 Brasília - DF"
+
 };
 
 // Aguarda o DOM estar totalmente carregado
@@ -144,19 +175,33 @@ document.addEventListener('DOMContentLoaded', function() {
     
     if (modalMenu) {
       modalMenu.innerHTML = '';
-      service.menu.forEach(item => {
-        const li = document.createElement('li');
-        li.textContent = item;
-        modalMenu.appendChild(li);
+
+      Object.keys(service.menu).forEach(category => {
+        const details = document.createElement('details');
+        const summary = document.createElement('summary');
+        summary.textContent = category;
+
+        const ul = document.createElement('ul');
+        service.menu[category].forEach(item => {
+          const li = document.createElement('li');
+          li.textContent = item;
+          ul.appendChild(li);
+        });
+
+        details.appendChild(summary);
+        details.appendChild(ul);
+        modalMenu.appendChild(details);
       });
+      enableAccordion();
     }
+    
 
     // Show modal
     modal.classList.remove('hidden');
     document.body.style.overflow = 'hidden';
     console.log('Modal opened successfully');
   }
-
+ 
   function closeModal() {
     if (modal) {
       modal.classList.add('hidden');
@@ -216,6 +261,21 @@ document.addEventListener('DOMContentLoaded', function() {
       closeModal();
     }
   });
+
+  //Função para ativar comportamento do tipo accordion nos detalhes do menu
+  function enableAccordion() {
+    const detailsElements = document.querySelectorAll('#modal-menu details');
+
+    detailsElements.forEach((targetDetail) => {
+      targetDetail.addEventListener('click', () => {
+        detailsElements.forEach((detail) => {
+          if (detail !== targetDetail) {
+            detail.removeAttribute('open');
+          }
+        });
+      });
+    });
+  }  
 
   // WhatsApp message formatting
   function formatWhatsAppMessage(formData, isOrcamento = false) {
@@ -468,5 +528,5 @@ document.addEventListener('DOMContentLoaded', function() {
     input.setAttribute('min', today);
   });
 
-  console.log('Buffet & Eventos Premium - Site carregado com sucesso!');
+  console.log('Euler Passos Buffet - Site carregado com sucesso!');
 });
