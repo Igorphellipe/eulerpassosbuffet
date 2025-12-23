@@ -3,22 +3,24 @@ const servicesData = {
   churrasco: {
     id: "churrasco",
     name: "Churrasco",
-    description: "Carnes nobres grelhadas na brasa",
+    description: "O sabor que chama atenção",
+    hasOpcionais: false,
     menu: {
-      ENTRADAS: ["Picanha grelhada", "Costela defumada", "Linguiça artesanal", "Frango temperado", "Pão de alho"],
-      PRINCIPAL: ["Picanha", "Maminha", "Fraldinha", "Alcatra", "Carne de Sol", "Costela Suína", "Lombinho Suíno", "Linguiça de Frango e Suína", "Frango desossado", "Coração de Frango"],
-      GUARNIÇÕES: ["Arroz", "Feijão tropeiro", "Mandioca com manteiga", "Vinagrete", "Pão com alho", "Salada verde"],
-      BEBIDAS: ["Refrigerantes", "Sucos naturais"]
+      ENTRADAS: ["Carne de Sol", "Linguiça de Frango e Suina", "Coração de Frango", "Frango Desossado", "Pão de alho"],
+      PRATO_PRINCIPAL: ["Picanha", "Maminha", "Fraldinha", "Alcatra", "Carne de Sol", "Costela Suína", "Lombinho Suíno", "Linguiça de Frango e Suína", "Frango desossado", "Coração de Frango"],
+      GUARNIÇÕES: ["Arroz", "Feijão tropeiro", "Mandioca com manteiga", "Vinagrete", "Pão com alho", "Salada verde", "Farofa de Cuscuz", 'Molho Mel e Mostarda'],
+      BEBIDAS: ["Coca Cola Comum", "Coca Cola Zero Açucar", "Guaraná", "Suco de Caju", "Suco de Abacaxi"]
     }
   },
   crepe: {
     id: "crepe",
     name: "Crepe",
     description: "Crepes doces e salgados gourmet",
+    hasOpcionais: false,
     menu: {
-      CREPES_DOCE: ["Crepe de frango", "Crepe de camarão", "Crepe Nutella", "Crepe de morango"],
-      CREPES_SALGADOS: ["Crepe vegetariano", "Crepe de queijo", "Crepe de chocolate", "Crepe de frutas"],
-      BEBIDAS: ["Refrigerantes", "Sucos naturais"]
+      CREPES_SALGADOS: ["Filé ao Molho Madeira", "Frango Desfiado com Catupiry", "Queijo Mussarela", "Presunto", "Calabresa", "Tomate Seco com Rúcula", "Palmito", "Batata Palha", "Tomate Fresco", "Orégano", "Cebola em Tempero", "Milho", "Azeitonas"],
+      CREPES_DOCES: ["Banana Caramelada", "Canela e Açúcar", "Morango", "Chocolate"],
+      BEBIDAS: ["Coca Cola Comum", "Coca Cola Zero Açucar", "Guaraná", "Suco de Caju", "Suco de Abacaxi"]
     }
 
   },
@@ -26,67 +28,219 @@ const servicesData = {
     id: "massa",
     name: "Massas",
     description: "Massas artesanais com molhos especiais",
-    menu: { 
-      MASSAS: ["Spaghetti Carbonara", "Penne Arrabbiata", "Lasanha à Bolonhesa", "Ravioli de ricota"],
-      ACOMPANHAMENTOS: ["Nhoque ao molho pesto", "Fettuccine Alfredo", "Risotto de camarão", "Salada Caesar"],
-      BEBIDAS: ["Refrigerantes", "Sucos naturais"]
-    }
+    hasOpcionais: true,
+    menu: {
+      ENTRADAS: ["SALGADOS FRITOS", "Bombom de Azeitona", "Bombom de Frango", "Bombom de Provolone", "Bobom de Carne Seca", "Delícia de Queijo", "Delícia de Bacalhau", "SALGADOS ASSADOS", "Folhado de Frango", "Folhado de Bacalhau", "Folhado de Aipim com Carne de Sol", "Dadinho de Tapioca"], 
+      MASSAS: ["Penne", "Espaguete", "Tailarim", "Parafuso", "Gravata"],
+      MOLHOS: ["Molho Pesto", "Molho Branco", "Molho Bolonhesa", "Molho Sugo", "Molho Quatro Queijos", "Molho Rustico de Tomate"],
+      ACOMPANHAMENTOS: ["Isca de Filé ao Molho Madeira", "Frango Desfiado", "Calabresa", "Presunto", "Milho", "Azeitonas", "Cebola em Tempero", "Catupiry", "Cheddar", "Bacon", "Ervilha Fresca", "Orégano", "Manjericão", "Tomate Seco"],
+      BEBIDAS: ["Coca Cola Comum", "Coca Cola Zero Açucar", "Guaraná", "Suco de Caju", "Suco de Abacaxi"]
+    },
+    selectFields: [
+      { id: "Massa", label: "Escolha 3 Opções de Massas", options: ["Penne", "Espaguete", "Tailarim", "Parafuso", "Gravata"] },
+      { id: "Molho", label: "Escolha 3 Opções de Molho", options: ["Molho Pesto", "Molho Branco", "Molho Bolonhesa", "Molho Sugo", "Molho Quatro Queijos", "Molho Rustico de Tomate"] },
+      { id: "Acompanhamento", label: "Escolha 8 Opções de Acompanhamento", options: ["Isca de Filé ao Molho Madeira", "Frango Desfiado", "Calabresa", "Presunto", "Milho", "Azeitonas", "Cebola em Tempero", "Catupiry", "Cheddar", "Bacon", "Ervilha Fresca", "Orégano", "Manjericão", "Tomate Seco"] }
+    ],
   },
   jantar: {
     id: "jantar",
     name: "Jantar",
     description: "Menu executivo completo",
+    hasOpcionais: true,
     menu: {
-      ENTRADAS: ["Entrada: Bruschetta", "Salmão grelhado", "Filé mignon", "Risotto de funghi", "Legumes salteados", "Batata rústica"],
-      PRATO_PRINCIPAL:  ["Sobremesa: Petit gateau", "Vinho selecionado"],
-      GUARNIÇÕES: ["Arroz branco", "Arroz à grega", "Salada verde", "Legumes na manteiga"],
-      BEBIDAS: ["Refrigerantes", "Sucos naturais"]
-    }
+      ENTRADAS: ["SALGADOS ASSADOS", "Folhado de Frango com Abacxi", "Folhado Romeu e Julieta", "Folhado de Bacalhau", "Folhado de Camarão", "SALGADOS FRITOS", "Bombom de Azeitona", "Bombom de Provolone", "Delícia de Queijo", "Dadinho de Tápioca", "Pasteis de Carne e Queijo", "Coxinha de Frango com Catupiry"],
+      EMPRATADOS: ["Camarão com Bechamel de Baroa", "Frango com Bechamel de Baroa", "Escondidinho de Carne Seca", "Escondidinho de Frango"],
+      PRATO_PRINCIPAL: ["File Mignon ao Molho Madeira", "Isca de Frango Recheado ao Molho Branco", "Bacalhau ao Zé do Pipo", "Lagarto ao Molho Madeira"],
+      GUARNIÇÕES: ["Arroz branco", "Arroz com Brócolis", "Batata Rustica", "Salada verde", "Molho de Mostarda e Mel"],
+      BEBIDAS: ["Coca Cola Comum", "Coca Cola Zero Açucar", "Guaraná", "Suco de Caju", "Suco de Abacaxi"]
+    },
+    selectFields: [
+      { id: "Prato_principal", label: "Escolha 2 Opções de Prato Principal", options: ["File Mignon ao Molho Madeira", "Isca de Frango Recheado ao Molho Branco", "Bacalhau ao Zé do Pipo", "Lagarto ao Molho Madeira"] },
+      { id: "Massas", label: "Escolha  1 Opção de Massa", options: ["Penne ao Molho Sugo", "Espaguete ao Molho Bolonhesa", "Rodele de Ricota e Tomate Seco ao Quatro Queijos"] },
+      { id: "Empratados", label: "Escolha 2 Opções de Empratado", options: ["Camarão com Bechamel de Baroa", "Frango com Bechamel de Baroa", "Escondidinho de Carne Seca", "Escondidinho de Frango"] }
+    ]
   },
   almoco: {
     id: "almoco",
     name: "Almoço",
     description: "Buffet livre variado",
+    hasOpcionais: true,
     menu:{
-      ENTRADAS: ["Entrada: Bruschetta", "Salmão grelhado", "Filé mignon", "Risotto de funghi", "Legumes salteados", "Batata rústica"],
-      PRATO_PRINCIPAL:  ["Sobremesa: Petit gateau", "Vinho selecionado"],
-      GUARNIÇÕES: ["Arroz branco", "Arroz à grega", "Salada verde", "Legumes na manteiga"],
-      BEBIDAS: ["Refrigerantes", "Sucos naturais"]
-    }
+      ENTRADAS: ["SALGADOS ASSADOS", "Folhado de Frango com Abacxi", "Folhado Romeu e Julieta", "Folhado de Bacalhau", "Folhado de Camarão", "SALGADOS FRITOS", "Bombom de Azeitona", "Bombom de Provolone", "Delícia de Queijo", "Dadinho de Tápioca", "Pasteis de Carne e Queijo", "Coxinha de Frango com Catupiry"],
+      EMPRATADOS: ["Camarão com Bechamel de Baroa", "Isca de Frango com Bechamel de Baroa", "Escondidinho de Carne Seca", "Escondidinho de Frango"],
+      PRATO_PRINCIPAL: ["File Mignon ao Molho Madeira", "Frango Recheado ao Molho Branco", "Bacalhau ao Zé do Pipo", "Lagarto ao Molho Madeira"],
+      GUARNIÇÕES: ["Arroz branco", "Arroz com Brócolis", "Batata Rustica", "Salada verde", "Molho de Mostarda e Mel"],
+      BEBIDAS: ["Coca Cola Comum", "Coca Cola Zero Açucar", "Guaraná", "Suco de Caju", "Suco de Abacaxi"]
+    },
+    selectFields: [
+      { id: "Prato_Principal", label: "Escolha 2 Opções de Prato Principal", options: ["File Mignon ao Molho Madeira", "Isca de Frango Recheado ao Molho Branco", "Bacalhau ao Zé do Pipo", "Lagarto ao Molho Madeira"] },
+      { id: "Massas", label: "Escolha  1 Opção de Massa", options: ["Penne ao Molho Sugo", "Espaguete ao Molho Bolonhesa", "Rodele de Ricota e Tomate Seco ao Quatro Queijos"] },
+      { id: "Empratados", label: "Escolha 2 Opções de Empratado", options: ["Camarão com Bechamel de Baroa", "Frango com Bechamel de Baroa", "Escondidinho de Carne Seca", "Escondidinho de Frango"] }
+    ]
   },
   coquetel: {
     id: "coquetel",
     name: "Coquetel Volante",
     description: "Finger foods e canapés sofisticados",
+    hasOpcionais: false,
     menu: {
-      SALGADOS_ASSADOS: ["Canapés de salmão", "Mini sanduíches", "Coxinhas gourmet", "Empadas variadas", "Bruschetta caprese", "Tortinhas doces", "Drinks especiais", "Espumante"],
-      SALGADOS_FRIOS: ["Tábua de frios", "Sushi e sashimi", "Salada de camarão", "Mini wraps", "Canapés vegetarianos", "Mini quiches", "Drinks especiais", "Espumante"],
-      BEBIDAS: ["Drinks especiais", "Espumante"]
+      FINGER_FOODS: ["Canapés de salmão", "Mini sanduíches", "Coxinhas gourmet", "Empadas variadas", "Bruschetta caprese", "Tortinhas doces", "Drinks especiais", "Espumante"],
+      SALGADOS_ASSADOS: ["Folhado de Frango", "Sushi e sashimi", "Salada de camarão", "Mini wraps", "Canapés vegetarianos", "Mini quiches", "Drinks especiais", "Espumante"],
+      BEBIDAS: ["Coca Cola Comum", "Coca Cola Zero Açucar", "Guaraná", "Suco de Caju", "Suco de Abacaxi"]
     }
   },
   boteco: {
     id: "boteco",
     name: "Comida de Boteco",
     description: "Petiscos tradicionais brasileiros",
+    hasOpcionais: false,
     menu: {
-      PETISCOS: ["Pastel de queijo", "Coxinha de frango", "Bolinho de bacalhau", "Torresmo crocante", "Linguiça acebolada", "Mandioca frita", "Cerveja gelada", "Caipirinha"],
-      CALDOS: ["Caldo de feijão", "Caldo verde", "Caldo de mandioca com carne seca"],
-      GUARNIÇÕES: ["Arroz Carreteiro", "Feijão tropeiro"],
-      BEBIDAS: ["Cerveja gelada", "Caipirinha"]
+      ILHA_DE_BOTECO: ["Calabresa Acebolada", "Tropeirinho", "Carne de Sol com Mandioca", "Torresmo a Pururuca", "Linguiça acebolada", "Frango a Passarinho", "Pateis de Queijo e Carne", "Kibe com Queijo", "Kibe sem Queijo", "Batata Frita", "Arroz Carreteiro"],
+      CALDOS: ["Caldo de Carne Seca com Abobora", "Caldo de Costela com Mandioca"],
+      EMPRATADOS: ["Isca de Frango com Bechamel de Baroa", "Escondidinho de Carne Seca com Parmesão"],
+      BEBIDAS: ["Coca Cola Comum", "Coca Cola Zero Açucar", "Guaraná", "Suco de Caju", "Suco de Abacaxi"]
     }
   },
   junina: {
     id: "junina",
     name: "Festa Junina",
     description: "Comidas típicas e decoração temática",
+    hasOpcionais: false,
     menu: {
-      PRATOS_TIPICOS: ["Pamonha doce", "Canjica cremosa", "Milho cozido", "Quentão", "Pé de moleque", "Cocada", "Paçoca caseira", "Vinho quente"],
-      CALDOS: ["Caldo verde", "Caldo de mandioca com carne seca"],
-      CHURRASQUINHO: ["Espetinho de carne", "Espetinho de frango", "Espetinho de linguiça"],
-      BEBIDAS: ["Quentão", "Vinho quente"]
+      PRATOS_TIPICOS: ["Cachorro Quente", "Arroz Carreteiro", "Galinhada", "Vinagrete", "Milho Cozido", "Canjica de Amendoin", "Bolo de Milho", "Bolo de Chocolate"],
+      CALDOS: ["Caldo verde", "Caldo de Frango com Milho"],
+      CHURRASQUINHOS: ["Espetinho de carne", "Espetinho de frango", "Espetinho de linguiça", "Espetinho de Coração de Frango"],
+      BEBIDAS: ["Coca Cola Comum", "Coca Cola Zero Açucar", "Guaraná", "Suco de Caju", "Suco de Abacaxi"]
+    }
+  },
+  feijoada: {
+    id: "feijoada",
+    name: "Feijoada Mineira ",
+    description: "Feijoada completa com acompanhamentos tradicionais",
+    hasOpcionais: false,
+    menu: {
+      ENTRADAS: ["Caldinho de Feijão", "Pastel de Queijo e Carne", "Linguiça Acebolada com Pães"],
+      FEIJOADA: ["Feijoada de Carne Seca", "Feijoada de Costelinha Suina e Lombinho", "Feijoada de Paio e Calabresa"],  
+      GUARNIÇÕES: ["Arroz branco", "Farofa crocante", "Couve refogada", "Laranja fatiada", "Torresmo crocante", "Molho de pimenta"],
+      BEBIDAS: ["Coca Cola Comum", "Coca Cola Zero Açucar", "Guaraná", "Suco de Caju", "Suco de Abacaxi"]
     }
   }
 };
+
+function montarSelects(service) {
+  const form = document.getElementById("orcamento-form");
+  if (!form) return;
+
+  // Evita erro se não houver selectFields
+  if (!service.selectFields) return;
+
+  service.selectFields.forEach(field => {
+    const wrapper = document.createElement("div");
+    wrapper.className = "form-group select-dinamico";
+
+    const label = document.createElement("label");
+    label.className = "form-label";
+    label.textContent = field.label;
+
+    // Custom multi-select dropdown
+    const customSelect = document.createElement("div");
+    customSelect.className = "custom-multiselect";
+
+    // Container for selected tags
+    const tagsContainer = document.createElement("div");
+    tagsContainer.className = "tags-container";
+    customSelect.appendChild(tagsContainer);
+
+    // Dropdown button
+    const dropdownBtn = document.createElement("button");
+    dropdownBtn.type = "button";
+    dropdownBtn.className = "dropdown-btn";
+    dropdownBtn.textContent = field.placeholder || `Selecione...`;
+    customSelect.appendChild(dropdownBtn);
+
+    // Dropdown list
+    const dropdownList = document.createElement("ul");
+    dropdownList.className = "dropdown-list hidden";
+    field.options.forEach(option => {
+      const li = document.createElement("li");
+      li.textContent = option;
+      li.tabIndex = 0;
+      li.addEventListener("click", function(e) {
+        e.stopPropagation();
+        // Adiciona tag se não estiver selecionada
+        if (![...tagsContainer.children].some(tag => tag.dataset.value === option)) {
+          const tag = document.createElement("span");
+          tag.className = "tag-selected";
+          tag.textContent = option;
+          tag.dataset.value = option;
+          const removeBtn = document.createElement("button");
+          removeBtn.type = "button";
+          removeBtn.className = "remove-tag";
+          removeBtn.innerHTML = "&times;";
+          removeBtn.addEventListener("click", function(ev) {
+            ev.stopPropagation();
+            tag.remove();
+            updateHiddenInput();
+          });
+          tag.appendChild(removeBtn);
+          tagsContainer.appendChild(tag);
+          updateHiddenInput();
+        }
+        dropdownList.classList.add("hidden");
+      });
+      dropdownList.appendChild(li);
+    });
+    customSelect.appendChild(dropdownList);
+
+    // Hidden input to store selected values (for form submit)
+    const hiddenInput = document.createElement("input");
+    hiddenInput.type = "hidden";
+    hiddenInput.name = field.id;
+    customSelect.appendChild(hiddenInput);
+
+    // Toggle dropdown
+    dropdownBtn.addEventListener("click", function(e) {
+      e.preventDefault();
+      dropdownList.classList.toggle("hidden");
+    });
+
+    // Click outside to close
+    document.addEventListener("click", function(e) {
+      if (!customSelect.contains(e.target)) {
+        dropdownList.classList.add("hidden");
+      }
+    });
+
+    // Atualiza o hidden input com os valores selecionados
+    function updateHiddenInput() {
+      const values = [...tagsContainer.children].map(tag => tag.dataset.value);
+      hiddenInput.value = values.join(",");
+      // Atualiza placeholder
+      dropdownBtn.textContent = values.length ? "Selecionados: " + values.length : (field.placeholder || `Selecione...`);
+    }
+
+    wrapper.appendChild(label);
+    wrapper.appendChild(customSelect);
+
+    // Insere o select ANTES do campo Observações
+    const observacoes = document.getElementById("orcamento-observacoes");
+    form.insertBefore(wrapper, observacoes.parentElement);
+  });
+}
+
+
+function limparSelectsDinamicos() {
+  const antigos = document.querySelectorAll(".select-dinamico");
+  antigos.forEach(el => el.remove());
+}
+
+
+// Formatando Titulos dos serviços função para exibição no modal
+function formatCategoryTitle(key) {
+  return key
+    .replace(/_/g, ' ')
+    
+}
 
 // Informações da empresa
 const companyInfo = {
@@ -154,53 +308,59 @@ document.addEventListener('DOMContentLoaded', function() {
   });
 
   // Modal functionality
-  function openModal(serviceId) {
-    console.log('Opening modal for service:', serviceId);
-    
-    const service = servicesData[serviceId];
-    if (!service || !modal) {
-      console.error('Service not found or modal not available:', serviceId);
-      return;
-    }
+// Modal functionality
+function openModal(serviceId) {
+  console.log('Opening modal for service:', serviceId);
 
-    // Update modal content
-    const modalIcon = document.getElementById('modal-icon');
-    const modalTitle = document.getElementById('modal-title');
-    const modalDescription = document.getElementById('modal-description');
-    const modalMenu = document.getElementById('modal-menu');
-
-    if (modalIcon) modalIcon.textContent = service.icon;
-    if (modalTitle) modalTitle.textContent = service.name;
-    if (modalDescription) modalDescription.textContent = service.description;
-    
-    if (modalMenu) {
-      modalMenu.innerHTML = '';
-
-      Object.keys(service.menu).forEach(category => {
-        const details = document.createElement('details');
-        const summary = document.createElement('summary');
-        summary.textContent = category;
-
-        const ul = document.createElement('ul');
-        service.menu[category].forEach(item => {
-          const li = document.createElement('li');
-          li.textContent = item;
-          ul.appendChild(li);
-        });
-
-        details.appendChild(summary);
-        details.appendChild(ul);
-        modalMenu.appendChild(details);
-      });
-      enableAccordion();
-    }
-    
-
-    // Show modal
-    modal.classList.remove('hidden');
-    document.body.style.overflow = 'hidden';
-    console.log('Modal opened successfully');
+  const service = servicesData[serviceId];
+  if (!service || !modal) {
+    console.error('Service not found or modal not available:', serviceId);
+    return;
   }
+
+  // Limpa selects antigos SEMPRE
+  limparSelectsDinamicos();
+
+  // Update modal content
+  document.getElementById('modal-icon').textContent = service.icon;
+  document.getElementById('modal-title').textContent = service.name;
+  document.getElementById('modal-description').textContent = service.description;
+
+  // Monta menu
+  const modalMenu = document.getElementById('modal-menu');
+  modalMenu.innerHTML = '';
+
+  Object.keys(service.menu).forEach(category => {
+    const details = document.createElement('details');
+    const summary = document.createElement('summary');
+    summary.textContent = formatCategoryTitle(category);
+
+    const ul = document.createElement('ul');
+    service.menu[category].forEach(item => {
+      const li = document.createElement('li');
+      li.textContent = item;
+      ul.appendChild(li);
+    });
+
+    details.appendChild(summary);
+    details.appendChild(ul);
+    modalMenu.appendChild(details);
+  });
+
+  enableAccordion();
+
+  // ⬇ AQUI ESTÁ A GRANDE DIFERENÇA:
+  // Só monta selects se o cardápio tiver selects
+  if (service.selectFields) {
+    montarSelects(service);
+  }
+
+  // Show modal
+  modal.classList.remove('hidden');
+  document.body.style.overflow = 'hidden';
+  console.log('Modal opened successfully');
+}
+
  
   function closeModal() {
     if (modal) {
@@ -262,11 +422,14 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   });
 
+
+
   //Função para ativar comportamento do tipo accordion nos detalhes do menu
   function enableAccordion() {
     const detailsElements = document.querySelectorAll('#modal-menu details');
 
     detailsElements.forEach((targetDetail) => {
+
       targetDetail.addEventListener('click', () => {
         detailsElements.forEach((detail) => {
           if (detail !== targetDetail) {
@@ -274,9 +437,26 @@ document.addEventListener('DOMContentLoaded', function() {
           }
         });
       });
+
+      targetDetail.addEventListener('toggle', () => {
+        if (targetDetail.open) {
+          animateList(targetDetail);
+        }
+      });
     });
   }  
+   // Função para ativar comportamento de animação nos itens da lista
+  function animateList(detailsElement) {
+    const items = detailsElement.querySelectorAll('li');
 
+    items.forEach((li, index) => {
+      li.classList.remove('show');
+
+      setTimeout(() => {
+        li.classList.add('show');
+      }, index * 80); // Delay de 80ms entre cada item
+    });
+  }
   // WhatsApp message formatting
   function formatWhatsAppMessage(formData, isOrcamento = false) {
     let message = `*${companyInfo.name}*\n\n`;
@@ -289,7 +469,18 @@ document.addEventListener('DOMContentLoaded', function() {
       message += `*Telefone:* ${formData.telefone}\n`;
       message += `*Data do Evento:* ${formatDate(formData.data)}\n`;
       message += `*Número de Pessoas:* ${formData.pessoas}\n`;
-      
+
+      // Adiciona selects dinâmicos ao corpo da mensagem
+      const selects = document.querySelectorAll('.custom-multiselect input[type="hidden"]');
+      selects.forEach(input => {
+        if (input.value) {
+          // Busca o label correspondente
+          const label = input.closest('.select-dinamico')?.querySelector('.form-label')?.textContent || input.name;
+          // Mostra as opções separadas por vírgula
+          message += `*${label}:* ${input.value.split(',').join(', ')}\n`;
+        }
+      });
+
       if (formData.observacoes) {
         message += `*Observações:* ${formData.observacoes}\n`;
       }
@@ -299,8 +490,8 @@ document.addEventListener('DOMContentLoaded', function() {
       message += `*E-mail:* ${formData.email}\n`;
       message += `*Telefone:* ${formData.telefone}\n`;
       
-      if (formData.dataNascimento) {
-        message += `*Data de Nascimento:* ${formatDate(formData.dataNascimento)}\n`;
+      if (formData.dataEvento) {
+        message += `*Data do Evento:* ${formatDate(formData.dataEvento)}\n`;
       }
       
       if (formData.tipoEvento) {
@@ -416,7 +607,7 @@ document.addEventListener('DOMContentLoaded', function() {
         nome: document.getElementById('nome')?.value || '',
         email: document.getElementById('email')?.value || '',
         telefone: document.getElementById('telefone')?.value || '',
-        dataNascimento: document.getElementById('data-nascimento')?.value || '',
+        dataEvento: document.getElementById('data-evento')?.value || '',
         tipoEvento: document.getElementById('tipo-evento')?.value || '',
         mensagem: document.getElementById('mensagem')?.value || ''
       };

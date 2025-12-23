@@ -104,50 +104,56 @@
                 <div class="cardapios__grid">
                     <div class="servico__card" data-service="churrasco">
                         <div class="servico__icon"><img src="imagens/churrasco.jpg" alt="churrasco"></div>
-                        <h3>Churrasco</h3>
-                        <p>Carnes nobres grelhadas na brasa</p>
+                        <h3>Buffet de Churrasco</h3>
+                        <p>Churrasco Profissional</p>
                         <button class="btn btn--primary">Ver Cardápio</button>
                     </div>
-                    <div class="servico__card" data-service="crepe">
-                        <div class="servico__icon"><img src="imagens/crepe.jpg" alt="Crepe de frango"></div>
-                        <h3>Crepe</h3>
-                        <p>Crepes doces e salgados gourmet</p>
-                        <button class="btn btn--primary">Ver Cardápio</button>
-                    </div>
-                    <div class="servico__card" data-service="massa">
-                        <div class="servico__icon"><img src="imagens/massas.jpg" alt="Massa-carbonara"></div>
-                        <h3>Massas</h3>
-                        <p>Massas artesanais com molhos especiais</p>
+                    <div class="servico__card" data-service="feijoada">
+                        <div class="servico__icon"><img src="imagens/feijoada-meneira.png" alt="comida-feijoada-suina"></div>
+                        <h3>Buffet de Feijoada</h3>
+                        <p>Sabor Tradicional</p>
                         <button class="btn btn--primary">Ver Cardápio</button>
                     </div>
                     <div class="servico__card" data-service="jantar">
                         <div class="servico__icon"><img src="imagens/jantar.jpg" alt="Jantar-filé-mion"></div>
-                        <h3>Jantar</h3>
-                        <p>Menu executivo completo</p>
+                        <h3>Buffet de Jantar</h3>
+                        <p>Gastronomia Fina</p>
                         <button class="btn btn--primary">Ver Cardápio</button>
                     </div>
                     <div class="servico__card" data-service="almoco">
                         <div class="servico__icon"><img src="imagens/Almoço.jpg" alt="Almoço-bacalhau"></div>
-                        <h3>Almoço</h3>
-                        <p>Buffet livre variado</p>
+                        <h3>Buffet de Almoço</h3>
+                        <p>Menu Variado</p>
+                        <button class="btn btn--primary">Ver Cardápio</button>
+                    </div>
+                    <div class="servico__card" data-service="crepe">
+                        <div class="servico__icon"><img src="imagens/crepe.jpg" alt="Crepe de frango"></div>
+                        <h3>Crepes Gourmet</h3>
+                        <p>Crepes Artesanais</p>
+                        <button class="btn btn--primary">Ver Cardápio</button>
+                    </div>
+                    <div class="servico__card" data-service="massa">
+                        <div class="servico__icon"><img src="imagens/massas.jpg" alt="Massa-carbonara"></div>
+                        <h3>Buffet de Massas</h3>
+                        <p>Massas Frescas</p>
                         <button class="btn btn--primary">Ver Cardápio</button>
                     </div>
                     <div class="servico__card" data-service="coquetel">
                         <div class="servico__icon"><img src="imagens/coquetel volante.jpg" alt="Canapés"></div>
                         <h3>Coquetel Volante</h3>
-                        <p>Finger foods e canapés sofisticados</p>
+                        <p>Serviço Elegante</p>
                         <button class="btn btn--primary">Ver Cardápio</button>
                     </div>
                     <div class="servico__card" data-service="boteco">
                         <div class="servico__icon"><img src="imagens/boteco.jpg" alt="Torresmo-e-mandioca"></div>
-                        <h3>Comida de Boteco</h3>
-                        <p>Petiscos tradicionais brasileiros</p>
+                        <h3>Buffet de Comida de Buteco</h3>
+                        <p>Petiscos Variados</p>
                         <button class="btn btn--primary">Ver Cardápio</button>
                     </div>
                     <div class="servico__card" data-service="junina">
                         <div class="servico__icon"><img src="imagens/Festa junina.jpg" alt="comida-festa-junina"></div>
-                        <h3>Festa Junina</h3>
-                        <p>Comidas típicas e decoração temática</p>
+                        <h3>Buffet de Festa Junina</h3>
+                        <p>Sabores Típicos</p>
                         <button class="btn btn--primary">Ver Cardápio</button>
                     </div>
                 </div>
@@ -175,8 +181,8 @@
                                 <input type="tel" id="telefone" class="form-control" required>
                             </div>
                             <div class="form-group">
-                                <label for="data-nascimento" class="form-label">Data de Nascimento (se aniversário)</label>
-                                <input type="date" id="data-nascimento" class="form-control">
+                                <label for="data-evento" class="form-label">Data do Evento</label>
+                                <input type="date" id="data-evento" class="form-control">
                             </div>
                             <div class="form-group">
                                 <label for="tipo-evento" class="form-label">Tipo de Evento</label>
@@ -330,6 +336,7 @@
                             <label for="orcamento-pessoas" class="form-label">Número de Pessoas</label>
                             <input type="number" id="orcamento-pessoas" class="form-control" min="10" required>
                         </div>
+                        <div id="modal-selects"></div>
                         <div class="form-group">
                             <label for="orcamento-observacoes" class="form-label">Observações</label>
                             <textarea id="orcamento-observacoes" class="form-control" rows="3" placeholder="Use este campo para pedir ajustes no cardápio (ex.: trocar pão de alho por queijo coalho)"></textarea>
