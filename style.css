@@ -1373,21 +1373,21 @@ object-fit: contain;
 }
   
 .instagram {
-content: url("imagens/instagram-dark.svg");
+content: url("./imagens/instagram-dark.svg");
 }
 
 .linkedin {
-  content: url("imagens/linkedin-dark.svg");
+  content: url("./imagens/linkedin-dark.svg");
 }
 
 /* Tema escuro */
 @media (prefers-color-scheme: dark) {
   .instagram {
-      content: url("imagens/instagram-light.svg");
+      content: url("./imagens/instagram-light.svg");
   }
 
   .linkedin {
-      content: url("imagens/linkedin-light.svg");
+      content: url("./imagens/linkedin-light.svg");
   }
 }
 
