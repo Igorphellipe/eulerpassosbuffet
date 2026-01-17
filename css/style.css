@@ -868,6 +868,23 @@ object-fit: contain;
   font-family: "baskerville", serif;
 }
 
+/* Aplicar estilo do H1 da hero também aos botões e ao link de telefone na hero
+   Mantém tipografia, peso, cor e sombra para legibilidade sobre o background claro/imagético */
+.hero a.btn,
+.hero a[href^="tel:"],
+.hero .hero__small {
+  font-family: "Poppins", sans-serif;
+  font-weight: 500;
+  color: var(--color-white);
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.822);
+  text-decoration: none;
+}
+
+.hero a[href^="tel:"]:hover,
+.hero a.btn:hover {
+  text-shadow: 2px 3px 6px rgba(0,0,0,0.9);
+}
+
 /* Section Styles */
 .section-title {
   text-align: center;
