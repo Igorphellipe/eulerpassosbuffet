@@ -1,0 +1,609 @@
+/* Admin CSS - Estilos para área administrativa */
+
+:root {
+  /* Reutilizando variáveis do style.css principal */
+  --color-white: rgba(255, 255, 255, 1);
+  --color-black: rgba(0, 0, 0, 1);
+  --color-cream-50: rgba(252, 252, 249, 1);
+  --color-cream-100: rgba(255, 255, 253, 1);
+  --color-gray-200: rgba(245, 245, 245, 1);
+  --color-gray-300: rgba(167, 169, 169, 1);
+  --color-gray-400: rgba(119, 124, 124, 1);
+  --color-slate-500: rgba(98, 108, 113, 1);
+  --color-slate-900: rgba(19, 52, 59, 1);
+  --buffet-gold: #6d6d2e;
+  --buffet-gold-light: #ac9634;
+  --buffet-brown: #923d15;
+  
+  /* Espaçamento */
+  --space-8: 8px;
+  --space-12: 12px;
+  --space-16: 16px;
+  --space-20: 20px;
+  --space-24: 24px;
+  --space-32: 32px;
+  
+  /* Border Radius */
+  --radius-base: 8px;
+  --radius-lg: 12px;
+  
+  /* Shadows */
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.04), 0 1px 2px rgba(0, 0, 0, 0.02);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.04), 0 2px 4px -1px rgba(0, 0, 0, 0.02);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.04), 0 4px 6px -2px rgba(0, 0, 0, 0.02);
+  
+  /* Transições */
+  --duration-fast: 150ms;
+  --duration-normal: 250ms;
+  --ease-standard: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Reset e Base */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: "Poppins", sans-serif;
+  background: linear-gradient(135deg, var(--color-cream-50) 0%, var(--color-gray-200) 100%);
+  min-height: 100vh;
+  color: var(--color-slate-900);
+  line-height: 1.6;
+}
+
+/* Container Principal */
+.admin-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: var(--space-24);
+}
+
+/* Header Admin */
+.admin-header {
+  background: linear-gradient(135deg, var(--buffet-gold) 0%, var(--buffet-brown) 100%);
+  border-radius: var(--radius-lg);
+  padding: var(--space-32);
+  margin-bottom: var(--space-32);
+  box-shadow: var(--shadow-lg);
+  color: var(--color-white);
+  text-align: center;
+}
+
+.admin-header__content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-16);
+}
+
+.admin-header__logo img {
+  height: 80px;
+  width: auto;
+  filter: brightness(0) invert(1);
+}
+
+.admin-header__title {
+  font-family: "baskerville", serif;
+  font-size: 2rem;
+  font-weight: 600;
+  margin: 0;
+}
+
+.admin-header__subtitle {
+  font-size: 1rem;
+  opacity: 0.9;
+  margin: 0;
+}
+
+/* Main Content */
+.admin-main {
+  display: grid;
+  gap: var(--space-32);
+}
+
+/* Cards */
+.admin-card {
+  background-color: var(--color-white);
+  border-radius: var(--radius-lg);
+  padding: var(--space-32);
+  box-shadow: var(--shadow-md);
+  border: 1px solid rgba(109, 109, 46, 0.1);
+}
+
+.admin-card__title {
+  font-family: "baskerville", serif;
+  color: var(--buffet-brown);
+  font-size: 1.75rem;
+  margin-bottom: var(--space-24);
+  padding-bottom: var(--space-16);
+  border-bottom: 3px solid var(--buffet-gold);
+}
+
+/* Formulário */
+.admin-form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-24);
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-24);
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-8);
+}
+
+.form-label {
+  font-weight: 500;
+  font-size: 0.9rem;
+  color: var(--color-slate-900);
+}
+
+.form-control {
+  padding: var(--space-12) var(--space-16);
+  border: 2px solid rgba(109, 109, 46, 0.2);
+  border-radius: var(--radius-base);
+  font-size: 1rem;
+  font-family: "Poppins", sans-serif;
+  transition: all var(--duration-normal) var(--ease-standard);
+  background-color: var(--color-white);
+}
+
+.form-control:focus {
+  outline: none;
+  border-color: var(--buffet-gold);
+  box-shadow: 0 0 0 3px rgba(109, 109, 46, 0.1);
+}
+
+.form-control::placeholder {
+  color: var(--color-gray-400);
+}
+
+select.form-control {
+  cursor: pointer;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23134252' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right var(--space-12) center;
+  background-size: 16px;
+  padding-right: var(--space-32);
+}
+
+textarea.form-control {
+  resize: vertical;
+  min-height: 100px;
+}
+
+/* Display do Cardápio */
+.cardapio-display {
+  background-color: var(--color-cream-50);
+  border: 2px dashed var(--buffet-gold);
+  border-radius: var(--radius-base);
+  padding: var(--space-20);
+  max-height: 400px;
+  overflow-y: auto;
+}
+
+.cardapio-categoria {
+  margin-bottom: var(--space-20);
+}
+
+.cardapio-categoria__title {
+  font-weight: 600;
+  color: var(--buffet-brown);
+  font-size: 1.1rem;
+  margin-bottom: var(--space-12);
+  padding-bottom: var(--space-8);
+  border-bottom: 2px solid var(--buffet-gold);
+}
+
+.cardapio-categoria__items {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: var(--space-8);
+}
+
+.cardapio-categoria__item {
+  padding: var(--space-8) var(--space-12);
+  background-color: var(--color-white);
+  border-radius: var(--radius-base);
+  font-size: 0.9rem;
+  border-left: 3px solid var(--buffet-gold);
+}
+
+/* Botões */
+.form-actions {
+  display: flex;
+  gap: var(--space-16);
+  flex-wrap: wrap;
+  margin-top: var(--space-8);
+}
+
+.btn {
+  padding: var(--space-12) var(--space-24);
+  border-radius: var(--radius-base);
+  font-size: 1rem;
+  font-weight: 500;
+  font-family: "Poppins", sans-serif;
+  cursor: pointer;
+  border: 2px solid transparent;
+  transition: all var(--duration-normal) var(--ease-standard);
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-8);
+}
+
+.btn--primary {
+  background-color: var(--buffet-gold);
+  color: var(--color-white);
+  border-color: var(--buffet-gold);
+}
+
+.btn--primary:hover {
+  background-color: var(--buffet-gold-light);
+  border-color: var(--buffet-gold-light);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+.btn--secondary {
+  background-color: var(--color-gray-200);
+  color: var(--color-slate-900);
+  border-color: var(--color-gray-300);
+}
+
+.btn--secondary:hover {
+  background-color: var(--color-gray-300);
+  border-color: var(--color-gray-400);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+.btn--outline {
+  background-color: transparent;
+  color: var(--buffet-brown);
+  border-color: var(--buffet-brown);
+}
+
+.btn--outline:hover {
+  background-color: var(--buffet-brown);
+  color: var(--color-white);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+/* Preview Section */
+.preview-section {
+  margin-top: var(--space-32);
+}
+
+.preview-content {
+  background-color: var(--color-white);
+  border: 2px solid var(--buffet-gold);
+  border-radius: var(--radius-base);
+  padding: var(--space-32);
+  min-height: 200px;
+}
+
+.hidden {
+  display: none !important;
+}
+
+/* Preview Styles */
+.preview-header {
+  text-align: center;
+  margin-bottom: var(--space-24);
+  padding-bottom: var(--space-16);
+  border-bottom: 3px solid var(--buffet-gold);
+}
+
+.preview-header h3 {
+  font-family: "baskerville", serif;
+  color: var(--buffet-brown);
+  font-size: 1.5rem;
+  margin-bottom: var(--space-8);
+}
+
+.preview-section-divider {
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--buffet-gold), transparent);
+  margin: var(--space-24) 0;
+}
+
+.preview-cliente,
+.preview-servico,
+.preview-cardapio,
+.preview-valor,
+.preview-observacoes {
+  margin-bottom: var(--space-24);
+}
+
+.preview-cliente h4,
+.preview-servico h4,
+.preview-cardapio h4,
+.preview-valor h4,
+.preview-observacoes h4 {
+  font-family: "baskerville", serif;
+  color: var(--buffet-brown);
+  font-size: 1.2rem;
+  margin-bottom: var(--space-12);
+  padding-bottom: var(--space-8);
+  border-bottom: 2px solid var(--buffet-gold);
+}
+
+.preview-cardapio .preview-categoria {
+  margin-bottom: var(--space-12);
+  padding: var(--space-12);
+  background-color: var(--color-cream-50);
+  border-radius: var(--radius-base);
+  border-left: 3px solid var(--buffet-gold);
+}
+
+.preview-valor-destaque {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--buffet-gold);
+  margin-top: var(--space-8);
+}
+
+/* Campos Opcionais Dinâmicos */
+.campos-opcionais-wrapper {
+  margin-top: var(--space-24);
+  padding: var(--space-24);
+  background-color: var(--color-cream-50);
+  border: 2px solid var(--buffet-gold);
+  border-radius: var(--radius-lg);
+}
+
+.campos-opcionais-title {
+  font-family: "baskerville", serif;
+  color: var(--buffet-brown);
+  font-size: 1.2rem;
+  margin-bottom: var(--space-16);
+  padding-bottom: var(--space-8);
+  border-bottom: 2px solid var(--buffet-gold);
+}
+
+.campo-opcional {
+  margin-bottom: var(--space-20);
+}
+
+.campo-opcional select[multiple] {
+  min-height: 120px;
+  padding: var(--space-8);
+}
+
+/* Estilos para lista de checkboxes em campos opcionais (mobile-friendly) */
+.opcional-checkbox-list {
+  display: block;
+  border: 1px solid rgba(109, 109, 46, 0.08);
+  border-radius: 8px;
+  padding: 8px;
+  background: var(--color-white);
+}
+
+.opcional-checkbox-list label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 8px;
+  border-radius: 6px;
+}
+
+.opcional-checkbox-list label:hover {
+  background: rgba(109, 109, 46, 0.03);
+}
+
+.opcional-checkbox-list input[type="checkbox"] {
+  width: 16px;
+  height: 16px;
+}
+
+/* Estado quando selecionado */
+.opcional-checkbox-list label.selected {
+  background: linear-gradient(90deg, rgba(172,150,52,0.08), rgba(109,109,46,0.06));
+  border-left: 3px solid var(--buffet-gold);
+}
+
+/* Estado quando desabilitado por atingir limite */
+.opcional-checkbox-list label.disabled {
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+.opcional-counter {
+  font-size: 0.85rem;
+  color: var(--color-slate-500);
+  margin-top: 6px;
+}
+
+.form-help {
+  display: block;
+  margin-top: var(--space-4);
+  color: var(--color-slate-500);
+  font-size: 0.85rem;
+  font-style: italic;
+}
+
+.preview-opcoes {
+  margin-bottom: var(--space-24);
+}
+
+.preview-opcoes h4 {
+  font-family: "baskerville", serif;
+  color: var(--buffet-brown);
+  font-size: 1.2rem;
+  margin-bottom: var(--space-12);
+  padding-bottom: var(--space-8);
+  border-bottom: 2px solid var(--buffet-gold);
+}
+
+/* Utilitários */
+.text-center {
+  text-align: center;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+  .admin-container {
+    padding: var(--space-16);
+  }
+  
+  .form-row {
+    grid-template-columns: 1fr;
+  }
+  
+  .admin-header {
+    padding: var(--space-24);
+  }
+  
+  .admin-header__title {
+    font-size: 1.5rem;
+  }
+  
+  .admin-card {
+    padding: var(--space-24);
+  }
+  
+  .form-actions {
+    flex-direction: column;
+  }
+  
+  .btn {
+    width: 100%;
+  }
+  
+  .cardapio-categoria__items {
+    grid-template-columns: 1fr;
+  }
+  
+  /* Estilos para lista de checkboxes em campos opcionais (mobile-friendly) */
+  .opcional-checkbox-list {
+    display: block;
+    border: 1px solid rgba(109, 109, 46, 0.08);
+    border-radius: 8px;
+    padding: 8px;
+    background: var(--color-white);
+  }
+
+  .opcional-checkbox-list label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 8px;
+    border-radius: 6px;
+  }
+
+  .opcional-checkbox-list label:hover {
+    background: rgba(109, 109, 46, 0.03);
+  }
+
+  .opcional-checkbox-list input[type="checkbox"] {
+    width: 16px;
+    height: 16px;
+  }
+}
+
+/* Additional responsive tweaks for tablets and small desktops */
+@media (max-width: 1024px) {
+  .admin-container {
+    padding: 20px;
+  }
+
+  .admin-header__content {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .admin-header__logo img {
+    height: 64px;
+  }
+
+  .admin-card {
+    padding: 20px;
+  }
+
+  .form-row {
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+
+  .cardapio-display {
+    max-height: 320px;
+  }
+}
+
+/* Mobile: melhorar usabilidade em telas pequenas (smartphones) */
+@media (max-width: 480px) {
+  .admin-container {
+    padding: 12px;
+  }
+
+  .admin-header__content {
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .admin-header__logo img {
+    height: 56px;
+  }
+
+  .admin-header__title {
+    font-size: 1.25rem;
+  }
+
+  .admin-card {
+    padding: 16px;
+  }
+
+  .form-row {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .form-actions {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .btn {
+    width: 100%;
+    padding: 12px 16px;
+    font-size: 1rem;
+  }
+
+  .cardapio-categoria__items {
+    grid-template-columns: 1fr;
+  }
+
+  .preview-content {
+    padding: 16px;
+  }
+
+  .cardapio-display {
+    max-height: 240px;
+  }
+
+  .campos-opcionais-wrapper {
+    padding: 16px;
+  }
+
+  .form-control {
+    padding: 10px 12px;
+  }
+}

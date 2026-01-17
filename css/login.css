@@ -1,0 +1,14 @@
+:root{--bg:#f7f7f6;--card:#ffffff;--accent:#6d6d2e;--muted:#626c71}
+*{box-sizing:border-box}
+body{font-family:Poppins,Arial,Helvetica,sans-serif;background:linear-gradient(135deg,var(--bg),#f1f1f1);min-height:100vh;display:flex;align-items:center;justify-content:center;margin:0}
+.login-wrapper{width:100%;max-width:420px;padding:20px}
+.login-card{background:var(--card);border-radius:12px;padding:28px;box-shadow:0 10px 30px rgba(0,0,0,0.08);text-align:center}
+.login-card h1{margin:0 0 8px;font-family:aloevera,serif;color:var(--accent)}
+.subtitle{color:var(--muted);margin-bottom:16px}
+.login-card label{display:block;text-align:left;margin-top:12px;font-size:0.9rem;color:#333}
+.login-card input{width:100%;padding:10px 12px;border:1px solid #e6e6e6;border-radius:8px;margin-top:6px}
+.actions{margin-top:18px}
+.btn{background:var(--accent);color:#fff;padding:10px 16px;border-radius:8px;border:none;cursor:pointer}
+.login-error{color:#c0392b;margin-top:10px}
+.hidden{display:none!important}
+.hint{display:block;margin-top:12px;color:var(--muted)}

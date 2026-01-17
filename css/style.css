@@ -829,7 +829,7 @@ object-fit: contain;
 /* Hero Section */
 .hero {
   height: 70vh;
-  background-image: url("imagens/Hero.jpg");/*background: linear-gradient(rgba(139, 69, 19, 0.7), rgba(44, 62, 80, 0.7)), var(--color-bg-6);*/
+  background-image: url("../assets/Hero.jpg");/*background: linear-gradient(rgba(139, 69, 19, 0.7), rgba(44, 62, 80, 0.7)), var(--color-bg-6);*/
   background-size: cover;
   background-repeat: no-repeat;
   display: flex;
@@ -874,6 +874,21 @@ object-fit: contain;
   margin-bottom: var(--space-32);
   color: var(--buffet-brown);
   font-size: var(--font-size-3xl);
+  position: relative;
+  padding-bottom: var(--space-16);
+  font-weight: 600;
+}
+
+.section-title::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80px;
+  height: 4px;
+  background: linear-gradient(90deg, transparent, var(--buffet-gold), transparent);
+  border-radius: var(--radius-full);
 }
 
 .py-16 {
@@ -913,7 +928,7 @@ object-fit: contain;
 .historia__image .image-placeholder {
   width: 100%;
   height: 300px;
-  background-image: url("imagens/Imagem-ID-Visual-300.png");
+  background-image: url("../assets/Imagem-ID-Visual-300.png");
   background-repeat: no-repeat;
   background-size: cover;
   display: flex;
@@ -945,16 +960,35 @@ object-fit: contain;
 
 .diferencial__card {
   text-align: center;
-  padding: var(--space-24);
+  padding: var(--space-32) var(--space-24);
   background-color: var(--color-background);
   border-radius: var(--radius-lg);
   border: 2px solid var(--buffet-gold);
-  transition: transform var(--duration-normal);
+  transition: all var(--duration-normal) var(--ease-standard);
+  position: relative;
+  overflow: hidden;
+}
+
+.diferencial__card::after {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle, rgba(109, 109, 46, 0.1) 0%, transparent 70%);
+  opacity: 0;
+  transition: opacity var(--duration-normal);
 }
 
 .diferencial__card:hover {
-  transform: translateY(-5px);
+  transform: translateY(-8px) scale(1.02);
   box-shadow: var(--shadow-lg);
+  border-color: var(--buffet-gold-light);
+}
+
+.diferencial__card:hover::after {
+  opacity: 1;
 }
 
 .diferencial__icon {
@@ -1012,15 +1046,34 @@ object-fit: contain;
   border-radius: var(--radius-lg);
   text-align: center;
   box-shadow: var(--shadow-md);
-  transition: all var(--duration-normal);
+  transition: all var(--duration-normal) var(--ease-standard);
   cursor: pointer;
   border: 2px solid transparent;
+  position: relative;
+  overflow: hidden;
+}
+
+.servico__card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, var(--buffet-gold), var(--buffet-gold-light));
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform var(--duration-normal) var(--ease-standard);
 }
 
 .servico__card:hover {
-  transform: translateY(-5px);
+  transform: translateY(-8px);
   box-shadow: var(--shadow-lg);
   border-color: var(--buffet-gold);
+}
+
+.servico__card:hover::before {
+  transform: scaleX(1);
 }
 
 .servico__icon {
@@ -1104,9 +1157,21 @@ object-fit: contain;
   border: 2px dashed var(--buffet-gold);
 }
 
-/* receitas Section */
+/* receitas Section - Modernizada */
 .receitas {
   background-color: var(--color-bg-2);
+  position: relative;
+}
+
+.receitas::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--buffet-gold), transparent);
+  opacity: 0.3;
 }
 
 .receitas h2 {
@@ -1115,12 +1180,26 @@ object-fit: contain;
   margin-bottom: var(--space-32);
   font-size: var(--font-size-3xl);
   text-align: center;
+  position: relative;
+  padding-bottom: var(--space-16);
+}
+
+.receitas h2::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60px;
+  height: 3px;
+  background: linear-gradient(90deg, transparent, var(--buffet-gold), transparent);
+  border-radius: var(--radius-full);
 } 
 
 .receitas__grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: var(--space-24);
+  gap: var(--space-32);
 }
 
 .receita__card {
@@ -1128,20 +1207,63 @@ object-fit: contain;
   border-radius: var(--radius-lg);
   box-shadow: var(--shadow-md);
   overflow: hidden;
-  transition: transform var(--duration-normal);
+  transition: all var(--duration-normal) var(--ease-standard);
+  border: 1px solid transparent;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+.receita__card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, var(--buffet-gold), var(--buffet-gold-light));
+  opacity: 0;
+  transition: opacity var(--duration-normal);
 }
 
 .receita__card:hover {
-  transform: translateY(-5px);
+  transform: translateY(-8px);
   box-shadow: var(--shadow-lg);
+  border-color: var(--buffet-gold);
+}
+
+.receita__card:hover::before {
+  opacity: 1;
+}
+
+.receita__image {
+  margin-top: 4px;
+  width: 400px;
+  height: 290px;
+  background: linear-gradient(135deg, var(--color-bg-2), var(--color-bg-1));
+  border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+  overflow: hidden;
+  position: relative;
+}
+
+.receita__image::after {
+  content: '🍽️';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 64px;
+  opacity: 0.3;
 }
 
 .receita__card h3 {
   font-family: "baskerville", serif;
   color: var(--buffet-brown);
-  margin: var(--space-16);
+  margin: var(--space-20) var(--space-20) var(--space-12) var(--space-20);
   font-size: var(--font-size-xl);
   text-align: center;
+  line-height: 1.3;
+  font-weight: 600;
 }
 
 .receita__card p {
@@ -1149,9 +1271,10 @@ object-fit: contain;
   font-weight: 300;
   font-style: normal;
   color: var(--color-text-secondary);
-  margin: var(--space-0) var(--space-16) var(--space-16) var(--space-16);
+  margin: 0 var(--space-20) var(--space-20) var(--space-20);
   text-align: justify;
-  line-height: var(--line-height-normal);
+  line-height: 1.6;
+  flex-grow: 1;
 }
 
 .receita__card a.btn {
@@ -1159,13 +1282,17 @@ object-fit: contain;
   background-color: var(--buffet-gold);
   color: var(--color-white);
   display: block;
-  margin: var(--space-0) var(--space-16) var(--space-16) var(--space-16);
+  margin: 0 var(--space-20) var(--space-20) var(--space-20);
   font-size: var(--font-size-md);
   text-align: center;
+  border: 2px solid var(--buffet-gold);
+  transition: all var(--duration-normal) var(--ease-standard);
 }
 
 .receita__card a.btn:hover {
   background-color: var(--buffet-gold-light);
+  border-color: var(--buffet-gold-light);
+  transform: scale(1.02);
 }
 
 
@@ -1232,6 +1359,17 @@ object-fit: contain;
   width: 100%;
   height: 100%;
   background-color: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(4px);
+  animation: backdropFadeIn var(--duration-normal);
+}
+
+@keyframes backdropFadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
 .modal__content {
@@ -1242,7 +1380,19 @@ object-fit: contain;
   width: 100%;
   max-height: 90vh;
   overflow-y: auto;
-  box-shadow: var(--shadow-lg);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+  animation: modalFadeIn var(--duration-normal) var(--ease-standard);
+}
+
+@keyframes modalFadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.9) translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
 }
 
 .modal__close {
@@ -1348,49 +1498,6 @@ object-fit: contain;
   background-color: var(--buffet-gold-light);
   color: var(--color-white);
   border-color: var(--buffet-gold-light);
-}
-
-.redes-sociais {
-    margin-top: 1rem;
-}
-
-.redes-icons {
-    display: flex;
-    gap: 12px;
-    margin-top: 8px;
-    justify-content: center;
-}
-
-.social-icon {
-    width: 32px;
-    height: 32px;
-    object-fit: contain;
-    display: block;
-    transition: transform 0.3s ease, opacity 0.3s ease;
-}
-  
-.instagram {
-content: url("./imagens/instagram-dark.svg");
-}
-
-.linkedin {
-  content: url("./imagens/linkedin-dark.svg");
-}
-
-/* Tema escuro */
-@media (prefers-color-scheme: dark) {
-  .instagram {
-      content: url("./imagens/instagram-light.svg");
-  }
-
-  .linkedin {
-      content: url("./imagens/linkedin-light.svg");
-  }
-}
-
-.social-icon:hover {
-    transform: scale(1.1);
-    opacity: 0.8;
 }
 
 /* Mobile Responsive */
@@ -1597,4 +1704,109 @@ section {
 .dropdown-list li:focus {
   background: var(--color-secondary, #1a0c0c0e);
   outline: none;
+}
+
+/* Modal de Receitas - Estilos específicos */
+.modal__content--receita {
+  max-width: 700px;
+}
+
+.modal__body--receita {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-32);
+  grid-template-columns: 1fr;
+}
+
+.receita-ingredientes,
+.receita-preparo {
+  background-color: var(--color-background);
+  padding: var(--space-24);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--color-card-border);
+}
+
+.receita-ingredientes h3,
+.receita-preparo h3 {
+  font-family: "baskerville", serif;
+  color: var(--buffet-brown);
+  margin-bottom: var(--space-20);
+  font-size: var(--font-size-xl);
+  border-bottom: 2px solid var(--buffet-gold);
+  padding-bottom: var(--space-12);
+}
+
+.receita-ingredientes ul,
+.receita-preparo ol {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.receita-ingredientes ul li {
+  padding: var(--space-10) 0;
+  padding-left: var(--space-32);
+  position: relative;
+  color: var(--color-text);
+  font-family: "Poppins", sans-serif;
+  font-weight: 300;
+  line-height: 1.6;
+  border-bottom: 1px solid var(--color-border);
+  transition: all var(--duration-fast);
+}
+
+.receita-ingredientes ul li:last-child {
+  border-bottom: none;
+}
+
+.receita-ingredientes ul li::before {
+  content: '✓';
+  position: absolute;
+  left: 0;
+  color: var(--buffet-gold);
+  font-weight: bold;
+  font-size: var(--font-size-lg);
+}
+
+.receita-preparo ol li {
+  padding: var(--space-16) 0;
+  padding-left: var(--space-32);
+  position: relative;
+  color: var(--color-text);
+  font-family: "Poppins", sans-serif;
+  font-weight: 300;
+  line-height: 1.8;
+  counter-increment: step-counter;
+}
+
+.receita-preparo ol {
+  counter-reset: step-counter;
+}
+
+.receita-preparo ol li::before {
+  content: counter(step-counter);
+  position: absolute;
+  left: 0;
+  background-color: var(--buffet-gold);
+  color: var(--color-white);
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  font-size: var(--font-size-sm);
+  font-family: "Poppins", sans-serif;
+}
+
+@media (max-width: 768px) {
+  .modal__body--receita {
+    gap: var(--space-24);
+  }
+  
+  .receita-ingredientes,
+  .receita-preparo {
+    padding: var(--space-16);
+  }
 }

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Login - Admin</title>
+  <link rel="stylesheet" href="css/login.css">
+  <link rel="icon" type="image/png" href="assets/favicon-32x32.png"/>
+  <link rel="shortcut icon" href="assets/favicon-32x32.png" type="image/x-icon"/>
+</head>
+<body>
+  <main class="login-wrapper">
+    <div class="login-card">
+      <img src="assets/Euler-Passos-Logo-Verde-Oliva.png" alt="Euler Passos Buffet" class="login-logo">
+      <h1>Área Administrativa</h1>
+      <p class="subtitle">Faça login para acessar a área administrativa</p>
+      <form id="login-form">
+        <label for="username">Usuário</label>
+        <input id="username" name="username" type="text" autocomplete="username" required>
+
+        <label for="password">Senha</label>
+        <input id="password" name="password" type="password" autocomplete="current-password" required>
+
+        <div class="actions">
+          <button type="submit" class="btn">Entrar</button>
+        </div>
+        <div id="login-error" class="login-error hidden">Usuário ou senha inválidos.</div>
+      </form>
+      <small class="hint">Criado por: <strong>Igor Phellipe / Pedro Victor</strong></small>
+    </div>
+  </main>
+
+  <script src="js/login.js"></script>
+</body>
+</html>

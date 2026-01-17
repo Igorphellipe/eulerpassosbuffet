@@ -1,131 +1,85 @@
-// Dados dos serviços
-const servicesData = {
-  churrasco: {
-    id: "churrasco",
-    name: "Churrasco",
-    description: "O sabor que chama atenção",
-    hasOpcionais: false,
-    menu: {
-      ENTRADAS: ["Carne de Sol", "Linguiça de Frango e Suina", "Coração de Frango", "Frango Desossado", "Pão de alho"],
-      PRATO_PRINCIPAL: ["Picanha", "Maminha", "Fraldinha", "Alcatra", "Carne de Sol", "Costela Suína", "Lombinho Suíno", "Linguiça de Frango e Suína", "Frango desossado", "Coração de Frango"],
-      GUARNIÇÕES: ["Arroz", "Feijão tropeiro", "Mandioca com manteiga", "Vinagrete", "Pão com alho", "Salada verde", "Farofa de Cuscuz", 'Molho Mel e Mostarda'],
-      BEBIDAS: ["Coca Cola Comum", "Coca Cola Zero Açucar", "Guaraná", "Suco de Caju", "Suco de Abacaxi"]
-    }
-  },
-  crepe: {
-    id: "crepe",
-    name: "Crepe",
-    description: "Crepes doces e salgados gourmet",
-    hasOpcionais: false,
-    menu: {
-      CREPES_SALGADOS: ["Filé ao Molho Madeira", "Frango Desfiado com Catupiry", "Queijo Mussarela", "Presunto", "Calabresa", "Tomate Seco com Rúcula", "Palmito", "Batata Palha", "Tomate Fresco", "Orégano", "Cebola em Tempero", "Milho", "Azeitonas"],
-      CREPES_DOCES: ["Banana Caramelada", "Canela e Açúcar", "Morango", "Chocolate"],
-      BEBIDAS: ["Coca Cola Comum", "Coca Cola Zero Açucar", "Guaraná", "Suco de Caju", "Suco de Abacaxi"]
-    }
-
-  },
-  massa: {
-    id: "massa",
-    name: "Massas",
-    description: "Massas artesanais com molhos especiais",
-    hasOpcionais: true,
-    menu: {
-      ENTRADAS: ["SALGADOS FRITOS", "Bombom de Azeitona", "Bombom de Frango", "Bombom de Provolone", "Bobom de Carne Seca", "Delícia de Queijo", "Delícia de Bacalhau", "SALGADOS ASSADOS", "Folhado de Frango", "Folhado de Bacalhau", "Folhado de Aipim com Carne de Sol", "Dadinho de Tapioca"], 
-      MASSAS: ["Penne", "Espaguete", "Tailarim", "Parafuso", "Gravata"],
-      MOLHOS: ["Molho Pesto", "Molho Branco", "Molho Bolonhesa", "Molho Sugo", "Molho Quatro Queijos", "Molho Rustico de Tomate"],
-      ACOMPANHAMENTOS: ["Isca de Filé ao Molho Madeira", "Frango Desfiado", "Calabresa", "Presunto", "Milho", "Azeitonas", "Cebola em Tempero", "Catupiry", "Cheddar", "Bacon", "Ervilha Fresca", "Orégano", "Manjericão", "Tomate Seco"],
-      BEBIDAS: ["Coca Cola Comum", "Coca Cola Zero Açucar", "Guaraná", "Suco de Caju", "Suco de Abacaxi"]
-    },
-    selectFields: [
-      { id: "Massa", label: "Escolha 3 Opções de Massas", options: ["Penne", "Espaguete", "Tailarim", "Parafuso", "Gravata"] },
-      { id: "Molho", label: "Escolha 3 Opções de Molho", options: ["Molho Pesto", "Molho Branco", "Molho Bolonhesa", "Molho Sugo", "Molho Quatro Queijos", "Molho Rustico de Tomate"] },
-      { id: "Acompanhamento", label: "Escolha 8 Opções de Acompanhamento", options: ["Isca de Filé ao Molho Madeira", "Frango Desfiado", "Calabresa", "Presunto", "Milho", "Azeitonas", "Cebola em Tempero", "Catupiry", "Cheddar", "Bacon", "Ervilha Fresca", "Orégano", "Manjericão", "Tomate Seco"] }
+// Dados das receitas
+const receitasData = {
+  picanha: {
+    id: "picanha",
+    nome: "Churrasco de Picanha",
+    ingredientes: [
+      "1 peça de picanha (aproximadamente 1,5 kg)",
+      "Sal grosso a gosto",
+      "4 dentes de alho amassados",
+      "Azeite extra virgem",
+      "Pimenta do reino moída",
+      "Orégano a gosto"
     ],
-  },
-  jantar: {
-    id: "jantar",
-    name: "Jantar",
-    description: "Menu executivo completo",
-    hasOpcionais: true,
-    menu: {
-      ENTRADAS: ["SALGADOS ASSADOS", "Folhado de Frango com Abacxi", "Folhado Romeu e Julieta", "Folhado de Bacalhau", "Folhado de Camarão", "SALGADOS FRITOS", "Bombom de Azeitona", "Bombom de Provolone", "Delícia de Queijo", "Dadinho de Tápioca", "Pasteis de Carne e Queijo", "Coxinha de Frango com Catupiry"],
-      EMPRATADOS: ["Camarão com Bechamel de Baroa", "Frango com Bechamel de Baroa", "Escondidinho de Carne Seca", "Escondidinho de Frango"],
-      PRATO_PRINCIPAL: ["File Mignon ao Molho Madeira", "Isca de Frango Recheado ao Molho Branco", "Bacalhau ao Zé do Pipo", "Lagarto ao Molho Madeira"],
-      GUARNIÇÕES: ["Arroz branco", "Arroz com Brócolis", "Batata Rustica", "Salada verde", "Molho de Mostarda e Mel"],
-      BEBIDAS: ["Coca Cola Comum", "Coca Cola Zero Açucar", "Guaraná", "Suco de Caju", "Suco de Abacaxi"]
-    },
-    selectFields: [
-      { id: "Prato_principal", label: "Escolha 2 Opções de Prato Principal", options: ["File Mignon ao Molho Madeira", "Isca de Frango Recheado ao Molho Branco", "Bacalhau ao Zé do Pipo", "Lagarto ao Molho Madeira"] },
-      { id: "Massas", label: "Escolha  1 Opção de Massa", options: ["Penne ao Molho Sugo", "Espaguete ao Molho Bolonhesa", "Rodele de Ricota e Tomate Seco ao Quatro Queijos"] },
-      { id: "Empratados", label: "Escolha 2 Opções de Empratado", options: ["Camarão com Bechamel de Baroa", "Frango com Bechamel de Baroa", "Escondidinho de Carne Seca", "Escondidinho de Frango"] }
+    preparo: [
+      "Tempere a picanha com sal grosso, alho amassado, azeite, pimenta do reino e orégano. Deixe marinar por pelo menos 2 horas na geladeira.",
+      "Prepare a churrasqueira ou grelha com carvão bem aceso até ficar em brasa.",
+      "Coloque a picanha na grelha com a gordura voltada para cima inicialmente, para que o calor derreta a gordura sobre a carne.",
+      "Grelhe cada lado por cerca de 10-15 minutos, virando apenas uma vez para manter o suco da carne.",
+      "Para carne ao ponto, o tempo total de grelhagem deve ser de aproximadamente 30-40 minutos.",
+      "Retire do fogo e deixe descansar por 5-10 minutos antes de cortar em fatias finas.",
+      "Sirva com farofa, vinagrete e mandioca frita."
     ]
   },
-  almoco: {
-    id: "almoco",
-    name: "Almoço",
-    description: "Buffet livre variado",
-    hasOpcionais: true,
-    menu:{
-      ENTRADAS: ["SALGADOS ASSADOS", "Folhado de Frango com Abacxi", "Folhado Romeu e Julieta", "Folhado de Bacalhau", "Folhado de Camarão", "SALGADOS FRITOS", "Bombom de Azeitona", "Bombom de Provolone", "Delícia de Queijo", "Dadinho de Tápioca", "Pasteis de Carne e Queijo", "Coxinha de Frango com Catupiry"],
-      EMPRATADOS: ["Camarão com Bechamel de Baroa", "Isca de Frango com Bechamel de Baroa", "Escondidinho de Carne Seca", "Escondidinho de Frango"],
-      PRATO_PRINCIPAL: ["File Mignon ao Molho Madeira", "Frango Recheado ao Molho Branco", "Bacalhau ao Zé do Pipo", "Lagarto ao Molho Madeira"],
-      GUARNIÇÕES: ["Arroz branco", "Arroz com Brócolis", "Batata Rustica", "Salada verde", "Molho de Mostarda e Mel"],
-      BEBIDAS: ["Coca Cola Comum", "Coca Cola Zero Açucar", "Guaraná", "Suco de Caju", "Suco de Abacaxi"]
-    },
-    selectFields: [
-      { id: "Prato_Principal", label: "Escolha 2 Opções de Prato Principal", options: ["File Mignon ao Molho Madeira", "Isca de Frango Recheado ao Molho Branco", "Bacalhau ao Zé do Pipo", "Lagarto ao Molho Madeira"] },
-      { id: "Massas", label: "Escolha  1 Opção de Massa", options: ["Penne ao Molho Sugo", "Espaguete ao Molho Bolonhesa", "Rodele de Ricota e Tomate Seco ao Quatro Queijos"] },
-      { id: "Empratados", label: "Escolha 2 Opções de Empratado", options: ["Camarão com Bechamel de Baroa", "Frango com Bechamel de Baroa", "Escondidinho de Carne Seca", "Escondidinho de Frango"] }
+  "crepe-nutella": {
+    id: "crepe-nutella",
+    nome: "Crepe de Nutella com Morango",
+    ingredientes: [
+      "1 xícara de farinha de trigo",
+      "2 ovos",
+      "1 xícara de leite",
+      "2 colheres de sopa de açúcar",
+      "1 pitada de sal",
+      "2 colheres de sopa de manteiga derretida",
+      "Nutella a gosto",
+      "Morangos frescos fatiados",
+      "Chantilly para decorar"
+    ],
+    preparo: [
+      "Em uma tigela, misture a farinha, os ovos, o leite, o açúcar e o sal até formar uma massa homogênea.",
+      "Adicione a manteiga derretida e misture bem. Deixe a massa descansar por 30 minutos.",
+      "Aqueça uma frigideira antiaderente em fogo médio. Espalhe uma pequena quantidade de manteiga.",
+      "Despeje uma concha da massa na frigideira e espalhe formando um disco fino.",
+      "Cozinhe por cerca de 2 minutos de cada lado, até dourar levemente.",
+      "Retire o crepe e espalhe Nutella sobre ele enquanto ainda estiver quente.",
+      "Coloque fatias de morango sobre a Nutella.",
+      "Dobre o crepe em formato de envelope ou enrole.",
+      "Finalize com chantilly por cima e sirva imediatamente."
     ]
   },
-  coquetel: {
-    id: "coquetel",
-    name: "Coquetel Volante",
-    description: "Finger foods e canapés sofisticados",
-    hasOpcionais: false,
-    menu: {
-      FINGER_FOODS: ["Canapés de salmão", "Mini sanduíches", "Coxinhas gourmet", "Empadas variadas", "Bruschetta caprese", "Tortinhas doces", "Drinks especiais", "Espumante"],
-      SALGADOS_ASSADOS: ["Folhado de Frango", "Sushi e sashimi", "Salada de camarão", "Mini wraps", "Canapés vegetarianos", "Mini quiches", "Drinks especiais", "Espumante"],
-      BEBIDAS: ["Coca Cola Comum", "Coca Cola Zero Açucar", "Guaraná", "Suco de Caju", "Suco de Abacaxi"]
-    }
-  },
-  boteco: {
-    id: "boteco",
-    name: "Comida de Boteco",
-    description: "Petiscos tradicionais brasileiros",
-    hasOpcionais: false,
-    menu: {
-      ILHA_DE_BOTECO: ["Calabresa Acebolada", "Tropeirinho", "Carne de Sol com Mandioca", "Torresmo a Pururuca", "Linguiça acebolada", "Frango a Passarinho", "Pateis de Queijo e Carne", "Kibe com Queijo", "Kibe sem Queijo", "Batata Frita", "Arroz Carreteiro"],
-      CALDOS: ["Caldo de Carne Seca com Abobora", "Caldo de Costela com Mandioca"],
-      EMPRATADOS: ["Isca de Frango com Bechamel de Baroa", "Escondidinho de Carne Seca com Parmesão"],
-      BEBIDAS: ["Coca Cola Comum", "Coca Cola Zero Açucar", "Guaraná", "Suco de Caju", "Suco de Abacaxi"]
-    }
-  },
-  junina: {
-    id: "junina",
-    name: "Festa Junina",
-    description: "Comidas típicas e decoração temática",
-    hasOpcionais: false,
-    menu: {
-      PRATOS_TIPICOS: ["Cachorro Quente", "Arroz Carreteiro", "Galinhada", "Vinagrete", "Milho Cozido", "Canjica de Amendoin", "Bolo de Milho", "Bolo de Chocolate"],
-      CALDOS: ["Caldo verde", "Caldo de Frango com Milho"],
-      CHURRASQUINHOS: ["Espetinho de carne", "Espetinho de frango", "Espetinho de linguiça", "Espetinho de Coração de Frango"],
-      BEBIDAS: ["Coca Cola Comum", "Coca Cola Zero Açucar", "Guaraná", "Suco de Caju", "Suco de Abacaxi"]
-    }
-  },
-  feijoada: {
-    id: "feijoada",
-    name: "Feijoada Mineira ",
-    description: "Feijoada completa com acompanhamentos tradicionais",
-    hasOpcionais: false,
-    menu: {
-      ENTRADAS: ["Caldinho de Feijão", "Pastel de Queijo e Carne", "Linguiça Acebolada com Pães"],
-      FEIJOADA: ["Feijoada de Carne Seca", "Feijoada de Costelinha Suina e Lombinho", "Feijoada de Paio e Calabresa"],  
-      GUARNIÇÕES: ["Arroz branco", "Farofa crocante", "Couve refogada", "Laranja fatiada", "Torresmo crocante", "Molho de pimenta"],
-      BEBIDAS: ["Coca Cola Comum", "Coca Cola Zero Açucar", "Guaraná", "Suco de Caju", "Suco de Abacaxi"]
-    }
+  carbonara: {
+    id: "carbonara",
+    nome: "Espaguete à Carbonara",
+    ingredientes: [
+      "400g de espaguete",
+      "200g de pancetta ou bacon em cubos",
+      "3 ovos inteiros",
+      "1 gema de ovo",
+      "100g de queijo parmesão ralado",
+      "Pimenta do reino preta moída na hora",
+      "Sal a gosto",
+      "2 dentes de alho (opcional)"
+    ],
+    preparo: [
+      "Cozinhe o espaguete em água salgada conforme as instruções da embalagem até ficar al dente. Reserve 1 xícara da água do cozimento.",
+      "Enquanto o macarrão cozinha, frite a pancetta em uma frigideira grande até ficar crocante. Retire o excesso de gordura, deixando apenas uma pequena quantidade.",
+      "Em uma tigela, bata os ovos inteiros, a gema e o parmesão ralado até formar um creme homogêneo. Tempere com pimenta do reino.",
+      "Escorra o macarrão (reservando a água) e adicione imediatamente à frigideira com a pancetta, ainda no fogo baixo.",
+      "Adicione uma concha da água do cozimento e mexa bem para criar uma consistência cremosa.",
+      "Retire do fogo e adicione o creme de ovos e queijo, mexendo vigorosamente. O calor residual do macarrão cozinhará os ovos sem criar grumos.",
+      "Se necessário, adicione mais água do cozimento para ajustar a consistência. A carbonara deve ficar cremosa e envolver bem o macarrão.",
+      "Tempere com pimenta do reino fresca e sirva imediatamente com queijo parmesão adicional por cima."
+    ]
   }
 };
+
+// Dados dos serviços
+// IMPORTANTE: servicesData é carregado de servicesData.js (arquivo compartilhado)
+// Esta variável é definida globalmente pelo script servicesData.js incluído no HTML
+// Verificação de segurança: se servicesData não estiver definido, exibe erro
+if (typeof servicesData === 'undefined') {
+  console.error('ERRO: servicesData.js não foi carregado! Certifique-se de que o script está incluído antes de app.js no HTML.');
+}
 
 function montarSelects(service) {
   const form = document.getElementById("orcamento-form");
@@ -717,6 +671,104 @@ function openModal(serviceId) {
   const today = new Date().toISOString().split('T')[0];
   document.querySelectorAll('input[type="date"][required]').forEach(input => {
     input.setAttribute('min', today);
+  });
+
+  // Modal de Receitas - Funcionalidade
+  const receitaModal = document.getElementById('receita-modal');
+  const receitaModalClose = document.getElementById('receita-modal-close');
+  const receitaModalBackdrop = receitaModal?.querySelector('.modal__backdrop');
+  const receitaCards = document.querySelectorAll('.receita__card, .receita__card .btn');
+
+  /**
+   * Abre o modal de receita com os dados da receita selecionada
+   * @param {string} receitaId - ID da receita a ser exibida
+   */
+  function openReceitaModal(receitaId) {
+    console.log('Abrindo modal de receita:', receitaId);
+
+    const receita = receitasData[receitaId];
+    if (!receita || !receitaModal) {
+      console.error('Receita não encontrada ou modal indisponível:', receitaId);
+      return;
+    }
+
+    // Atualiza o título
+    document.getElementById('receita-modal-title').textContent = receita.nome;
+
+    // Popula ingredientes
+    const ingredientesList = document.getElementById('receita-ingredientes-list');
+    ingredientesList.innerHTML = '';
+    receita.ingredientes.forEach(ingrediente => {
+      const li = document.createElement('li');
+      li.textContent = ingrediente;
+      ingredientesList.appendChild(li);
+    });
+
+    // Popula modo de preparo
+    const preparoList = document.getElementById('receita-preparo-list');
+    preparoList.innerHTML = '';
+    receita.preparo.forEach(passo => {
+      const li = document.createElement('li');
+      li.textContent = passo;
+      preparoList.appendChild(li);
+    });
+
+    // Exibe o modal
+    receitaModal.classList.remove('hidden');
+    document.body.style.overflow = 'hidden';
+    console.log('Modal de receita aberto com sucesso');
+  }
+
+  /**
+   * Fecha o modal de receita
+   */
+  function closeReceitaModal() {
+    if (receitaModal) {
+      receitaModal.classList.add('hidden');
+      document.body.style.overflow = 'auto';
+      console.log('Modal de receita fechado');
+    }
+  }
+
+  // Event listeners para abrir modal de receitas
+  receitaCards.forEach(card => {
+    card.addEventListener('click', function(e) {
+      e.preventDefault();
+      e.stopPropagation();
+      
+      // Obtém o ID da receita do card ou do botão
+      const receitaCard = this.closest('.receita__card');
+      const receitaId = receitaCard?.getAttribute('data-receita') || 
+                       this.getAttribute('data-receita-id');
+      
+      if (receitaId) {
+        console.log('Card de receita clicado:', receitaId);
+        openReceitaModal(receitaId);
+      }
+    });
+  });
+
+  // Event listeners para fechar modal de receitas
+  if (receitaModalClose) {
+    receitaModalClose.addEventListener('click', function(e) {
+      e.preventDefault();
+      closeReceitaModal();
+    });
+  }
+
+  if (receitaModalBackdrop) {
+    receitaModalBackdrop.addEventListener('click', function(e) {
+      if (e.target === receitaModalBackdrop) {
+        closeReceitaModal();
+      }
+    });
+  }
+
+  // Fecha modal de receitas com tecla Escape
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape' && receitaModal && !receitaModal.classList.contains('hidden')) {
+      closeReceitaModal();
+    }
   });
 
   console.log('Euler Passos Buffet - Site carregado com sucesso!');

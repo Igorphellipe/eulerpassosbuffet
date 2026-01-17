@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin - Euler Passos Buffet</title>
+    <meta name="description" content="Área administrativa para geração de propostas comerciais - Euler Passos Buffet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+    <link href="https://fonts.cdnfonts.com/css/aloevera" rel="stylesheet">
+    <link rel="stylesheet" href="css/admin.css">
+    <link rel="icon" type="image/png" href="assets/favicon-32x32.png"/>
+    <link rel="shortcut icon" href="assets/favicon-32x32.png" type="image/x-icon"/>
+    <!-- jsPDF via CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+</head>
+<body>
+    <div class="admin-container">
+        <!-- Header Admin -->
+        <header class="admin-header">
+            <div class="admin-header__content">
+                <div class="admin-header__logo">
+                    <img src="assets/Euler-Passos-Logo-Verde-Oliva.png" alt="Euler Passos Buffet">
+                </div>
+                        <h1 class="admin-header__title">Área Administrativa</h1>
+                <p class="admin-header__subtitle">Geração de Propostas Comerciais</p>
+                        <div style="position:absolute;right:24px;top:20px;">
+                          <button id="btn-logout" class="btn btn--outline">Logout</button>
+                        </div>
+            </div>
+        </header>
+
+        <!-- Formulário de Proposta -->
+        <main class="admin-main">
+            <section class="admin-form-section">
+                <div class="admin-card">
+                    <h2 class="admin-card__title">Dados da Proposta</h2>
+                    
+                    <form id="admin-form" class="admin-form">
+                        <!-- Dados do Cliente -->
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="cliente" class="form-label">Cliente *</label>
+                                <input 
+                                    type="text" 
+                                    id="cliente" 
+                                    name="cliente" 
+                                    class="form-control" 
+                                    required
+                                    placeholder="Nome completo do cliente"
+                                >
+                            </div>
+                            <div class="form-group">
+                                <label for="telefone" class="form-label">Telefone *</label>
+                                <input 
+                                    type="tel" 
+                                    id="telefone" 
+                                    name="telefone" 
+                                    class="form-control" 
+                                    required
+                                    placeholder="(61) 99999-9999"
+                                >
+                            </div>
+                        </div>
+
+                        <!-- Quantidade e Data -->
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="quantidade-pessoas" class="form-label">Quantidade de Pessoas *</label>
+                                <input 
+                                    type="number" 
+                                    id="quantidade-pessoas" 
+                                    name="quantidade-pessoas" 
+                                    class="form-control" 
+                                    required
+                                    min="10"
+                                    placeholder="Ex: 50"
+                                >
+                            </div>
+                            <div class="form-group">
+                                <label for="data-evento" class="form-label">Data do Evento *</label>
+                                <input 
+                                    type="date" 
+                                    id="data-evento" 
+                                    name="data-evento" 
+                                    class="form-control" 
+                                    required
+                                >
+                            </div>
+                        </div>
+
+                        <!-- Tipo de Serviço -->
+                        <div class="form-group">
+                            <label for="tipo-servico" class="form-label">Tipo de Serviço *</label>
+                            <select id="tipo-servico" name="tipo-servico" class="form-control" required>
+                                <option value="">Selecione um serviço</option>
+                                <option value="churrasco">Buffet de Churrasco</option>
+                                <option value="feijoada">Buffet de Feijoada</option>
+                                <option value="jantar">Buffet de Jantar</option>
+                                <option value="almoco">Buffet de Almoço</option>
+                                <option value="crepe">Crepes Gourmet</option>
+                                <option value="massa">Buffet de Massas</option>
+                                <option value="coquetel">Coquetel Volante</option>
+                                <option value="boteco">Buffet de Comida de Boteco</option>
+                                <option value="junina">Buffet de Festa Junina</option>
+                            </select>
+                        </div>
+
+                        <!-- Cardápio (preenchido automaticamente) -->
+                        <div class="form-group" id="cardapio-group" style="display: none;">
+                            <label class="form-label">Cardápio do Serviço</label>
+                            <div id="cardapio-display" class="cardapio-display"></div>
+                        </div>
+
+                        <!-- Valor e Observações -->
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="valor-proposta" class="form-label">Valor da Proposta (R$) *</label>
+                                <input 
+                                    type="number" 
+                                    id="valor-proposta" 
+                                    name="valor-proposta" 
+                                    class="form-control" 
+                                    required
+                                    min="0"
+                                    step="0.01"
+                                    placeholder="0,00"
+                                >
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="observacoes" class="form-label">Observações</label>
+                            <textarea 
+                                id="observacoes" 
+                                name="observacoes" 
+                                class="form-control" 
+                                rows="4"
+                                placeholder="Observações adicionais sobre a proposta..."
+                            ></textarea>
+                        </div>
+
+                        <!-- Botões de Ação -->
+                        <div class="form-actions">
+                            <button type="button" id="btn-preview" class="btn btn--secondary">
+                                Visualizar Proposta
+                            </button>
+                            <button type="submit" id="btn-gerar-pdf" class="btn btn--primary">
+                                Gerar PDF
+                            </button>
+                            <button type="button" id="btn-limpar" class="btn btn--outline">
+                                Limpar Formulário
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </section>
+
+            <!-- Preview da Proposta (oculto inicialmente) -->
+            <section class="preview-section hidden" id="preview-section">
+                <div class="admin-card">
+                    <h2 class="admin-card__title">Preview da Proposta</h2>
+                    <div id="preview-content" class="preview-content"></div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Scripts - Ordem importante: servicesData.js deve vir ANTES dos outros -->
+    <script src="js/servicesData.js"></script>
+    <!-- html2pdf (usa html2canvas + jsPDF) para gerar PDFs com melhor fidelidade ao CSS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.3/html2pdf.bundle.min.js"></script>
+    <script src="js/admin.js"></script>
+</body>
+</html>
