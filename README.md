@@ -1,4 +1,3 @@
-
 # Euler Passos Buffet
 
 Este projeto é um site institucional para o buffet Euler Passos, desenvolvido em HTML, CSS e JavaScript puro. O objetivo é apresentar os serviços oferecidos pelo buffet, facilitar o contato com clientes e permitir o gerenciamento de informações administrativas por meio de uma área restrita.
