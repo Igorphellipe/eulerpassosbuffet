@@ -69,6 +69,7 @@ body {
   box-shadow: var(--shadow-lg);
   color: var(--color-white);
   text-align: center;
+  position: relative; /* necessário para posicionar corretamente o botão de logout */
 }
 
 .admin-header__content {
@@ -76,6 +77,19 @@ body {
   flex-direction: column;
   align-items: center;
   gap: var(--space-16);
+}
+
+/* Garantir que o botão de logout fique sempre acima do banner/hero */
+#btn-logout {
+  position: absolute;
+  top: 20px;
+  right: 24px;
+  z-index: 60;
+}
+
+/* Mantém z-index alto também durante hover/transformações */
+#btn-logout:hover {
+  z-index: 70;
 }
 
 .admin-header__logo img {
@@ -272,7 +286,7 @@ textarea.form-control {
 }
 
 .btn--outline {
-  background-color: transparent;
+  background: rgba(209, 141, 95, 0.596);
   color: var(--buffet-brown);
   border-color: var(--buffet-brown);
 }

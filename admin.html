@@ -25,9 +25,7 @@
                 </div>
                         <h1 class="admin-header__title">Área Administrativa</h1>
                 <p class="admin-header__subtitle">Geração de Propostas Comerciais</p>
-                        <div style="position:absolute;right:24px;top:20px;">
-                          <button id="btn-logout" class="btn btn--outline">Logout</button>
-                        </div>
+                                                <button id="btn-logout" class="btn btn--outline">Logout</button>
             </div>
         </header>
 
@@ -116,6 +114,18 @@
                         <!-- Valor e Observações -->
                         <div class="form-row">
                             <div class="form-group">
+                                <label for="valor-por-pessoa" class="form-label">Valor por pessoa (R$)</label>
+                                <input
+                                    type="number"
+                                    id="valor-por-pessoa"
+                                    name="valor-por-pessoa"
+                                    class="form-control"
+                                    min="0"
+                                    step="0.01"
+                                    placeholder="0,00"
+                                >
+                            </div>
+                            <div class="form-group">
                                 <label for="valor-proposta" class="form-label">Valor da Proposta (R$) *</label>
                                 <input 
                                     type="number" 
@@ -126,6 +136,7 @@
                                     min="0"
                                     step="0.01"
                                     placeholder="0,00"
+                                    readonly
                                 >
                             </div>
                         </div>

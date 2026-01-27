@@ -57,9 +57,9 @@ function montarCamposOpcionais(service) {
   }
 
   const form = document.getElementById('admin-form');
-  const observacoesGroup = document.getElementById('observacoes').closest('.form-group');
-  
-  if (!form || !observacoesGroup) return;
+  const observacoesEl = document.getElementById('observacoes');
+  if (!form || !observacoesEl) return;
+  const observacoesGroup = observacoesEl.closest('.form-group');
 
   // Cria wrapper para campos opcionais
   const wrapper = document.createElement('div');
@@ -367,6 +367,8 @@ function getFormData() {
     // Dados do evento
     quantidadePessoas: document.getElementById('quantidade-pessoas').value.trim(),
     dataEvento: document.getElementById('data-evento').value.trim(),
+    // Valor por pessoa (se preenchido)
+    valorPorPessoa: parseFloat(document.getElementById('valor-por-pessoa')?.value) || 0,
     
     // Serviço selecionado
     tipoServico: tipoServico,
@@ -389,6 +391,25 @@ function getFormData() {
   };
   
   return proposta;
+}
+
+/**
+ * Atualiza o campo `valor-proposta` multiplicando `valor-por-pessoa` x `quantidade-pessoas`.
+ */
+function updateValorPropostaFromPessoa() {
+  const qtdEl = document.getElementById('quantidade-pessoas');
+  const valorPessoaEl = document.getElementById('valor-por-pessoa');
+  const valorPropostaEl = document.getElementById('valor-proposta');
+  if (!qtdEl || !valorPessoaEl || !valorPropostaEl) return;
+  const qtd = parseFloat(qtdEl.value) || 0;
+  const valorPessoa = parseFloat(valorPessoaEl.value) || 0;
+  if (qtd > 0 && valorPessoa > 0) {
+    const total = qtd * valorPessoa;
+    // mantém formato numérico com duas casas
+    valorPropostaEl.value = total.toFixed(2);
+  } else {
+    valorPropostaEl.value = '';
+  }
 }
 
 /**
@@ -540,6 +561,11 @@ async function generatePDF(formData) {
   yPosition += 6;
   doc.text(`Quantidade de Pessoas: ${formData.quantidadePessoas}`, margin, yPosition);
   yPosition += 6;
+  // Valor por pessoa (se informado)
+  if (formData.valorPorPessoa && parseFloat(formData.valorPorPessoa) > 0) {
+    doc.text(`Valor por pessoa: ${formatCurrency(formData.valorPorPessoa)}`, margin, yPosition);
+    yPosition += 6;
+  }
   doc.text(`Data do Evento: ${formatDate(formData.dataEvento)}`, margin, yPosition);
   yPosition += 10;
 
@@ -692,11 +718,21 @@ async function generatePDF(formData) {
       yPosition = margin;
     }
 
+    const spacing = {
+      sectionTop: 20,
+      titleBottom: 6,
+      lineHeight: 5,
+      paragraphBottom: 4
+    };
+
+    yPosition += spacing.sectionTop;
+
     doc.setFontSize(10);
     doc.setFont('helvetica', 'bold');
     doc.setTextColor(...colorDark);
+
     doc.text('TERMOS E INFORMAÇÕES IMPORTANTES:', margin, yPosition);
-    yPosition += 8;
+    yPosition += spacing.titleBottom;
 
     doc.setFont('helvetica', 'normal');
     doc.setFontSize(9);
@@ -716,9 +752,9 @@ async function generatePDF(formData) {
         } else {
           doc.text('  ' + line, margin + 12, yPosition);
         }
-        yPosition += 5;
+        yPosition += spacing.lineHeight;
       });
-      yPosition += 3;
+      yPosition += spacing.paragraphBottom;
     });
   }
 
@@ -776,6 +812,7 @@ function showPreview(formData) {
       <p><strong>Cliente:</strong> ${formData.cliente}</p>
       <p><strong>Telefone:</strong> ${formData.telefone}</p>
       <p><strong>Quantidade de Pessoas:</strong> ${formData.quantidadePessoas}</p>
+      <p><strong>Valor por pessoa:</strong> ${formData.valorPorPessoa && parseFloat(formData.valorPorPessoa) > 0 ? formatCurrency(formData.valorPorPessoa) : '-'}</p>
       <p><strong>Data do Evento:</strong> ${formatDate(formData.dataEvento)}</p>
     </div>
     <div class="preview-section-divider"></div>
@@ -895,6 +932,15 @@ document.addEventListener('DOMContentLoaded', function() {
   // Define data mínima para o campo de data (ANTES de anexar event listeners)
   const hoje = new Date().toISOString().split('T')[0];
   dataEventoField.setAttribute('min', hoje);
+
+  // Atualiza automaticamente 'valor da proposta' quando usuário preencher
+  // 'valor por pessoa' e/ou 'quantidade de pessoas'
+  const valorPorPessoaField = document.getElementById('valor-por-pessoa');
+  const quantidadeField = document.getElementById('quantidade-pessoas');
+  if (valorPorPessoaField && quantidadeField) {
+    valorPorPessoaField.addEventListener('input', updateValorPropostaFromPessoa);
+    quantidadeField.addEventListener('input', updateValorPropostaFromPessoa);
+  }
 
   // Atualiza cardápio quando tipo de serviço muda
   tipoServicoSelect.addEventListener('change', function() {
