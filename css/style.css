@@ -37,16 +37,25 @@
   --color-orange-400-rgb: 230, 129, 97;
 
   /* Background color tokens (Light Mode) */
-  --color-bg-1: rgba(59, 130, 246, 0.08); /* Light blue */
-  --color-bg-2: rgba(245, 158, 11, 0.08); /* Light yellow */
-  --color-bg-3: rgba(34, 197, 94, 0.08); /* Light green */
-  --color-bg-4: rgba(239, 68, 68, 0.08); /* Light red */
-  --color-bg-5: rgba(147, 51, 234, 0.08); /* Light purple */
-  --color-bg-6: rgba(249, 115, 22, 0.08); /* Light orange */
-  --color-bg-7: rgba(236, 72, 153, 0.08); /* Light pink */
-  --color-bg-8: rgba(6, 182, 212, 0.08); /* Light cyan */
-  --color-bg-9: rgba(38, 40, 40, 1); /* Light lime */
-  
+  --color-bg-1: rgba(59, 130, 246, 0.08);
+  /* Light blue */
+  --color-bg-2: rgba(245, 158, 11, 0.08);
+  /* Light yellow */
+  --color-bg-3: rgba(34, 197, 94, 0.08);
+  /* Light green */
+  --color-bg-4: rgba(239, 68, 68, 0.08);
+  /* Light red */
+  --color-bg-5: rgba(147, 51, 234, 0.08);
+  /* Light purple */
+  --color-bg-6: rgba(249, 115, 22, 0.08);
+  /* Light orange */
+  --color-bg-7: rgba(236, 72, 153, 0.08);
+  /* Light pink */
+  --color-bg-8: rgba(6, 182, 212, 0.08);
+  /* Light cyan */
+  --color-bg-9: rgba(38, 40, 40, 1);
+  /* Light lime */
+
 
   /* Semantic Color Tokens (Light Mode) */
   --color-background: var(--color-cream-50);
@@ -159,16 +168,25 @@
     --color-gray-200-rgb: 245, 245, 245;
 
     /* Background color tokens (Dark Mode) */
-    --color-bg-1: rgba(29, 78, 216, 0.15); /* Dark blue */
-    --color-bg-2: rgba(109, 109, 46, 0.15); /* Dark yellow */
-    --color-bg-3: rgba(21, 128, 61, 0.15); /* Dark green */
-    --color-bg-4: rgba(182, 204, 57, 0.096); /* Dark red */
-    --color-bg-5: rgba(107, 33, 168, 0.15); /* Dark purple */
-    --color-bg-6: rgba(161, 194, 12, 0.15); /* Dark orange */
-    --color-bg-7: rgba(190, 24, 93, 0.15); /* Dark pink */
-    --color-bg-8: rgba(8, 145, 178, 0.15); /* Dark cyan */
-    --color-bg-9: rgba(51, 51, 83, 0.185); /* Light lime */
-    
+    --color-bg-1: rgba(29, 78, 216, 0.15);
+    /* Dark blue */
+    --color-bg-2: rgba(109, 109, 46, 0.15);
+    /* Dark yellow */
+    --color-bg-3: rgba(21, 128, 61, 0.15);
+    /* Dark green */
+    --color-bg-4: rgba(182, 204, 57, 0.096);
+    /* Dark red */
+    --color-bg-5: rgba(107, 33, 168, 0.15);
+    /* Dark purple */
+    --color-bg-6: rgba(161, 194, 12, 0.15);
+    /* Dark orange */
+    --color-bg-7: rgba(190, 24, 93, 0.15);
+    /* Dark pink */
+    --color-bg-8: rgba(8, 145, 178, 0.15);
+    /* Dark cyan */
+    --color-bg-9: rgba(51, 51, 83, 0.185);
+    /* Light lime */
+
     /* Semantic Color Tokens (Dark Mode) */
     --color-background: var(--color-charcoal-700);
     --color-surface: var(--color-charcoal-800);
@@ -220,15 +238,23 @@
   --color-gray-200-rgb: 245, 245, 245;
 
   /* Colorful background palette - Dark Mode */
-  --color-bg-1: rgba(29, 78, 216, 0.15); /* Dark blue */
-  --color-bg-2: rgba(109, 109, 46, 0.15); /* Dark yellow */
-  --color-bg-3: rgba(21, 128, 61, 0.15); /* Dark green */
-  --color-bg-4: rgba(185, 28, 28, 0.15); /* Dark red */
-  --color-bg-5: rgba(107, 33, 168, 0.15); /* Dark purple */
-  --color-bg-6: rgba(194, 65, 12, 0.15); /* Dark orange */
-  --color-bg-7: rgba(190, 24, 93, 0.15); /* Dark pink */
-  --color-bg-8: rgba(8, 145, 178, 0.15); /* Dark cyan */
-  
+  --color-bg-1: rgba(29, 78, 216, 0.15);
+  /* Dark blue */
+  --color-bg-2: rgba(109, 109, 46, 0.15);
+  /* Dark yellow */
+  --color-bg-3: rgba(21, 128, 61, 0.15);
+  /* Dark green */
+  --color-bg-4: rgba(185, 28, 28, 0.15);
+  /* Dark red */
+  --color-bg-5: rgba(107, 33, 168, 0.15);
+  /* Dark purple */
+  --color-bg-6: rgba(194, 65, 12, 0.15);
+  /* Dark orange */
+  --color-bg-7: rgba(190, 24, 93, 0.15);
+  /* Dark pink */
+  --color-bg-8: rgba(8, 145, 178, 0.15);
+  /* Dark cyan */
+
   /* Semantic Color Tokens (Dark Mode) */
   --color-text: var(--buffet-light-blue);
   --color-background: var(--color-charcoal-700);
@@ -274,7 +300,7 @@
   --color-brown-600-rgb: 94, 82, 64;
   --color-teal-500-rgb: 33, 128, 141;
   --color-slate-900-rgb: 19, 52, 59;
-  
+
   /* Semantic Color Tokens (Light Mode) */
   --color-text: var(--buffet-dark-blue);
   --color-background: var(--color-cream-50);
@@ -332,17 +358,22 @@ h3,
 h4,
 h5,
 /* Removido código solto e conflito de background */
-h2 {  font-size: var(--font-size-3xl);
+h2 {
+  font-size: var(--font-size-3xl);
 }
+
 h3 {
   font-size: var(--font-size-2xl);
 }
+
 h4 {
   font-size: var(--font-size-xl);
 }
+
 h5 {
   font-size: var(--font-size-lg);
 }
+
 h6 {
   font-size: var(--font-size-md);
 }
@@ -464,6 +495,64 @@ pre code {
   cursor: not-allowed;
 }
 
+.eventos {
+  background-color: #f59E0B14;
+}
+
+.carousel {
+  position: relative;
+  width: 40%;
+  height: 10%;
+  margin: auto;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  overflow: hidden;
+  border-radius: 10px;
+}
+
+.carousel-track {
+  display: flex;
+  transition: transform 0.5s ease-in-out;
+  animation: slide 12s infinite ease-in-out;
+}
+
+@keyframes slide {
+    0%, 15%     { transform: translateX(0); }
+    20%, 35%    { transform: translateX(-100%); }
+    40%, 55%    { transform: translateX(-200%); }
+    60%, 75%    { transform: translateX(-300%); }
+    80%, 100%   { transform: translateX(-400%); }
+}
+
+.carousel-slide {
+  display: flex;
+  justify-content: center;
+  padding: 10px;
+  min-width: 100%;
+}
+
+.carousel-slide img {
+  width: 100%;
+  max-height: 520px;
+  object-fit: contain;
+  border-radius: 12px;
+}
+
+.carousel p{
+  margin: auto;
+  margin-top: 10px;
+  font-size: 16px;
+}
+
+.prev {
+  left: 10px;
+}
+
+.next {
+  right: 10px;
+}
+
+
 /* Form elements */
 .form-control {
   display: block;
@@ -523,6 +612,7 @@ select.form-control {
   font-weight: var(--font-weight-medium);
   font-size: var(--font-size-sm);
 }
+
 .form-group {
   margin-bottom: var(--space-16);
 }
@@ -563,43 +653,31 @@ select.form-control {
 }
 
 .status--success {
-  background-color: rgba(
-    var(--color-success-rgb, 33, 128, 141),
-    var(--status-bg-opacity)
-  );
+  background-color: rgba(var(--color-success-rgb, 33, 128, 141),
+      var(--status-bg-opacity));
   color: var(--color-success);
-  border: 1px solid
-    rgba(var(--color-success-rgb, 33, 128, 141), var(--status-border-opacity));
+  border: 1px solid rgba(var(--color-success-rgb, 33, 128, 141), var(--status-border-opacity));
 }
 
 .status--error {
-  background-color: rgba(
-    var(--color-error-rgb, 192, 21, 47),
-    var(--status-bg-opacity)
-  );
+  background-color: rgba(var(--color-error-rgb, 192, 21, 47),
+      var(--status-bg-opacity));
   color: var(--color-error);
-  border: 1px solid
-    rgba(var(--color-error-rgb, 192, 21, 47), var(--status-border-opacity));
+  border: 1px solid rgba(var(--color-error-rgb, 192, 21, 47), var(--status-border-opacity));
 }
 
 .status--warning {
-  background-color: rgba(
-    var(--color-warning-rgb, 168, 75, 47),
-    var(--status-bg-opacity)
-  );
+  background-color: rgba(var(--color-warning-rgb, 168, 75, 47),
+      var(--status-bg-opacity));
   color: var(--color-warning);
-  border: 1px solid
-    rgba(var(--color-warning-rgb, 168, 75, 47), var(--status-border-opacity));
+  border: 1px solid rgba(var(--color-warning-rgb, 168, 75, 47), var(--status-border-opacity));
 }
 
 .status--info {
-  background-color: rgba(
-    var(--color-info-rgb, 98, 108, 113),
-    var(--status-bg-opacity)
-  );
+  background-color: rgba(var(--color-info-rgb, 98, 108, 113),
+      var(--status-bg-opacity));
   color: var(--color-info);
-  border: 1px solid
-    rgba(var(--color-info-rgb, 98, 108, 113), var(--status-border-opacity));
+  border: 1px solid rgba(var(--color-info-rgb, 98, 108, 113), var(--status-border-opacity));
 }
 
 /* Container layout */
@@ -615,23 +693,38 @@ select.form-control {
   .container {
     max-width: var(--container-sm);
   }
+
   .nav__brand img {
     height: 80px;
   }
 }
+
 @media (min-width: 768px) {
   .container {
     max-width: var(--container-md);
   }
+
   .nav__brand img {
     height: 45px;
   }
+
+  .carousel {
+    max-width: 100%;
+  }
+
+  .carousel-slide img {
+    max-height: 300px;
+    /* menor no celular */
+  }
+
 }
+
 @media (min-width: 1024px) {
   .container {
     max-width: var(--container-lg);
   }
 }
+
 @media (min-width: 1280px) {
   .container {
     max-width: var(--container-xl);
@@ -642,24 +735,31 @@ select.form-control {
 .flex {
   display: flex;
 }
+
 .flex-col {
   flex-direction: column;
 }
+
 .items-center {
   align-items: center;
 }
+
 .justify-center {
   justify-content: center;
 }
+
 .justify-between {
   justify-content: space-between;
 }
+
 .gap-4 {
   gap: var(--space-4);
 }
+
 .gap-8 {
   gap: var(--space-8);
 }
+
 .gap-16 {
   gap: var(--space-16);
 }
@@ -667,16 +767,20 @@ select.form-control {
 .m-0 {
   margin: 0;
 }
+
 .mt-8 {
   margin-top: var(--space-8);
 }
+
 .mb-8 {
   margin-bottom: var(--space-8);
 }
+
 .mx-8 {
   margin-left: var(--space-8);
   margin-right: var(--space-8);
 }
+
 .my-8 {
   margin-top: var(--space-8);
   margin-bottom: var(--space-8);
@@ -685,18 +789,22 @@ select.form-control {
 .p-0 {
   padding: 0;
 }
+
 .py-8 {
   padding-top: var(--space-8);
   padding-bottom: var(--space-8);
 }
+
 .px-8 {
   padding-left: var(--space-8);
   padding-right: var(--space-8);
 }
+
 .py-16 {
   padding-top: var(--space-16);
   padding-bottom: var(--space-16);
 }
+
 .px-16 {
   padding-left: var(--space-16);
   padding-right: var(--space-16);
@@ -705,6 +813,7 @@ select.form-control {
 .block {
   display: block;
 }
+
 .hidden {
   display: none;
 }
@@ -734,8 +843,7 @@ select.form-control {
 
 @font-face {
   font-family: 'FKGroteskNeue';
-  src: url('https://r2cdn.perplexity.ai/fonts/FKGroteskNeue.woff2')
-    format('woff2');
+  src: url('https://r2cdn.perplexity.ai/fonts/FKGroteskNeue.woff2') format('woff2');
 }
 
 /* END PERPLEXITY DESIGN SYSTEM */
@@ -756,7 +864,7 @@ select.form-control {
   --color-primary: var(--buffet-gold);
   --color-primary-hover: var(--buffet-gold-light);
   --color-primary-active: var(--buffet-brown);
-  
+
 }
 
 /* Header Styles */
@@ -778,9 +886,9 @@ select.form-control {
 }
 
 .nav__brand img {
-height: 60px;
-width: auto;
-object-fit: contain;
+  height: 60px;
+  width: auto;
+  object-fit: contain;
 }
 
 .nav__menu {
@@ -814,8 +922,10 @@ object-fit: contain;
   flex-direction: column;
   cursor: pointer;
   gap: 4px;
-  align-items: center; /* ensure bars centered */
-  margin-left: auto; /* keep toggle at the far right when visible */
+  align-items: center;
+  /* ensure bars centered */
+  margin-left: auto;
+  /* keep toggle at the far right when visible */
 }
 
 .nav__toggle span {
@@ -829,9 +939,11 @@ object-fit: contain;
 /* Hero Section */
 .hero {
   height: 70vh;
-  background-image: url("../assets/Hero.jpg");/*background: linear-gradient(rgba(139, 69, 19, 0.7), rgba(44, 62, 80, 0.7)), var(--color-bg-6);*/
+  background-image: url("../assets/Hero.jpg");
+  /*background: linear-gradient(rgba(139, 69, 19, 0.7), rgba(44, 62, 80, 0.7)), var(--color-bg-6);*/
   background-size: cover;
   background-repeat: no-repeat;
+  background-position: center;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -849,7 +961,7 @@ object-fit: contain;
   font-weight: 500;
   font-style: normal;
   margin-bottom: var(--space-24);
-  color:var(--color-white);
+  color: var(--color-white);
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.822);
 }
 
@@ -882,7 +994,7 @@ object-fit: contain;
 
 .hero a[href^="tel:"]:hover,
 .hero a.btn:hover {
-  text-shadow: 2px 3px 6px rgba(0,0,0,0.9);
+  text-shadow: 2px 3px 6px rgba(0, 0, 0, 0.9);
 }
 
 /* Section Styles */
@@ -1019,6 +1131,7 @@ object-fit: contain;
   margin-bottom: var(--space-16);
   font-size: var(--font-size-xl);
 }
+
 .diferencial__card p {
   font-family: "Poppins", sans-serif;
   font-weight: 300;
@@ -1045,7 +1158,7 @@ object-fit: contain;
   margin-bottom: var(--space-32);
   font-size: var(--font-size-3xl);
   text-align: center;
-} 
+}
 
 .cardapios__grid {
   display: grid;
@@ -1211,7 +1324,7 @@ object-fit: contain;
   height: 3px;
   background: linear-gradient(90deg, transparent, var(--buffet-gold), transparent);
   border-radius: var(--radius-full);
-} 
+}
 
 .receitas__grid {
   display: grid;
@@ -1340,10 +1453,11 @@ object-fit: contain;
   margin-bottom: var(--space-16);
   font-size: var(--font-size-2xl);
 }
+
 .footer__brand img {
   width: 40px;
   height: auto;
-} 
+}
 
 .footer__bottom {
   text-align: center;
@@ -1384,6 +1498,7 @@ object-fit: contain;
   from {
     opacity: 0;
   }
+
   to {
     opacity: 1;
   }
@@ -1406,6 +1521,7 @@ object-fit: contain;
     opacity: 0;
     transform: scale(0.9) translateY(-20px);
   }
+
   to {
     opacity: 1;
     transform: scale(1) translateY(0);
@@ -1467,7 +1583,7 @@ object-fit: contain;
   font-weight: 400;
 }
 
-#modal-menu details[open] summary{
+#modal-menu details[open] summary {
   color: var(--buffet-gold);
 }
 
@@ -1476,6 +1592,7 @@ object-fit: contain;
   transform: translateY(5px);
   transition: opacity 0.3s ease, transform 0.3s ease;
 }
+
 #modal-menu li.show {
   opacity: 1;
   transform: translateY(0);
@@ -1521,7 +1638,8 @@ object-fit: contain;
 @media (max-width: 768px) {
   .nav__menu {
     position: fixed;
-    top: 80px; /* position menu below header for predictable placement */
+    top: 80px;
+    /* position menu below header for predictable placement */
     left: 0;
     width: 100%;
     background-color: var(--color-surface);
@@ -1542,7 +1660,8 @@ object-fit: contain;
 
   .nav__toggle {
     display: flex;
-    z-index: 9999; /* ensure toggle sits above fixed menu */
+    z-index: 9999;
+    /* ensure toggle sits above fixed menu */
   }
 
   .nav__toggle.active span:nth-child(1) {
@@ -1577,7 +1696,8 @@ object-fit: contain;
   .contato__form,
   .contato__info {
     width: 100%;
-    box-sizing: border-box; /* ensure padding doesn't overflow */
+    box-sizing: border-box;
+    /* ensure padding doesn't overflow */
     padding: var(--space-16);
   }
 
@@ -1623,7 +1743,9 @@ html {
 /* Section padding adjustment for fixed header */
 section {
   scroll-margin-top: 100px;
-}/* Multi-select customizado */
+}
+
+/* Multi-select customizado */
 
 .dropdown-btn {
   width: 100%;
@@ -1685,7 +1807,7 @@ section {
   max-height: 180px;
   overflow-y: auto;
   margin-top: 2px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
   padding: 0;
   list-style: none;
 }
@@ -1821,7 +1943,7 @@ section {
   .modal__body--receita {
     gap: var(--space-24);
   }
-  
+
   .receita-ingredientes,
   .receita-preparo {
     padding: var(--space-16);
