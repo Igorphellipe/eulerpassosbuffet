@@ -770,6 +770,52 @@ function openModal(serviceId) {
       closeReceitaModal();
     }
   });
-
   console.log('Euler Passos Buffet - Site carregado com sucesso!');
+
+  // Inicializa o Swiper para a seção de receitas
+(function initSwiper() {
+  if (typeof Swiper === 'undefined') return;
+
+  const container = document.querySelector('.mySwiper');
+  if (!container) return;
+
+  // Evita init duplicado (muito comum em CMS/SPA)
+  if (window.__gallerySwiper?.destroy) window.__gallerySwiper.destroy(true, true);
+
+  const total = container.querySelectorAll('.swiper-wrapper > .swiper-slide').length;
+
+  // Regra prática para loop: total precisa ser >= slidesPerView * 2 [web:53][web:59]
+  const safePerView = (desired) => {
+    if (total >= desired * 2) return desired;
+    // se não dá, reduza para o máximo possível com loop
+    return Math.max(1, Math.floor(total / 2));
+  };
+
+  const gallerySwiper = new Swiper(container, {
+    loop: total > 1,
+    autoplay: total > 1 ? { delay: 4000, disableOnInteraction: false } : false,
+
+    navigation: {
+      nextEl: container.querySelector('.swiper-button-next'),
+      prevEl: container.querySelector('.swiper-button-prev'),
+    },
+    pagination: {
+      el: container.querySelector('.swiper-pagination'),
+      clickable: true,
+      type: 'bullets',
+    },
+
+    slidesPerView: safePerView(1),
+    slidesPerGroup: 1,
+    spaceBetween: 16,
+
+    breakpoints: {
+      768:  { slidesPerView: safePerView(2), slidesPerGroup: 1 },
+      1024: { slidesPerView: safePerView(3), slidesPerGroup: 1 }, // com 5 slides => vira 2
+    }
+  });
+
+  window.__gallerySwiper = gallerySwiper;
+})();
+
 });

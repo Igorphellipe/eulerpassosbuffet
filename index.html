@@ -18,6 +18,7 @@
         rel="stylesheet">
     <link href="https://fonts.cdnfonts.com/css/aloevera" rel="stylesheet">
     <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css">
 
     <link rel="icon" href="/favicon.ico" type="image/x-icon">
 
@@ -117,6 +118,9 @@
                 <li class="nav__item">
                     <a href="#cardapios" class="nav__link">Cardápios</a>
                 </li>
+                <li class="nav_item">
+                    <a href="#eventos" class="nav__link">Galeria</a>
+                </li>
                 <li class="nav__item">
                     <a href="#contato" class="nav__link">Contato</a>
                 </li>
@@ -200,29 +204,22 @@
             </div>
         </section>
 
-        <section class="eventos py-16">
+        <section id="eventos" class="eventos py-16">
             <div class="container">
                 <h2 class="section-title">Eventos Realizados</h2>
-                <div class="carousel">
-                    <div class="carousel-track">
-                        <div class="carousel-slide">
-                            <img src="assets/eulerpassos-churrasco.jpeg" alt="Imagem 1">
+                    <div class="swiper mySwiper">
+                        <div class="swiper-wrapper">
+                            <div class="swiper-slide"><img src="assets/janta-diplamata.jpg" alt="Imagem 1"></div>
+                            <div class="swiper-slide"><img src="assets/jantar-diplomata-2.jpg" alt="Imagem 2"></div>
+                            <div class="swiper-slide"><img src="assets/mesa-jantar.jpg" alt="Imagem 3"></div>
+                            <div class="swiper-slide"><img src="assets/eulerpassos-churrasco.jpeg" alt="Imagem 4"></div>
+                            <div class="swiper-slide"><img src="assets/comidas-organizadas.jpeg" alt="Imagem 5"></div>
+                            <div class="swiper-slide"><img src="assets/churrasco-real.jpeg" alt="Imagem 6"></div>
                         </div>
-                        <div class="carousel-slide">
-                            <img src="assets/comidas-mesa.jpeg" alt="Imagem 2">
-                        </div>
-                        <div class="carousel-slide">
-                            <img src="assets/organizacao-talheres.jpeg" alt="Imagem 3">
-                        </div>
-                        <div class="carousel-slide">
-                            <img src="assets/churrasco-real.jpeg" alt="Imagem 4">
-                        </div>
-                        <div class="carousel-slide">
-                            <img src="assets/comidas-organizadas.jpeg" alt="Imagem 4">
-                        </div>
+                        <div class="swiper-button-prev" aria-label="Anterior"></div>
+                        <div class="swiper-button-next" aria-label="Próximo"></div>
+                        <div class="swiper-pagination" aria-hidden="false"></div>
                     </div>
-                    
-                </div>
                 <p>Cada evento realizado por Euler Passos Buffet é pensado nos mínimos detalhes para transformar momentos especiais em experiências inesquecíveis. Ao longo dos anos, tivemos o privilégio de servir casamentos, aniversários, confraternizações e eventos corporativos, sempre com cardápios personalizados, apresentação impecável e atendimento dedicado.</p>
                 <p>Nossa equipe trabalha com paixão, cuidado e excelência, garantindo sabor, organização e tranquilidade para anfitriões e convidados. Mais do que servir refeições, entregamos confiança, qualidade e memórias que ficam marcadas em cada celebração.</p>
             </div>
@@ -421,7 +418,7 @@
         <div class="container">
             <div class="footer__content">
                 <div class="footer__brand">
-                    <h3> <img src="assets/favicon-32x32.png" alt="Logotipo Euler Passos Buffet" loading="lazy"> Euler
+                    <h3> <img src="favicon-32x32.png" alt="Logotipo Euler Passos Buffet" loading="lazy"> Euler
                         Passos Buffet.</h3>
                     <p>Sabores que marcam momentos especiais</p>
                 </div>
@@ -513,6 +510,7 @@
 
     <!-- Scripts - Ordem importante: servicesData.js deve vir ANTES de app.js -->
     <script src="js/servicesData.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
     <script src="js/app.js"></script>
 </body>
 

@@ -501,47 +501,96 @@ pre code {
 
 .carousel {
   position: relative;
-  width: 40%;
-  height: 10%;
-  margin: auto;
-  margin-top: 10px;
-  margin-bottom: 10px;
+  width: 100%;
+  max-width: 1200px;
+  margin: 12px auto;
   overflow: hidden;
-  border-radius: 10px;
+  border-radius: 12px;
+  background-color: rgba(0,0,0,0.03);
 }
 
 .carousel-track {
   display: flex;
-  transition: transform 0.5s ease-in-out;
-  animation: slide 12s infinite ease-in-out;
-}
-
-@keyframes slide {
-    0%, 15%     { transform: translateX(0); }
-    20%, 35%    { transform: translateX(-100%); }
-    40%, 55%    { transform: translateX(-200%); }
-    60%, 75%    { transform: translateX(-300%); }
-    80%, 100%   { transform: translateX(-400%); }
+  transition: transform 0.6s var(--ease-standard);
+  will-change: transform;
 }
 
 .carousel-slide {
+  flex: 0 0 100%;
   display: flex;
+  align-items: center;
   justify-content: center;
-  padding: 10px;
-  min-width: 100%;
+  min-height: 260px;
+  padding: 0;
+  overflow: hidden;
 }
 
 .carousel-slide img {
   width: 100%;
-  max-height: 520px;
-  object-fit: contain;
-  border-radius: 12px;
+  height: 100%;
+  object-fit: contain; /* preserva a imagem completa sem crop */
+  display: block;
 }
 
+.carousel-controls {
+  position: absolute;
+  top: 50%;
+  left: 70px;
+  right: 70px;
+  display: flex;
+  justify-content: space-between;
+  transform: translateY(-50%);
+  pointer-events: none;
+}
+
+.carousel-controls button {
+  pointer-events: auto;
+  background: rgba(0,0,0,0.45);
+  border: none;
+  color: #fff;
+  padding: 10px;
+  margin: 0 8px;
+  border-radius: 999px;
+  cursor: pointer;
+}
+
+.carousel-indicators {
+  position: absolute;
+  left: 50%;
+  bottom: 12px;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 8px;
+}
+
+.carousel-indicators button {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  border: 0;
+  background: rgba(255,255,255,0.7);
+  cursor: pointer;
+}
+
+.carousel-indicators button.active { background: var(--color-primary); }
+
 .container p{
+  font-family: "Poppins", sans-serif;
+  font-weight: 300;
+  padding-top: 15px;
   margin: auto;
   margin-top: 10px;
+  padding: 0 var(--space-16);
   font-size: 16px;
+  text-align: justify;
+}
+
+.container h2{
+  font-family: "baskerville", serif;
+  font-weight: 400;
+  text-align: center;
+  margin-top: 10px;
+  
 }
 
 .prev {
@@ -1139,6 +1188,9 @@ select.form-control {
   text-align: justify;
   color: var(--color-text-secondary);
 }
+
+/* Carousel Styles - unificadas acima. */
+
 
 /* Cardápios Section */
 .cardapios {
@@ -1943,9 +1995,113 @@ section {
   .modal__body--receita {
     gap: var(--space-24);
   }
+  .carousel-slide img {
+    max-height: 260px;
+  }
 
   .receita-ingredientes,
   .receita-preparo {
     padding: var(--space-16);
   }
+}
+
+/* Swiper custom overrides to integrate with existing layout */
+.mySwiper {
+  position: relative;
+  width: 100%;
+  max-width: 1200px;
+  margin: 12px auto;
+  overflow: hidden;
+  border-radius: 12px;
+  background-color: rgba(0,0,0,0.03);
+}
+
+.mySwiper .swiper-wrapper {
+  align-items: center;
+}
+
+.mySwiper .swiper-slide{
+  aspect-ratio: 4 / 3; /* padrão recomendado */
+  overflow: hidden;
+  border-radius: 14px; /* opcional, pra ficar igual ao seu print */
+}
+
+.mySwiper .swiper-slide img{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+}
+
+
+/* Melhor posicionamento e usabilidade dos botões */
+.mySwiper .swiper-button-next,
+.mySwiper .swiper-button-prev {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  pointer-events: auto;
+}
+
+.mySwiper .swiper-button-prev { left: 12px; }
+.mySwiper .swiper-button-next { right: 12px; }
+
+/* Aparência moderna para slides/imagens */
+.mySwiper .swiper-slide {
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.mySwiper .swiper-slide img {
+  border-radius: 8px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+  aspect-ratio: 16 / 10;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Navigation buttons styling (remove default blue) */
+.mySwiper .swiper-button-next,
+.mySwiper .swiper-button-prev {
+  background: rgba(0,0,0,0.45);
+  color: #fff;
+  width: 44px;
+  height: 44px;
+  border-radius: 999px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.12);
+  z-index: 9999;
+  pointer-events: auto;
+}
+
+.mySwiper .swiper-button-next::after,
+.mySwiper .swiper-button-prev::after {
+  font-size: 20px;
+  color: #fff;
+}
+
+/* Pagination bullets */
+.mySwiper .swiper-pagination {
+  z-index: 20;
+}
+
+/* Ensure slides don't cover navigation buttons */
+.mySwiper .swiper-wrapper,
+.mySwiper .swiper-slide {
+  z-index: 1;
+}
+
+.mySwiper .swiper-pagination-bullet {
+  width: 10px;
+  height: 10px;
+  background: rgba(255,255,255,0.8);
+  opacity: 1;
+}
+
+.mySwiper .swiper-pagination-bullet-active {
+  background: var(--color-primary) !important;
 }
