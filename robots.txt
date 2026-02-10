@@ -1,4 +1,4 @@
 User-agent: *
 Disallow:
 
-Sitemap: https://www.eulerpassosbuffet.com.br/sitemap.xml
+Sitemap: https://eulerpassosbuffet.com.br/sitemap.xml
