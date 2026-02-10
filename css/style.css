@@ -1046,6 +1046,21 @@ select.form-control {
   text-shadow: 2px 3px 6px rgba(0, 0, 0, 0.9);
 }
 
+.hero .hero_actions {
+  margin-top: var(--space-16);
+  display: flex;
+  gap: var(--space-16);
+  justify-content: center;
+}
+
+.hero .hero_contact {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-16);
+}
+
+
 /* Section Styles */
 .section-title {
   text-align: center;
