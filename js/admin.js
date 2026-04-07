@@ -7,6 +7,14 @@ if(sessionStorage.getItem('adminAuth') !== 'true') {
   window.location.href = 'login.html';
 }
 
+// IMPORTANTE: servicesData é carregado de servicesData.js (arquivo compartilhado)
+// Esta variável é definida globalmente pelo script servicesData.js incluído no HTML
+// Verificação de segurança: se servicesData não estiver definido, exibe erro
+if (typeof servicesData === 'undefined') {
+  alert('Erro ao carregar dados dos serviços. Recarregue a página.');
+  throw new Error('servicesData.js não foi carregado! Certifique-se de que o script está incluído antes de admin.js no HTML.');
+}
+
 const SERVICES = {
   coquetel: {
     name: 'Coquetel Volante',
