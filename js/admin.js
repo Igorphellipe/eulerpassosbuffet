@@ -1,1072 +1,860 @@
-/*
- * Admin.js - Área Administrativa Euler Passos Buffet
- * Gerencia formulário de propostas e geração de PDF
- * 
- * IMPORTANTE: Este arquivo utiliza servicesData carregado de servicesData.js
- * Certifique-se de que servicesData.js está incluído ANTES de admin.js no HTML
- */
 
-// Dados dos serviços
-// IMPORTANTE: servicesData é carregado de servicesData.js (arquivo compartilhado)
-// Esta variável é definida globalmente pelo script servicesData.js incluído no HTML
-// Verificação de segurança: se servicesData não estiver definido, exibe erro
-if (typeof servicesData === 'undefined') {
-  console.error('ERRO: servicesData.js não foi carregado! Certifique-se de que o script está incluído antes de admin.js no HTML.');
-  // Evita redeclaração de `const servicesData` (não usar `var/const/let` aqui)
-  // Cria propriedade em `window` apenas se não existir
-  if (typeof window !== 'undefined' && typeof window.servicesData === 'undefined') {
-    window.servicesData = {};
-  }
+/* ============================================================
+   SERVIÇOS DATA — cardápios pré-definidos
+   ============================================================ */
+
+if(sessionStorage.getItem('adminAuth') !== 'true') {
+  window.location.href = 'login.html';
 }
 
-// Informações da empresa (usamos nome diferente para evitar conflito global com app.js)
-const adminCompanyInfo = {
-  name: "Euler Passos Buffet",
-  phone: "(61) 99905-3461",
-  email: "contato@eulerpassosbuffet.com.br",
-  address: "St. de Clubes Esportivos Sul Trecho 2 - Plano Piloto, 70297-400 Brasília - DF"
+const SERVICES = {
+  coquetel: {
+    name: 'Coquetel Volante',
+    menu: {
+      'Canapés': [
+        'Canapés de azeitona preta',
+        'Canapés de peito de peru',
+        'Canapés de salmão defumado',
+        'Canapés de bruschetta',
+      ],
+      'Salgados Assados': [
+        'Quiche de alho poró',
+        'Quiche de queijo',
+        'Quiche de tomate seco',
+        'Folhado Alho poró com catupiry',
+        'Folhado Bacalhau',
+        'Folhado Camarão',
+        'Folhado Carne de sol com mandioca',
+        'Folhado Frango com mel',
+        'Folhado Romeu e Julieta',
+      ],
+      'Salgados Fritos': [
+        'Bombom de frango',
+        'Bombom de aipim com carne seca',
+        'Bombom de bacalhau',
+        'Pastel de carne e queijo',
+        'Bombom de azeitona',
+      ],
+      'Empratados na Barquete': [
+        'Escondidinho de carne seca',
+        'Escondidinho de camarão',
+      ],
+      'Bebidas': [
+        'Água mineral (com e sem gás)',
+        'Coquetel de frutas — Morango e Maracujá',
+        'Suco de frutas — Abacaxi com Hortelã e Maracujá',
+        'Refrigerante — Guaraná Antarctica e Coca-Cola',
+        'Cerveja — Antártica Original ou Chopp',
+      ],
+      'Mesa de Café': [
+        'Petit-fours variados',
+      ],
+      'Equipe': [
+        'Cozinheiro',
+        'Maître',
+        'Garçons (1 por 15 convidados)',
+        'Salgadeira',
+        'Copeiros',
+      ],
+    }
+  },
+  churrasco: {
+    name: 'Buffet de Churrasco',
+    menu: {
+      'Carnes': [
+        'Picanha bovina',
+        'Frango grelhado',
+        'Linguiça artesanal',
+        'Costela de porco',
+      ],
+      'Acompanhamentos': [
+        'Arroz branco',
+        'Farofa especial da casa',
+        'Vinagrete',
+        'Pão de alho',
+        'Salada verde mista',
+      ],
+      'Bebidas': [
+        'Água mineral (com e sem gás)',
+        'Refrigerante',
+        'Suco de frutas natural',
+        'Cerveja',
+      ],
+      'Equipe': [
+        'Churrasqueiro especializado',
+        'Garçons (1 por 15 convidados)',
+        'Copeiros',
+      ],
+    }
+  },
+  feijoada: {
+    name: 'Buffet de Feijoada',
+    menu: {
+      'Feijoada Completa': [
+        'Feijão preto com carnes nobres',
+        'Costela defumada',
+        'Linguiça',
+        'Paio',
+        'Lombo salgado',
+      ],
+      'Acompanhamentos': [
+        'Arroz branco',
+        'Couve refogada',
+        'Farofa',
+        'Torresmo',
+        'Laranja fatiada',
+        'Molho de pimenta',
+      ],
+      'Sobremesa': [
+        'Pudim de leite condensado',
+        'Doce de abóbora',
+      ],
+      'Bebidas': [
+        'Água mineral',
+        'Caipirinha de limão',
+        'Refrigerante',
+        'Cerveja gelada',
+      ],
+    }
+  },
+  jantar: {
+    name: 'Buffet de Jantar',
+    menu: {
+      'Entradas': [
+        'Salada verde mista',
+        'Carpaccio de filé',
+        'Patê de berinjela',
+      ],
+      'Pratos Principais': [
+        'Medalhão de filé mignon ao molho madeira',
+        'Salmão grelhado ao molho de maracujá',
+        'Risoto de funghi',
+      ],
+      'Acompanhamentos': [
+        'Arroz branco',
+        'Purê de batata trufado',
+        'Legumes grelhados',
+      ],
+      'Sobremesa': [
+        'Mousse de chocolate belga',
+        'Torta de frutas vermelhas',
+        'Petit-fours',
+      ],
+      'Bebidas': [
+        'Água mineral',
+        'Vinho tinto e branco',
+        'Espumante',
+        'Refrigerante',
+        'Suco natural',
+      ],
+    }
+  },
+  almoco: {
+    name: 'Buffet de Almoço',
+    menu: {
+      'Entradas': [
+        'Salada verde',
+        'Salada de macarrão',
+        'Arroz de forno',
+      ],
+      'Pratos Quentes': [
+        'Frango à parmegiana',
+        'Carne assada ao molho',
+        'Peixe grelhado',
+      ],
+      'Acompanhamentos': [
+        'Arroz branco',
+        'Feijão tropeiro',
+        'Macarrão ao sugo',
+        'Legumes no vapor',
+      ],
+      'Sobremesa': [
+        'Pudim',
+        'Sagu com creme',
+        'Frutas da estação',
+      ],
+    }
+  },
+  crepe: {
+    name: 'Crepes Gourmet',
+    menu: {
+      'Crepes Salgados': [
+        'Frango com catupiry',
+        'Carne seca com cheddar',
+        'Camarão ao alho e óleo',
+        'Quatro queijos',
+        'Rúcula com tomate seco e mussarela',
+      ],
+      'Crepes Doces': [
+        'Nutella com morango',
+        'Doce de leite com banana',
+        'Romeu e Julieta',
+        'Brigadeiro gourmet',
+        'Frutas vermelhas com creme chantilly',
+      ],
+      'Bebidas': [
+        'Água mineral',
+        'Refrigerante',
+        'Suco de frutas',
+      ],
+    }
+  },
+  massa: {
+    name: 'Buffet de Massas',
+    menu: {
+      'Massas': [
+        'Fettuccine ao molho de queijos',
+        'Penne ao pomodoro',
+        'Ravioli de ricota ao molho branco',
+        'Lasanha à bolonhesa',
+      ],
+      'Molhos': [
+        'Molho bolonhesa',
+        'Molho branco',
+        'Molho ao sugo',
+        'Molho pesto',
+      ],
+      'Acompanhamentos': [
+        'Pão ciabatta',
+        'Salada verde',
+        'Antepastos variados',
+      ],
+      'Sobremesa': [
+        'Tiramisu',
+        'Panna cotta com frutas vermelhas',
+      ],
+    }
+  },
+  boteco: {
+    name: 'Buffet de Comida de Boteco',
+    menu: {
+      'Petiscos': [
+        'Bolinho de bacalhau',
+        'Coxinha de frango',
+        'Isca de frango',
+        'Mandioca frita',
+        'Queijo coalho grelhado',
+      ],
+      'Pratos': [
+        'Feijão tropeiro',
+        'Carne de panela',
+        'Frango ao molho',
+      ],
+      'Bebidas': [
+        'Cerveja gelada',
+        'Caipirinha',
+        'Refrigerante',
+        'Água mineral',
+      ],
+    }
+  },
+  junina: {
+    name: 'Buffet de Festa Junina',
+    menu: {
+      'Comidas Típicas': [
+        'Canjica cremosa',
+        'Pamonha',
+        'Cural de milho',
+        'Bolo de milho',
+        'Pé de moleque',
+        'Cocada branca e queimada',
+      ],
+      'Salgados': [
+        'Espetinho de frango',
+        'Espetinho de queijo coalho',
+        'Milho verde cozido',
+        'Batata doce assada',
+      ],
+      'Bebidas': [
+        'Quentão',
+        'Vinho quente',
+        'Suco de frutas',
+        'Refrigerante',
+      ],
+    }
+  },
 };
 
-// Mapa para rastrear seleções anteriores de selects (desktop) para impor limites
-const selectPrevMap = new Map();
+/* ============================================================
+   ESTADO DO CARDÁPIO EDITÁVEL
+   ============================================================ */
+let currentMenu = {}; // categoria → [itens]
 
-/**
- * Formata título de categoria para exibição
- */
-function formatCategoryTitle(key) {
-  return key.replace(/_/g, ' ');
+/* ============================================================
+   UTILITÁRIOS
+   ============================================================ */
+const $ = id => document.getElementById(id);
+const fmt = n => new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(n);
+const fmtDate = s => {
+  if (!s) return '';
+  const [y, m, d] = s.split('-');
+  return `${d}/${m}/${y}`;
+};
+const fmtTime = t => {
+  if (!t) return '';
+  return t.substring(0, 5); // HH:MM
+};
+
+function showToast(msg, type = 'success') {
+  const t = $('toast');
+  t.textContent = msg;
+  t.className = `toast ${type} show`;
+  setTimeout(() => t.classList.remove('show'), 3200);
 }
 
-/**
- * Remove campos opcionais dinâmicos do formulário
- */
-function limparCamposOpcionais() {
-  const camposOpcionais = document.querySelectorAll('.campos-opcionais-wrapper');
-  camposOpcionais.forEach(el => el.remove());
-}
-
-/**
- * Cria campos dinâmicos para serviços com hasOpcionais (selectFields)
- */
-function montarCamposOpcionais(service) {
-  // Remove campos opcionais anteriores
-  limparCamposOpcionais();
-
-  if (!service || !service.hasOpcionais || !service.selectFields) {
-    return;
-  }
-
-  const form = document.getElementById('admin-form');
-  const observacoesEl = document.getElementById('observacoes');
-  if (!form || !observacoesEl) return;
-  const observacoesGroup = observacoesEl.closest('.form-group');
-
-  // Cria wrapper para campos opcionais
-  const wrapper = document.createElement('div');
-  wrapper.className = 'campos-opcionais-wrapper';
-  
-  const title = document.createElement('h3');
-  title.className = 'campos-opcionais-title';
-  title.textContent = 'Personalização do Cardápio';
-  title.style.marginTop = '24px';
-  title.style.marginBottom = '16px';
-  title.style.color = 'var(--buffet-brown, #923d15)';
-  title.style.fontSize = '1.2rem';
-  wrapper.appendChild(title);
-
-  // Cria campos para cada selectField
-  service.selectFields.forEach(field => {
-    const fieldGroup = document.createElement('div');
-    fieldGroup.className = 'form-group campo-opcional';
-    fieldGroup.dataset.fieldId = field.id;
-
-    const label = document.createElement('label');
-    label.className = 'form-label';
-    label.textContent = field.label;
-    label.setAttribute('for', `opcional-${field.id}`);
-    fieldGroup.appendChild(label);
-    // Renderiza checkboxes para todos os dispositivos (desktop e mobile) com mesmo comportamento
-    const choicesContainer = document.createElement('div');
-    choicesContainer.id = `opcional-${field.id}-choices`;
-    choicesContainer.className = 'opcional-checkbox-list';
-
-    // Determina limite (se houver) a partir do texto do label, ex: 'Escolha 3 Opções...'
-    const maxMatch = (field.label && field.label.match(/(\d+)/)) ? field.label.match(/(\d+)/)[0] : null;
-    const max = maxMatch ? parseInt(maxMatch, 10) : 0;
-
-    // Contador visual quando há limite
-    let counterEl = null;
-    if (max > 0) {
-      counterEl = document.createElement('div');
-      counterEl.className = 'opcional-counter';
-      counterEl.textContent = `Selecionados 0 de ${max}`;
-      counterEl.style.fontSize = '0.85rem';
-      counterEl.style.marginTop = '6px';
-      counterEl.style.color = 'var(--color-slate-500, #626c71)';
-    }
-
-    field.options.forEach(option => {
-      const optionId = `opcional-${field.id}-opt-${option.replace(/\s+/g, '-')}`;
-      const optionLabel = document.createElement('label');
-      optionLabel.setAttribute('for', optionId);
-      optionLabel.style.display = 'block';
-      optionLabel.style.cursor = 'pointer';
-      optionLabel.style.padding = '6px 8px';
-      optionLabel.style.borderRadius = '6px';
-
-      const checkbox = document.createElement('input');
-      checkbox.type = 'checkbox';
-      checkbox.id = optionId;
-      checkbox.name = `opcional-${field.id}`;
-      checkbox.value = option;
-      checkbox.style.marginRight = '8px';
-
-      // listener para atualizar estado visual e impor limite
-      checkbox.addEventListener('change', function() {
-        const checkedCount = choicesContainer.querySelectorAll('input[type="checkbox"]:checked').length;
-        // marca/desmarca classe visual no label pai
-        if (checkbox.checked) {
-          optionLabel.classList.add('selected');
-        } else {
-          optionLabel.classList.remove('selected');
-        }
-
-        // se houver limite, atualiza contador e desabilita opções excedentes
-        if (max > 0) {
-          if (counterEl) counterEl.textContent = `Selecionados ${checkedCount} de ${max}`;
-          if (checkedCount >= max) {
-            choicesContainer.querySelectorAll('input[type="checkbox"]').forEach(ch => {
-              if (!ch.checked) {
-                ch.disabled = true;
-                ch.parentNode.classList.add('disabled');
-              }
-            });
-          } else {
-            choicesContainer.querySelectorAll('input[type="checkbox"]').forEach(ch => {
-              ch.disabled = false;
-              ch.parentNode.classList.remove('disabled');
-            });
-          }
-        }
-      });
-
-      optionLabel.appendChild(checkbox);
-      optionLabel.appendChild(document.createTextNode(option));
-      choicesContainer.appendChild(optionLabel);
-    });
-
-    const helpText = document.createElement('small');
-    helpText.className = 'form-help';
-    helpText.textContent = max > 0 ? `Selecione até ${max} opções` : 'Clique/Toque nas opções para selecionar múltiplas escolhas';
-    helpText.style.display = 'block';
-    helpText.style.marginTop = '4px';
-    helpText.style.color = 'var(--color-slate-500, #626c71)';
-    helpText.style.fontSize = '0.85rem';
-
-    fieldGroup.appendChild(choicesContainer);
-    if (counterEl) fieldGroup.appendChild(counterEl);
-    fieldGroup.appendChild(helpText);
-    wrapper.appendChild(fieldGroup);
-  });
-
-  // Insere os campos opcionais ANTES do campo de observações
-  form.insertBefore(wrapper, observacoesGroup);
-}
-
-/**
- * Exibe o cardápio baseado no tipo de serviço selecionado
- */
-function displayCardapio(serviceId) {
-  const cardapioGroup = document.getElementById('cardapio-group');
-  const cardapioDisplay = document.getElementById('cardapio-display');
-  
-  if (!serviceId || !servicesData[serviceId]) {
-    cardapioGroup.style.display = 'none';
-    limparCamposOpcionais();
-    return;
-  }
-
-  const service = servicesData[serviceId];
-  cardapioDisplay.innerHTML = '';
-
-  // Cria estrutura do cardápio
-  Object.keys(service.menu).forEach(category => {
-    const categoriaDiv = document.createElement('div');
-    categoriaDiv.className = 'cardapio-categoria';
-
-    const title = document.createElement('h3');
-    title.className = 'cardapio-categoria__title';
-    title.textContent = formatCategoryTitle(category);
-    categoriaDiv.appendChild(title);
-
-    const itemsList = document.createElement('ul');
-    itemsList.className = 'cardapio-categoria__items';
-
-    service.menu[category].forEach(item => {
-      const li = document.createElement('li');
-      li.className = 'cardapio-categoria__item';
-      li.textContent = item;
-      itemsList.appendChild(li);
-    });
-
-    categoriaDiv.appendChild(itemsList);
-    cardapioDisplay.appendChild(categoriaDiv);
-  });
-
-  cardapioGroup.style.display = 'block';
-
-  // Se o serviço tem campos opcionais, monta os campos dinâmicos
-  if (service.hasOpcionais && service.selectFields) {
-    montarCamposOpcionais(service);
-  } else {
-    limparCamposOpcionais();
-  }
-}
-
-/**
- * Gera número único de identificação da proposta
- */
-function generateProposalNumber() {
-  const timestamp = Date.now();
-  const random = Math.floor(Math.random() * 1000);
-  return `PROP-${timestamp}-${random}`;
-}
-
-/**
- * Formata valor em moeda brasileira
- */
-function formatCurrency(value) {
-  return new Intl.NumberFormat('pt-BR', {
-    style: 'currency',
-    currency: 'BRL'
-  }).format(value);
-}
-
-/**
- * Formata data brasileira
- */
-function formatDate(dateString) {
-  if (!dateString) return '';
-  const date = new Date(dateString + 'T00:00:00');
-  return date.toLocaleDateString('pt-BR', {
-    day: '2-digit',
-    month: '2-digit',
-    year: 'numeric'
-  });
-}
-
-/**
- * Formata data e hora completa
- */
-function formatDateTime() {
-  const now = new Date();
-  return now.toLocaleString('pt-BR', {
-    day: '2-digit',
-    month: '2-digit',
-    year: 'numeric',
-    hour: '2-digit',
-    minute: '2-digit'
-  });
-}
-
-/**
- * Valida o formulário
- */
-function validateForm() {
-  const form = document.getElementById('admin-form');
-  const requiredFields = form.querySelectorAll('[required]');
-  let isValid = true;
-
-  requiredFields.forEach(field => {
-    field.style.borderColor = '';
-    if (!field.value.trim()) {
-      field.style.borderColor = '#DC143C';
-      isValid = false;
-    }
-  });
-
-  // Validação de valor
-  const valorField = document.getElementById('valor-proposta');
-  if (valorField.value && parseFloat(valorField.value) <= 0) {
-    valorField.style.borderColor = '#DC143C';
-    isValid = false;
-  }
-
-  return isValid;
-}
-
-/**
- * Coleta dados do formulário e monta objeto completo da proposta
- * @returns {Object} Objeto com todos os dados da proposta, incluindo cardápio e opções personalizadas
- */
-function getFormData() {
-  const tipoServico = document.getElementById('tipo-servico').value.trim();
-  const service = servicesData[tipoServico] || null;
-  
-  // Coleta opções personalizadas (se houver campos opcionais)
-  const opcoesPersonalizadas = {};
-  if (service && service.hasOpcionais && service.selectFields) {
-    // Busca no DOM pelos grupos renderizados para coletar valores (mais robusto para múltiplos serviços)
-    const wrapper = document.querySelector('.campos-opcionais-wrapper');
-    if (wrapper) {
-      const grupos = wrapper.querySelectorAll('.campo-opcional');
-      grupos.forEach(gr => {
-        const fieldId = gr.dataset.fieldId || gr.querySelector('[name]')?.name?.replace(/^opcional-/, '') || null;
-        const labelText = gr.querySelector('.form-label') ? gr.querySelector('.form-label').textContent.trim() : (fieldId || 'opcional');
-
-        let valores = [];
-
-        // Checkboxes (mobile)
-        const checkboxes = gr.querySelectorAll('input[type="checkbox"][name^="opcional-"]');
-        if (checkboxes && checkboxes.length > 0) {
-          valores = Array.from(checkboxes).filter(ch => ch.checked).map(ch => ch.value);
-        } else {
-          // Select múltiplo (desktop)
-          const selectEl = gr.querySelector('select');
-          if (selectEl) {
-            valores = Array.from(selectEl.selectedOptions).map(opt => opt.value);
-          }
-        }
-
-        if (fieldId) {
-          opcoesPersonalizadas[fieldId] = { label: labelText, valores };
-        }
-      });
-    } else {
-      // Fallback: tenta coletar a partir da definição do serviço
-      service.selectFields.forEach(field => {
-        const checkboxContainer = document.getElementById(`opcional-${field.id}-choices`);
-        let selectedOptions = [];
-
-        if (checkboxContainer) {
-          selectedOptions = Array.from(checkboxContainer.querySelectorAll('input[type="checkbox"]:checked')).map(ch => ch.value);
-        } else {
-          const selectElement = document.getElementById(`opcional-${field.id}`);
-          if (selectElement) {
-            selectedOptions = Array.from(selectElement.selectedOptions).map(opt => opt.value);
-          }
-        }
-
-        opcoesPersonalizadas[field.id] = {
-          label: field.label,
-          valores: selectedOptions
-        };
-      });
-    }
-  }
-  
-  // Monta objeto base da proposta
-  const proposta = {
-    // Número único de identificação
-    numeroProposta: generateProposalNumber(),
-    
-    // Dados do cliente
-    cliente: document.getElementById('cliente').value.trim(),
-    telefone: document.getElementById('telefone').value.trim(),
-    
-    // Dados do evento
-    quantidadePessoas: document.getElementById('quantidade-pessoas').value.trim(),
-    dataEvento: document.getElementById('data-evento').value.trim(),
-    // Valor por pessoa (se preenchido)
-    valorPorPessoa: parseFloat(document.getElementById('valor-por-pessoa')?.value) || 0,
-    
-    // Serviço selecionado
-    tipoServico: tipoServico,
-    servicoNome: service ? service.name : '',
-    servicoDescricao: service ? service.description : '',
-    
-    // Cardápio completo (incluído no objeto da proposta)
-    cardapio: service ? service.menu : null,
-    
-    // Opções personalizadas (se o serviço tiver hasOpcionais)
-    opcoesPersonalizadas: Object.keys(opcoesPersonalizadas).length > 0 ? opcoesPersonalizadas : null,
-    
-    // Valor e observações
-    valorProposta: parseFloat(document.getElementById('valor-proposta').value) || 0,
-    observacoes: document.getElementById('observacoes').value.trim(),
-    
-    // Metadados
-    dataCriacao: formatDateTime(),
-    empresa: adminCompanyInfo
-  };
-  
-  return proposta;
-}
-
-/**
- * Atualiza o campo `valor-proposta` multiplicando `valor-por-pessoa` x `quantidade-pessoas`.
- */
-function updateValorPropostaFromPessoa() {
-  const qtdEl = document.getElementById('quantidade-pessoas');
-  const valorPessoaEl = document.getElementById('valor-por-pessoa');
-  const valorPropostaEl = document.getElementById('valor-proposta');
-  if (!qtdEl || !valorPessoaEl || !valorPropostaEl) return;
-  const qtd = parseFloat(qtdEl.value) || 0;
-  const valorPessoa = parseFloat(valorPessoaEl.value) || 0;
-  if (qtd > 0 && valorPessoa > 0) {
-    const total = qtd * valorPessoa;
-    // mantém formato numérico com duas casas
-    valorPropostaEl.value = total.toFixed(2);
-  } else {
-    valorPropostaEl.value = '';
-  }
-}
-
-/**
- * Gera o PDF da proposta usando jsPDF
- */
-async function generatePDF(formData) {
-  // Verifica se jsPDF está disponível
-  if (typeof window.jspdf === 'undefined') {
-    console.error('ERRO: jsPDF não foi carregado! Verifique se o script foi incluído no HTML.');
-    alert('Erro: Biblioteca jsPDF não foi carregada. Recarregue a página.');
-    return;
-  }
-
-  try {
-    const { jsPDF } = window.jspdf;
-  const doc = new jsPDF({
-    orientation: 'portrait',
-    unit: 'mm',
-    format: 'a4'
-  });
-
-    // Define título do PDF para o nome da empresa (substitui título genérico)
-    try {
-      doc.setProperties({ title: adminCompanyInfo.name });
-    } catch (e) {
-      // ignora se não suportado
-    }
-
-    // Observações padrão (mesmo texto usado na preview)
-    const standardObservacoes = [
-      'Fornecemos todo o material necessário para a execução do evento (pratos, talheres, copos, réchauds e taças). Não fornecemos itens de decoração, como toalhas, arranjos e vasos decorativos.',
-      'Política para crianças: 0 a 6 anos não pagam; 7 a 11 anos pagam meia; a partir de 12 anos pagam como adultos.',
-      'Duração do serviço: 5 horas a partir do horário acordado no contrato. Horas adicionais serão cobradas separadamente mediante acordo prévio.',
-      'Equipe completa de profissionais qualificados e uniformizados, garantindo execução segura, pontual e com alto padrão de atendimento.'
-    ];
-
-  // Nome do arquivo
-  const fileName = `Proposta_${formData.numeroProposta}_${(formData.cliente || '').replace(/\s+/g, '_')}.pdf`;
-
-  // Tenta renderizar o HTML do preview (mantém estilo CSS) usando doc.html()
-  try {
-    // Garante que o preview esteja montado
-    showPreview(formData);
-    const previewContent = document.getElementById('preview-content');
-    // Primeiro tenta usar html2pdf (melhor fidelidade CSS)
-    if (typeof window.html2pdf !== 'undefined' && previewContent) {
-      try {
-        const clone = previewContent.cloneNode(true);
-        const wrapper = document.createElement('div');
-        wrapper.style.position = 'fixed';
-        wrapper.style.left = '-9999px';
-        wrapper.appendChild(clone);
-        document.body.appendChild(wrapper);
-
-        const opt = {
-          margin: [10, 10, 10, 10],
-          filename: fileName,
-          image: { type: 'jpeg', quality: 0.98 },
-          html2canvas: { scale: 2, useCORS: true },
-          jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
-        };
-
-        await html2pdf().set(opt).from(clone).save();
-        wrapper.remove();
-        console.log('PDF gerado via html2pdf com estilo do preview:', fileName);
-        return;
-      } catch (errHtml2pdf) {
-        console.warn('html2pdf falhou, tentando doc.html(); erro:', errHtml2pdf);
-      }
-    }
-
-    if (typeof doc.html === 'function' && previewContent) {
-      // Clona para evitar alterações visuais na página
-      const clone = previewContent.cloneNode(true);
-      const wrapper = document.createElement('div');
-      wrapper.style.position = 'fixed';
-      wrapper.style.left = '-9999px';
-      wrapper.appendChild(clone);
-      document.body.appendChild(wrapper);
-
-      // Ajusta escala para melhorar qualidade (pode ajustar se necessário)
-      await doc.html(clone, {
-        x: 10,
-        y: 10,
-        html2canvas: { scale: 1.3, useCORS: true },
-        windowWidth: clone.scrollWidth,
-      });
-
-      doc.save(fileName);
-      wrapper.remove();
-      console.log('PDF gerado via doc.html() com estilo do preview:', fileName);
-      return;
-    }
-  } catch (errHtml) {
-    console.warn('Renderização HTML para PDF falhou, caindo no método manual. Erro:', errHtml);
-    // continua para o método manual abaixo
-  }
-
-  const pageWidth = doc.internal.pageSize.getWidth();
-  const pageHeight = doc.internal.pageSize.getHeight();
-  const margin = 20;
-  const contentWidth = pageWidth - (margin * 2);
-  let yPosition = margin;
-
-  // Cores
-  const colorGold = [109, 109, 46];
-  const colorBrown = [146, 61, 21];
-  const colorDark = [19, 52, 59];
-
-  // Header com data/hora no canto superior direito
-  doc.setFontSize(8);
-  doc.setTextColor(...colorDark);
-  doc.text(formatDateTime(), pageWidth - margin - 10, yPosition, { align: 'right' });
-  yPosition += 15;
-
-  // Logo centralizada (texto simulado - em produção usar imagem real)
-  doc.setFontSize(20);
-  doc.setTextColor(...colorGold);
-  doc.setFont('helvetica', 'bold');
-  const logoText = adminCompanyInfo.name.toUpperCase();
-  const logoWidth = doc.getTextWidth(logoText);
-  doc.text(logoText, (pageWidth - logoWidth) / 2, yPosition);
-  yPosition += 20;
-
-  // Linha decorativa
-  doc.setDrawColor(...colorGold);
-  doc.setLineWidth(0.5);
-  doc.line(margin, yPosition, pageWidth - margin, yPosition);
-  yPosition += 10;
-
-  // Número da Proposta
-  doc.setFontSize(12);
-  doc.setTextColor(...colorBrown);
-  doc.setFont('helvetica', 'bold');
-  doc.text(`PROPOSTA COMERCIAL - ${formData.numeroProposta}`, margin, yPosition);
-  yPosition += 15;
-
-  // Dados do Cliente
-  doc.setFontSize(10);
-  doc.setTextColor(...colorDark);
-  doc.setFont('helvetica', 'bold');
-  doc.text('DADOS DO CLIENTE', margin, yPosition);
-  yPosition += 8;
-
-  doc.setFont('helvetica', 'normal');
-  doc.text(`Cliente: ${formData.cliente}`, margin, yPosition);
-  yPosition += 6;
-  doc.text(`Telefone: ${formData.telefone}`, margin, yPosition);
-  yPosition += 6;
-  doc.text(`Quantidade de Pessoas: ${formData.quantidadePessoas}`, margin, yPosition);
-  yPosition += 6;
-  // Valor por pessoa (se informado)
-  if (formData.valorPorPessoa && parseFloat(formData.valorPorPessoa) > 0) {
-    doc.text(`Valor por pessoa: ${formatCurrency(formData.valorPorPessoa)}`, margin, yPosition);
-    yPosition += 6;
-  }
-  doc.text(`Data do Evento: ${formatDate(formData.dataEvento)}`, margin, yPosition);
-  yPosition += 10;
-
-  // Tipo de Serviço
-  const service = servicesData[formData.tipoServico];
-  if (service) {
-    doc.setFont('helvetica', 'bold');
-    doc.text(`SERVIÇO: ${service.name.toUpperCase()}`, margin, yPosition);
-    yPosition += 10;
-
-    // Cardápio
-    doc.setFont('helvetica', 'bold');
-    doc.text('CARDÁPIO COMPLETO', margin, yPosition);
-    yPosition += 8;
-
-    doc.setFont('helvetica', 'normal');
-    doc.setFontSize(9);
-
-    Object.keys(service.menu).forEach((category, index) => {
-      // Verifica se precisa de nova página
-      if (yPosition > pageHeight - 40) {
-        doc.addPage();
-        yPosition = margin;
-      }
-
-      // Título da categoria
-      doc.setFont('helvetica', 'bold');
-      doc.setTextColor(...colorBrown);
-      doc.text(formatCategoryTitle(category) + ':', margin, yPosition);
-      yPosition += 6;
-
-      // Itens da categoria
-      doc.setFont('helvetica', 'normal');
-      doc.setTextColor(...colorDark);
-      doc.setFontSize(8);
-      
-      let itemsText = '';
-      service.menu[category].forEach((item, itemIndex) => {
-        if (itemIndex > 0) itemsText += ', ';
-        itemsText += item;
-      });
-
-      // Quebra de linha automática
-      const lines = doc.splitTextToSize(itemsText, contentWidth);
-      lines.forEach(line => {
-        if (yPosition > pageHeight - 30) {
-          doc.addPage();
-          yPosition = margin;
-        }
-        doc.text('• ' + line, margin + 5, yPosition);
-        yPosition += 5;
-      });
-
-      yPosition += 3;
-    });
-  }
-
-  // Valor da Proposta
-  if (yPosition > pageHeight - 40) {
-    doc.addPage();
-    yPosition = margin;
-  }
-
-  yPosition += 5;
-  doc.setDrawColor(...colorGold);
-  doc.line(margin, yPosition, pageWidth - margin, yPosition);
-  yPosition += 10;
-
-  doc.setFontSize(14);
-  doc.setFont('helvetica', 'bold');
-  doc.setTextColor(...colorBrown);
-  doc.text('VALOR DA PROPOSTA', margin, yPosition);
-  yPosition += 8;
-
-  doc.setFontSize(16);
-  doc.text(formatCurrency(formData.valorProposta), margin, yPosition);
-  yPosition += 15;
-
-  // Opções Personalizadas (se houver)
-  if (formData.opcoesPersonalizadas && Object.keys(formData.opcoesPersonalizadas).length > 0) {
-    if (yPosition > pageHeight - 40) {
-      doc.addPage();
-      yPosition = margin;
-    }
-
-    yPosition += 5;
-    doc.setFontSize(10);
-    doc.setFont('helvetica', 'bold');
-    doc.setTextColor(...colorDark);
-    doc.text('OPÇÕES PERSONALIZADAS:', margin, yPosition);
-    yPosition += 8;
-
-    doc.setFont('helvetica', 'normal');
-    doc.setFontSize(9);
-    Object.keys(formData.opcoesPersonalizadas).forEach(key => {
-      const opcao = formData.opcoesPersonalizadas[key];
-      if (opcao.valores && opcao.valores.length > 0) {
-        doc.setFont('helvetica', 'bold');
-        doc.setTextColor(...colorBrown);
-        doc.text(opcao.label + ':', margin, yPosition);
-        yPosition += 6;
-        
-        doc.setFont('helvetica', 'normal');
-        doc.setTextColor(...colorDark);
-        const valoresText = opcao.valores.join(', ');
-        const valoresLines = doc.splitTextToSize(valoresText, contentWidth);
-        valoresLines.forEach(line => {
-          if (yPosition > pageHeight - 30) {
-            doc.addPage();
-            yPosition = margin;
-          }
-          doc.text('• ' + line, margin + 5, yPosition);
-          yPosition += 5;
-        });
-        yPosition += 3;
-      }
-    });
-  }
-
-  // Observações
-  if (formData.observacoes) {
-    if (yPosition > pageHeight - 40) {
-      doc.addPage();
-      yPosition = margin;
-    }
-
-    doc.setFontSize(10);
-    doc.setFont('helvetica', 'bold');
-    doc.setTextColor(...colorDark);
-    doc.text('OBSERVAÇÕES:', margin, yPosition);
-    yPosition += 8;
-
-    doc.setFont('helvetica', 'normal');
-    doc.setFontSize(9);
-    const obsLines = doc.splitTextToSize(formData.observacoes, contentWidth);
-    obsLines.forEach(line => {
-      if (yPosition > pageHeight - 30) {
-        doc.addPage();
-        yPosition = margin;
-      }
-      doc.text(line, margin, yPosition);
-      yPosition += 5;
-    });
-  }
-  // Rodapé
-  // Termos e Informações Importantes (observações padrão)
-  if (standardObservacoes && standardObservacoes.length > 0) {
-    if (yPosition > pageHeight - 60) {
-      doc.addPage();
-      yPosition = margin;
-    }
-
-    const spacing = {
-      sectionTop: 20,
-      titleBottom: 6,
-      lineHeight: 5,
-      paragraphBottom: 4
-    };
-
-    yPosition += spacing.sectionTop;
-
-    doc.setFontSize(10);
-    doc.setFont('helvetica', 'bold');
-    doc.setTextColor(...colorDark);
-
-    doc.text('TERMOS E INFORMAÇÕES IMPORTANTES:', margin, yPosition);
-    yPosition += spacing.titleBottom;
-
-    doc.setFont('helvetica', 'normal');
-    doc.setFontSize(9);
-    standardObservacoes.forEach(item => {
-      if (yPosition > pageHeight - 40) {
-        doc.addPage();
-        yPosition = margin;
-      }
-      const lines = doc.splitTextToSize(item, contentWidth - 10);
-      lines.forEach((line, idx) => {
-        if (yPosition > pageHeight - 30) {
-          doc.addPage();
-          yPosition = margin;
-        }
-        if (idx === 0) {
-          doc.text('• ' + line, margin + 5, yPosition);
-        } else {
-          doc.text('  ' + line, margin + 12, yPosition);
-        }
-        yPosition += spacing.lineHeight;
-      });
-      yPosition += spacing.paragraphBottom;
-    });
-  }
-
-  // Rodapé
-  const footerY = pageHeight - 15;
-  doc.setDrawColor(...colorGold);
-  doc.line(margin, footerY - 5, pageWidth - margin, footerY - 5);
-  doc.setFontSize(8);
-  doc.setTextColor(...colorDark);
-  doc.text(adminCompanyInfo.address, margin, footerY, { align: 'left' });
-  doc.text(`Tel: ${adminCompanyInfo.phone} | Email: ${adminCompanyInfo.email}`, pageWidth - margin, footerY, { align: 'right' });
-
-    // Salva o PDF (usa fileName já definido acima)
-    doc.save(fileName);
-
-    console.log('PDF gerado com sucesso:', fileName);
-  } catch (error) {
-    console.error('Erro ao gerar PDF:', error);
-    alert('Erro ao gerar PDF: ' + error.message);
-    throw error;
-  }
-}
-
-/**
- * Mostra preview da proposta
- */
-function showPreview(formData) {
-  const previewSection = document.getElementById('preview-section');
-  const previewContent = document.getElementById('preview-content');
-
-  if (!previewSection || !previewContent) {
-    console.error('ERRO: Elementos de preview não encontrados no DOM!');
-    alert('Erro: Elementos de preview não encontrados.');
-    return;
-  }
-
-  const service = servicesData[formData.tipoServico];
-  // Observações padrão (texto melhorado para confiança e credibilidade)
-  const standardObservacoes = [
-    'Fornecemos todo o material necessário para a execução do evento (pratos, talheres, copos, réchauds e taças). Não fornecemos itens de decoração, como toalhas, arranjos e vasos decorativos.',
-    'Política para crianças: 0 a 6 anos não pagam; 7 a 11 anos pagam meia; a partir de 12 anos pagam como adultos.',
-    'Duração do serviço: 5 horas a partir do horário acordado no contrato. Horas adicionais serão cobradas separadamente mediante acordo prévio.',
-    'Equipe completa de profissionais qualificados e uniformizados, garantindo execução segura, pontual e com alto padrão de atendimento.'
-  ];
-
-  let html = `
-    <div class="preview-header">
-      <h3>${adminCompanyInfo.name}</h3>
-      <p><strong>Proposta:</strong> ${formData.numeroProposta}</p>
-      <p><small>${formatDateTime()}</small></p>
-    </div>
-    <div class="preview-section-divider"></div>
-    <div class="preview-cliente">
-      <h4>Dados do Cliente</h4>
-      <p><strong>Cliente:</strong> ${formData.cliente}</p>
-      <p><strong>Telefone:</strong> ${formData.telefone}</p>
-      <p><strong>Quantidade de Pessoas:</strong> ${formData.quantidadePessoas}</p>
-      <p><strong>Valor por pessoa:</strong> ${formData.valorPorPessoa && parseFloat(formData.valorPorPessoa) > 0 ? formatCurrency(formData.valorPorPessoa) : '-'}</p>
-      <p><strong>Data do Evento:</strong> ${formatDate(formData.dataEvento)}</p>
-    </div>
-    <div class="preview-section-divider"></div>
-    <div class="preview-servico">
-      <h4>Serviço: ${service ? service.name : 'N/A'}</h4>
+/* ============================================================
+   RENDER DO EDITOR DE CARDÁPIO
+   ============================================================ */
+function renderMenuEditor() {
+  const wrapper = $('menu-editor-wrapper');
+  const editor = $('menu-editor');
+  if (!Object.keys(currentMenu).length) { wrapper.classList.add('hidden'); return; }
+  wrapper.classList.remove('hidden');
+
+  editor.innerHTML = `
+    <div class="menu-editor__notice">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+      Cardápio pré-selecionado para este serviço. Edite os itens, remova ou adicione pratos conforme necessário.
     </div>
   `;
 
-  if (service) {
-    html += '<div class="preview-cardapio"><h4>Cardápio Completo</h4>';
-    Object.keys(service.menu).forEach(category => {
-      html += `<div class="preview-categoria"><strong>${formatCategoryTitle(category)}:</strong> `;
-      html += service.menu[category].join(', ');
-      html += '</div>';
-    });
-    html += '</div>';
-  }
+  Object.entries(currentMenu).forEach(([cat, items]) => {
+    const catDiv = document.createElement('div');
+    catDiv.className = 'menu-category';
+    catDiv.dataset.cat = cat;
 
-  // Opções Personalizadas (se houver)
-  if (formData.opcoesPersonalizadas && Object.keys(formData.opcoesPersonalizadas).length > 0) {
-    html += `
-      <div class="preview-section-divider"></div>
-      <div class="preview-opcoes">
-        <h4>Opções Personalizadas</h4>
-    `;
-    Object.keys(formData.opcoesPersonalizadas).forEach(key => {
-      const opcao = formData.opcoesPersonalizadas[key];
-      if (opcao.valores && opcao.valores.length > 0) {
-        html += `
-          <div class="preview-categoria">
-            <strong>${opcao.label}:</strong> ${opcao.valores.join(', ')}
-          </div>
-        `;
-      }
-    });
-    html += '</div>';
-  }
-
-  html += `
-    <div class="preview-section-divider"></div>
-    <div class="preview-valor">
-      <h4>Valor da Proposta</h4>
-      <p class="preview-valor-destaque">${formatCurrency(formData.valorProposta)}</p>
-    </div>
-  `;
-
-  if (formData.observacoes) {
-    html += `
-      <div class="preview-section-divider"></div>
-      <div class="preview-observacoes">
-        <h4>Observações</h4>
-        <p>${formData.observacoes}</p>
+    catDiv.innerHTML = `
+      <div class="menu-category__header">
+        <span class="menu-category__name">${cat}</span>
+        <button class="btn-remove-cat" data-cat="${escHtml(cat)}">Remover categoria</button>
+      </div>
+      <div class="menu-items" id="items-${slugify(cat)}"></div>
+      <div class="menu-add-item">
+        <input class="menu-add-input" placeholder="Adicionar prato / item..." data-cat="${escHtml(cat)}">
+        <button class="btn-add-item" data-cat="${escHtml(cat)}">+ Adicionar</button>
       </div>
     `;
-  }
 
-  // Sempre exibe as observações padrão para clareza e credibilidade
-  html += `
-    <div class="preview-section-divider"></div>
-    <div class="preview-observacoes">
-      <h4>Termos e Informações Importantes</h4>
-      <ul>
-        ${standardObservacoes.map(item => `<li>${item}</li>`).join('')}
-      </ul>
+    const itemsContainer = catDiv.querySelector(`#items-${slugify(cat)}`);
+    items.forEach((item, idx) => itemsContainer.appendChild(makeItemEl(cat, item, idx)));
+    editor.appendChild(catDiv);
+  });
+
+  // Bloco de nova categoria
+  editor.insertAdjacentHTML('beforeend', `
+    <div class="menu-new-category">
+      <p class="menu-new-cat-title">Adicionar nova categoria</p>
+      <div class="menu-new-cat-row">
+        <input id="new-cat-name"  placeholder="Nome da categoria (ex: Sobremesas)">
+        <input id="new-cat-item"  placeholder="Primeiro item (opcional)">
+        <button class="btn-add-cat" id="btn-add-cat">+ Criar categoria</button>
+      </div>
     </div>
-  `;
+  `);
 
-  previewContent.innerHTML = html;
-  previewSection.classList.remove('hidden');
-  previewSection.scrollIntoView({ behavior: 'smooth' });
+  bindEditorEvents();
 }
 
-// Event Listeners quando DOM estiver pronto
-document.addEventListener('DOMContentLoaded', function() {
-  console.log('Admin page carregada');
-  
-  // Protege acesso: redireciona para login se não autenticado
-  try {
-    if (sessionStorage.getItem('adminAuth') !== 'true') {
-      window.location.href = 'login.html';
-      return;
-    }
-  } catch (e) {
-    console.warn('sessionStorage indisponível', e);
-  }
+function makeItemEl(cat, text, idx) {
+  const div = document.createElement('div');
+  div.className = 'menu-item';
+  div.dataset.cat = cat;
+  div.dataset.idx = idx;
+  div.innerHTML = `
+    <span class="menu-item__dot"></span>
+    <input class="menu-item__text" value="${escHtml(text)}" data-cat="${escHtml(cat)}" data-idx="${idx}" title="Clique para editar">
+    <button class="btn-icon" title="Remover item" data-remove data-cat="${escHtml(cat)}" data-idx="${idx}">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </button>
+  `;
+  return div;
+}
 
-  // Logout button (limpa sessão)
-  const btnLogout = document.getElementById('btn-logout');
-  if (btnLogout) {
-    btnLogout.addEventListener('click', function(e) {
-      e.preventDefault();
-      try { sessionStorage.removeItem('adminAuth'); } catch (err) {}
-      window.location.href = 'login.html';
+function bindEditorEvents() {
+  const editor = $('menu-editor');
+
+  // Editar item inline
+  editor.querySelectorAll('.menu-item__text').forEach(inp => {
+    inp.addEventListener('change', e => {
+      const cat = e.target.dataset.cat;
+      const idx = +e.target.dataset.idx;
+      if (currentMenu[cat]) currentMenu[cat][idx] = e.target.value.trim();
+    });
+  });
+
+  // Remover item
+  editor.querySelectorAll('[data-remove]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const cat = btn.dataset.cat;
+      const idx = +btn.dataset.idx;
+      currentMenu[cat].splice(idx, 1);
+      renderMenuEditor();
+    });
+  });
+
+  // Remover categoria
+  editor.querySelectorAll('.btn-remove-cat').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const cat = btn.dataset.cat;
+      if (confirm(`Remover a categoria "${cat}" e todos os seus itens?`)) {
+        delete currentMenu[cat];
+        renderMenuEditor();
+      }
+    });
+  });
+
+  // Adicionar item em categoria existente
+  editor.querySelectorAll('.btn-add-item').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const cat = btn.dataset.cat;
+      const inp = editor.querySelector(`.menu-add-input[data-cat="${cat}"]`);
+      const val = inp.value.trim();
+      if (!val) { inp.focus(); return; }
+      if (!currentMenu[cat]) currentMenu[cat] = [];
+      currentMenu[cat].push(val);
+      inp.value = '';
+      renderMenuEditor();
+    });
+  });
+
+  editor.querySelectorAll('.menu-add-input').forEach(inp => {
+    inp.addEventListener('keydown', e => {
+      if (e.key === 'Enter') {
+        e.preventDefault();
+        const btn = editor.querySelector(`.btn-add-item[data-cat="${inp.dataset.cat}"]`);
+        if (btn) btn.click();
+      }
+    });
+  });
+
+  // Criar nova categoria
+  const btnAddCat = $('btn-add-cat');
+  if (btnAddCat) {
+    btnAddCat.addEventListener('click', () => {
+      const nameEl = $('new-cat-name');
+      const itemEl = $('new-cat-item');
+      const catName = nameEl.value.trim();
+      if (!catName) { nameEl.focus(); return; }
+      if (currentMenu[catName]) { showToast('Categoria já existe', 'error'); return; }
+      currentMenu[catName] = itemEl.value.trim() ? [itemEl.value.trim()] : [];
+      renderMenuEditor();
+    });
+    $('new-cat-item').addEventListener('keydown', e => {
+      if (e.key === 'Enter') { e.preventDefault(); btnAddCat.click(); }
     });
   }
+}
 
-  // Verifica se servicesData foi carregado
-  if (typeof servicesData === 'undefined' || Object.keys(servicesData).length === 0) {
-    console.error('ERRO CRÍTICO: servicesData não foi carregado corretamente!');
-    alert('Erro ao carregar dados dos serviços. Recarregue a página.');
-    return;
-  }
+function escHtml(s) {
+  return String(s)
+    .replace(/&/g, '&amp;')
+    .replace(/"/g, '&quot;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;');
+}
+function slugify(s) {
+  return s.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9\-]/g, '');
+}
 
-  // Obtém elementos do DOM com validação
-  const form = document.getElementById('admin-form');
-  const tipoServicoSelect = document.getElementById('tipo-servico');
-  const btnPreview = document.getElementById('btn-preview');
-  const btnLimpar = document.getElementById('btn-limpar');
-  const dataEventoField = document.getElementById('data-evento');
+/* ============================================================
+   COLETAR DADOS DO FORMULÁRIO
+   ============================================================ */
+function getFormValues() {
+  return {
+    cliente: $('cliente').value.trim(),
+    telefone: $('telefone').value.trim(),
+    email: $('email').value.trim(),
+    local: $('local').value.trim(),
+    dataEvento: $('data-evento').value,
+    horario: $('horario').value,
+    duracao: $('duracao').value.trim(),
+    qtdPessoas: $('qtd-pessoas').value.trim(),
+    tipoServico: $('tipo-servico').value,
+    servicoNome: $('tipo-servico').options[$('tipo-servico').selectedIndex]?.text || '',
+    menu: JSON.parse(JSON.stringify(currentMenu)),
+    valorPP: parseFloat($('valor-pp').value) || 0,
+    valorTotal: parseFloat($('valor-total').value) || 0,
+    observacoes: $('observacoes').value.trim(),
+  };
+}
 
-  // Validação: verifica se os elementos necessários existem
-  if (!form || !tipoServicoSelect || !btnPreview || !btnLimpar || !dataEventoField) {
-    console.error('ERRO: Elementos do formulário não encontrados no DOM!');
-    return;
-  }
+function validate(data) {
+  const errs = [];
+  if (!data.cliente) errs.push('cliente');
+  if (!data.telefone) errs.push('telefone');
+  if (!data.dataEvento) errs.push('data-evento');
+  if (!data.qtdPessoas) errs.push('qtd-pessoas');
+  if (!data.tipoServico) errs.push('tipo-servico');
+  if (!data.valorTotal) errs.push('valor-total');
 
-  // Define data mínima para o campo de data (ANTES de anexar event listeners)
-  const hoje = new Date().toISOString().split('T')[0];
-  dataEventoField.setAttribute('min', hoje);
-
-  // Atualiza automaticamente 'valor da proposta' quando usuário preencher
-  // 'valor por pessoa' e/ou 'quantidade de pessoas'
-  const valorPorPessoaField = document.getElementById('valor-por-pessoa');
-  const quantidadeField = document.getElementById('quantidade-pessoas');
-  if (valorPorPessoaField && quantidadeField) {
-    valorPorPessoaField.addEventListener('input', updateValorPropostaFromPessoa);
-    quantidadeField.addEventListener('input', updateValorPropostaFromPessoa);
-  }
-
-  // Atualiza cardápio quando tipo de serviço muda
-  tipoServicoSelect.addEventListener('change', function() {
-    const serviceId = this.value;
-    if (serviceId) {
-      displayCardapio(serviceId);
-    } else {
-      // Oculta cardápio se nenhum serviço selecionado
-      const cardapioGroup = document.getElementById('cardapio-group');
-      if (cardapioGroup) {
-        cardapioGroup.style.display = 'none';
-      }
-      // Remove campos opcionais
-      limparCamposOpcionais();
-    }
+  // highlight
+  ['cliente', 'telefone', 'data-evento', 'qtd-pessoas', 'tipo-servico', 'valor-total'].forEach(id => {
+    const el = $(id);
+    if (el) el.classList.toggle('error', errs.some(e => e === id || `${id}`.startsWith(e)));
   });
 
-  // Preview da proposta
-  btnPreview.addEventListener('click', function(e) {
-    console.log('Botão Preview clicado');
-    e.preventDefault();
-    e.stopPropagation();
-    
-    if (!validateForm()) {
-      console.log('Validação do formulário falhou');
-      alert('Por favor, preencha todos os campos obrigatórios corretamente.');
-      return;
-    }
+  return errs.length === 0;
+}
 
-    try {
-      console.log('Coletando dados do formulário...');
-      const formData = getFormData();
-      console.log('Objeto de proposta montado:', formData);
-      console.log('Chamando showPreview...');
-      showPreview(formData);
-      console.log('Preview exibido com sucesso');
-    } catch (error) {
-      console.error('Erro ao gerar preview:', error);
-      alert('Erro ao gerar preview. Verifique o console para mais detalhes.');
-    }
+/* ============================================================
+   OBSERVAÇÕES PADRÃO
+   ============================================================ */
+const OBS_PADRAO = [
+  'Fornecemos todo o material necessário para a execução do evento: pratos, talheres, copos, réchauds e taças. Itens de decoração (toalhas, arranjos, vasos) não estão inclusos.',
+  'Política para crianças: 0 a 6 anos não pagam; 7 a 11 anos pagam meia; a partir de 12 anos pagam valor integral de adulto.',
+  'Duração do serviço: conforme acordado em contrato. Horas adicionais serão cobradas mediante acordo prévio.',
+  'Chegamos com antecedência de 3 horas para organização do espaço.',
+  'Equipe completa de profissionais qualificados e uniformizados.',
+];
+
+/* ============================================================
+   RENDER DO PREVIEW
+   ============================================================ */
+function buildPropostaHTML(data) {
+  const num = `PROP-${Date.now().toString().slice(-6)}`;
+  const hoje = new Date().toLocaleDateString('pt-BR');
+
+  // Cardápio
+  const menuEntries = Object.entries(data.menu).filter(([, items]) => items.length);
+  const menuHTML = menuEntries.map(([cat, items]) => `
+    <div class="cat-block">
+      <p class="cat-block__name">${cat}</p>
+      <ul class="cat-block__list">
+        ${items.map(i => `<li>${i}</li>`).join('')}
+      </ul>
+    </div>
+  `).join('');
+
+  const ppStr = data.valorPP ? `· ${fmt(data.valorPP)} por pessoa` : '';
+
+  const obsExtra = data.observacoes
+    ? `<li>${data.observacoes}</li>` : '';
+
+  const infoRows = [
+    { l: 'Nome', v: data.cliente },
+    { l: 'Telefone', v: data.telefone },
+    data.email ? { l: 'E-mail', v: data.email } : null,
+    data.local ? { l: 'Local', v: data.local } : null,
+    { l: 'Data do Evento', v: fmtDate(data.dataEvento) },
+    data.horario ? { l: 'Horário de Início', v: fmtTime(data.horario) } : null,
+    data.duracao ? { l: 'Duração', v: data.duracao } : null,
+    { l: 'Nº de Convidados', v: data.qtdPessoas + ' pessoas' },
+  ].filter(Boolean);
+
+  const dadosHTML = infoRows.map(r => `
+    <div class="dado">
+      <span class="dado__label">${r.l}</span>
+      <span class="dado__value">${r.v}</span>
+    </div>
+  `).join('');
+
+  return `
+  <div class="proposta-doc" id="proposta-print">
+    <div class="proposta-topo">
+      <h2>Euler <em>Passos</em> Buffet</h2>
+      <p class="proposta-topo__phone">(61) 99905-3461</p>
+      <p class="proposta-topo__num">Proposta nº ${num} · Emitida em ${hoje}</p>
+    </div>
+
+    <div class="proposta-body">
+
+      <div class="proposta-section">
+        <h3 class="proposta-section__title">Dados do Cliente</h3>
+        <div class="dados-grid">${dadosHTML}</div>
+      </div>
+
+      <div class="proposta-divider"></div>
+
+      <div class="proposta-section">
+        <h3 class="proposta-section__title">Serviço Contratado</h3>
+        <p style="font-size:.95rem;color:var(--slate);margin-bottom:20px;">
+          <strong style="color:var(--ink);">${data.servicoNome}</strong>
+        </p>
+        ${menuEntries.length ? `<div class="cardapio-grid">${menuHTML}</div>` : '<p style="color:var(--muted);font-size:.9rem;">Nenhum item no cardápio.</p>'}
+      </div>
+
+      <div class="proposta-divider"></div>
+
+      <div class="proposta-section">
+        <h3 class="proposta-section__title">Valor da Proposta</h3>
+        <div class="valor-destaque-box">
+          <div>
+            <p class="valor-label">Valor Total</p>
+            <p class="valor-number">${fmt(data.valorTotal)}</p>
+            ${data.valorPP ? `<p class="valor-pp">${fmt(data.valorPP)} por pessoa × ${data.qtdPessoas} convidados</p>` : ''}
+          </div>
+          <div style="text-align:right">
+            <p class="valor-label">Nº de Convidados</p>
+            <p style="font-family:'Cormorant Garamond',serif;font-size:1.6rem;font-weight:700;color:var(--brown);">${data.qtdPessoas}</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="proposta-divider"></div>
+
+      <div class="proposta-section">
+        <h3 class="proposta-section__title">Observações &amp; Termos</h3>
+        <ul class="obs-list">
+          ${obsExtra}
+          ${OBS_PADRAO.map(o => `<li>${o}</li>`).join('')}
+        </ul>
+      </div>
+
+    </div><!-- /proposta-body -->
+
+    <div class="proposta-rodape">
+      <p>St. de Clubes Esportivos Sul Trecho 2 · Plano Piloto · Brasília-DF</p>
+      <p><strong>(61) 99905-3461</strong> · contato@eulerpassosbuffet.com.br</p>
+    </div>
+  </div>
+  `;
+}
+
+function showPreview(data) {
+  const wrapper = $('preview-wrapper');
+  const doc = $('proposta-doc');
+  doc.innerHTML = buildPropostaHTML(data);
+  wrapper.classList.add('visible');
+  wrapper.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+/* ============================================================
+   GERAR PDF VIA jsPDF (texto estruturado)
+   ============================================================ */
+async function gerarPDF(data) {
+  if (typeof window.jspdf === 'undefined') {
+    showToast('Biblioteca PDF não carregada. Recarregue a página.', 'error');
+    return;
+  }
+  const { jsPDF } = window.jspdf;
+  const doc = new jsPDF({ orientation: 'portrait', unit: 'mm', format: 'a4' });
+
+  const W = 210, H = 297;
+  const ml = 18, mr = 18, mt = 20;
+  const cw = W - ml - mr;
+  let y = mt;
+
+  const gold = [138, 124, 58];
+  const brown = [122, 46, 14];
+  const dark = [26, 26, 20];
+  const slate = [92, 92, 74];
+  const muted = [138, 138, 116];
+
+  function checkPage(need = 20) {
+    if (y + need > H - 20) { doc.addPage(); y = mt; }
+  }
+
+  function drawLine(color = gold) {
+    doc.setDrawColor(...color);
+    doc.setLineWidth(.35);
+    doc.line(ml, y, W - mr, y);
+    y += 6;
+  }
+
+  function sectionTitle(txt) {
+    checkPage(14);
+    doc.setFontSize(11); doc.setFont('helvetica', 'bold');
+    doc.setTextColor(...brown);
+    doc.text(txt.toUpperCase(), ml, y);
+    y += 3;
+    drawLine(gold);
+  }
+
+  // ── Cabeçalho ──────────────────────────────────────
+  doc.setFillColor(44, 33, 8);
+  doc.rect(0, 0, W, 38, 'F');
+
+  doc.setFontSize(18); doc.setFont('helvetica', 'bold');
+  doc.setTextColor(255, 255, 255);
+  doc.text('EULER PASSOS BUFFET', W / 2, 16, { align: 'center' });
+
+  doc.setFontSize(9); doc.setFont('helvetica', 'normal');
+  doc.setTextColor(184, 168, 74);
+  doc.text('(61) 99905-3461', W / 2, 23, { align: 'center' });
+
+  const num = `PROP-${Date.now().toString().slice(-6)}`;
+  doc.setFontSize(7.5); doc.setTextColor(180, 160, 100);
+  doc.text(`Proposta nº ${num}  ·  Emitida em ${new Date().toLocaleDateString('pt-BR')}`, W / 2, 30, { align: 'center' });
+
+  y = 46;
+
+  // ── Dados do Cliente ──────────────────────────────
+  sectionTitle('Dados do Cliente');
+  doc.setFontSize(9); doc.setFont('helvetica', 'normal'); doc.setTextColor(...dark);
+
+  const infoRows = [
+    ['Cliente', data.cliente],
+    ['Telefone', data.telefone],
+    data.email ? ['E-mail', data.email] : null,
+    data.local ? ['Local', data.local] : null,
+    ['Data do Evento', fmtDate(data.dataEvento)],
+    data.horario ? ['Horário', fmtTime(data.horario)] : null,
+    data.duracao ? ['Duração', data.duracao] : null,
+    ['Nº Convidados', data.qtdPessoas + ' pessoas'],
+  ].filter(Boolean);
+
+  const half = cw / 2;
+  let col = 0;
+  infoRows.forEach((row, i) => {
+    checkPage(10);
+    const xOff = col === 0 ? ml : ml + half + 4;
+    doc.setFont('helvetica', 'bold'); doc.setTextColor(...muted);
+    doc.setFontSize(7); doc.text(row[0].toUpperCase(), xOff, y);
+    doc.setFont('helvetica', 'normal'); doc.setTextColor(...dark);
+    doc.setFontSize(9); doc.text(row[1], xOff, y + 4);
+    col++;
+    if (col === 2) { col = 0; y += 12; }
   });
+  if (col !== 0) y += 12;
+  y += 4;
 
-  // Limpar formulário
-  btnLimpar.addEventListener('click', function(e) {
-    e.preventDefault();
-    e.stopPropagation();
-    
-    if (confirm('Tem certeza que deseja limpar todos os campos?')) {
-      // Limpa formulário
-      form.reset();
-      
-      // Oculta cardápio
-      const cardapioGroup = document.getElementById('cardapio-group');
-      if (cardapioGroup) {
-        cardapioGroup.style.display = 'none';
-      }
-      
-      // Remove campos opcionais
-      limparCamposOpcionais();
-      
-      // Oculta preview
-      const previewSection = document.getElementById('preview-section');
-      if (previewSection) {
-        previewSection.classList.add('hidden');
-      }
-      
-      // Remove bordas vermelhas de validação
-      form.querySelectorAll('.form-control').forEach(field => {
-        field.style.borderColor = '';
+  // ── Serviço ───────────────────────────────────────
+  sectionTitle('Serviço: ' + data.servicoNome);
+
+  const menuEntries = Object.entries(data.menu).filter(([, items]) => items.length);
+  menuEntries.forEach(([cat, items]) => {
+    checkPage(16);
+    doc.setFontSize(9.5); doc.setFont('helvetica', 'bold'); doc.setTextColor(...brown);
+    doc.text(cat, ml + 2, y);
+    y += 5;
+    doc.setFont('helvetica', 'normal'); doc.setFontSize(8.5); doc.setTextColor(...slate);
+    items.forEach(item => {
+      checkPage(6);
+      const lines = doc.splitTextToSize(`• ${item}`, cw - 8);
+      lines.forEach((l, li) => {
+        doc.text(l, ml + 6, y);
+        y += 4.5;
       });
-      
-      // Restaura data mínima
-      dataEventoField.setAttribute('min', hoje);
-      
-      console.log('Formulário limpo');
-    }
+    });
+    y += 3;
   });
 
-  // Event listener direto no botão Gerar PDF (além do submit do form)
-  const btnGerarPDF = document.getElementById('btn-gerar-pdf');
-  if (btnGerarPDF) {
-    btnGerarPDF.addEventListener('click', function(e) {
-      console.log('Botão Gerar PDF clicado');
-      // Não precisa de preventDefault aqui pois o form já faz isso
+  // ── Valor ─────────────────────────────────────────
+  checkPage(24);
+  sectionTitle('Valor da Proposta');
+  doc.setFontSize(16); doc.setFont('helvetica', 'bold'); doc.setTextColor(...gold);
+  doc.text(fmt(data.valorTotal), ml, y);
+  if (data.valorPP) {
+    doc.setFontSize(8); doc.setFont('helvetica', 'normal'); doc.setTextColor(...slate);
+    doc.text(`${fmt(data.valorPP)} por pessoa × ${data.qtdPessoas} convidados`, ml, y + 7);
+    y += 7;
+  }
+  y += 12;
+
+  // ── Observações ───────────────────────────────────
+  sectionTitle('Observações & Termos');
+  doc.setFontSize(8); doc.setFont('helvetica', 'normal'); doc.setTextColor(...slate);
+
+  const allObs = data.observacoes
+    ? [data.observacoes, ...OBS_PADRAO]
+    : OBS_PADRAO;
+
+  allObs.forEach(obs => {
+    checkPage(14);
+    const lines = doc.splitTextToSize(`— ${obs}`, cw - 6);
+    lines.forEach((l, li) => {
+      checkPage(6);
+      doc.text(l, ml + (li > 0 ? 4 : 0), y);
+      y += 4.5;
     });
+    y += 3;
+  });
+
+  // ── Rodapé em cada página ─────────────────────────
+  const total = doc.getNumberOfPages();
+  for (let p = 1; p <= total; p++) {
+    doc.setPage(p);
+    doc.setDrawColor(...gold); doc.setLineWidth(.3);
+    doc.line(ml, H - 14, W - mr, H - 14);
+    doc.setFontSize(7); doc.setFont('helvetica', 'normal'); doc.setTextColor(...muted);
+    doc.text('St. de Clubes Esportivos Sul Trecho 2 · Plano Piloto · Brasília-DF', ml, H - 10);
+    doc.text(`${p}/${total}`, W - mr, H - 10, { align: 'right' });
   }
 
-  // Submissão do formulário - Gerar PDF
-  form.addEventListener('submit', function(e) {
-    console.log('Formulário submetido (Gerar PDF)');
-    e.preventDefault();
-    e.stopPropagation();
-    
-    if (!validateForm()) {
-      console.log('Validação do formulário falhou');
-      alert('Por favor, preencha todos os campos obrigatórios corretamente.');
-      return;
-    }
+  const fileName = `Proposta_EPB_${(data.cliente || 'cliente').replace(/\s+/g, '_')}_${Date.now().toString().slice(-4)}.pdf`;
+  doc.save(fileName);
+  showToast(`PDF "${fileName}" gerado com sucesso!`);
+}
 
-    try {
-      console.log('Coletando dados do formulário...');
-      const formData = getFormData();
-      console.log('Gerando PDF para proposta:', formData.numeroProposta);
-      console.log('Objeto completo da proposta:', formData);
-      
-      generatePDF(formData);
-      
-      // Feedback visual
-      const btnGerarPDFEl = document.getElementById('btn-gerar-pdf');
-      if (btnGerarPDFEl) {
-        const originalText = btnGerarPDFEl.textContent;
-        btnGerarPDFEl.textContent = 'PDF Gerado! ✓';
-        btnGerarPDFEl.disabled = true;
-        
-        setTimeout(() => {
-          btnGerarPDFEl.textContent = originalText;
-          btnGerarPDFEl.disabled = false;
-        }, 2000);
-      }
-      
-      console.log('PDF gerado com sucesso');
-    } catch (error) {
-      console.error('Erro ao gerar PDF:', error);
-      alert('Erro ao gerar PDF. Verifique o console para mais detalhes.');
+/* ============================================================
+   EVENTOS
+   ============================================================ */
+document.addEventListener('DOMContentLoaded', () => {
+
+  // Data mínima = hoje
+  $('data-evento').min = new Date().toISOString().split('T')[0];
+
+  // Cálculo automático valor total
+  function recalc() {
+    const pp = parseFloat($('valor-pp').value) || 0;
+    const qtd = parseFloat($('qtd-pessoas').value) || 0;
+    if (pp > 0 && qtd > 0) $('valor-total').value = (pp * qtd).toFixed(2);
+  }
+  $('valor-pp').addEventListener('input', recalc);
+  $('qtd-pessoas').addEventListener('input', recalc);
+
+  // Seleção de serviço → carrega cardápio
+  $('tipo-servico').addEventListener('change', function () {
+    const sid = this.value;
+    if (sid && SERVICES[sid]) {
+      currentMenu = JSON.parse(JSON.stringify(SERVICES[sid].menu));
+    } else {
+      currentMenu = {};
     }
+    renderMenuEditor();
+    // Oculta preview ao trocar serviço
+    $('preview-wrapper').classList.remove('visible');
   });
 
-  console.log('Event listeners do formulário configurados com sucesso');
+  // Limpar campos de erro ao digitar
+  document.querySelectorAll('.form-control').forEach(el => {
+    el.addEventListener('input', () => el.classList.remove('error'));
+    el.addEventListener('change', () => el.classList.remove('error'));
+  });
+
+  // Preview
+  $('btn-preview').addEventListener('click', () => {
+    const data = getFormValues();
+    if (!validate(data)) {
+      showToast('Preencha os campos obrigatórios destacados.', 'error');
+      // Scroll ao primeiro erro
+      document.querySelector('.form-control.error')?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      return;
+    }
+    showPreview(data);
+    showToast('Preview gerado com sucesso!');
+  });
+
+  // PDF
+  $('btn-pdf').addEventListener('click', async () => {
+    const data = getFormValues();
+    if (!validate(data)) {
+      showToast('Preencha os campos obrigatórios destacados.', 'error');
+      document.querySelector('.form-control.error')?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      return;
+    }
+    $('btn-pdf').disabled = true;
+    $('btn-pdf').textContent = 'Gerando…';
+    try {
+      await gerarPDF(data);
+    } catch (e) {
+      showToast('Erro ao gerar PDF. Tente novamente.', 'error');
+      console.error(e);
+    }
+    $('btn-pdf').disabled = false;
+    $('btn-pdf').innerHTML = `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg> Gerar PDF`;
+  });
+
+  // Limpar
+  $('btn-limpar').addEventListener('click', () => {
+    if (!confirm('Deseja limpar todos os campos?')) return;
+    document.querySelectorAll('.form-control').forEach(el => {
+      el.value = '';
+      el.classList.remove('error');
+    });
+    currentMenu = {};
+    renderMenuEditor();
+    $('preview-wrapper').classList.remove('visible');
+    showToast('Formulário limpo.');
+  });
 });
