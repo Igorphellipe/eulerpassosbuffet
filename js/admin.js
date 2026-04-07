@@ -6,6 +6,7 @@
 if(sessionStorage.getItem('adminAuth') !== 'true') {
   window.location.href = 'login.html';
 }
+
 const SERVICES = {
   coquetel: {
     name: 'Coquetel Volante',
