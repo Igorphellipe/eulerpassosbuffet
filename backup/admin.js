@@ -1,27 +1,30 @@
-const SERVICES = {
 
-  // ── COQUETEL VOLANTE ──────────────────────────────────────
+/* ============================================================
+   SERVIÇOS DATA — cardápios pré-definidos
+   ============================================================ */
+
+if(sessionStorage.getItem('adminAuth') !== 'true') {
+  window.location.href = 'login.html';
+}
+const SERVICES = {
   coquetel: {
     name: 'Coquetel Volante',
     menu: {
       'Canapés': [
         'Canapés de azeitona preta',
         'Canapés de peito de peru',
+        'Canapés de salmão defumado',
+        'Canapés de bruschetta',
       ],
       'Salgados Assados': [
         'Quiche de alho poró',
         'Quiche de queijo',
         'Quiche de tomate seco',
-        'Folhado de abacaxi',
         'Folhado Alho poró com catupiry',
         'Folhado Bacalhau',
-        'Folhado Banana',
         'Folhado Camarão',
         'Folhado Carne de sol com mandioca',
-        'Folhado Castanha',
-        'Folhado Chocolate',
         'Folhado Frango com mel',
-        'Folhado Maçã',
         'Folhado Romeu e Julieta',
       ],
       'Salgados Fritos': [
@@ -30,10 +33,8 @@ const SERVICES = {
         'Bombom de bacalhau',
         'Pastel de carne e queijo',
         'Bombom de azeitona',
-        'Bombom de queijo',
-        'Bombom de queijo com alho',
       ],
-      'Empratados (Volante na Barquete)': [
+      'Empratados na Barquete': [
         'Escondidinho de carne seca',
         'Escondidinho de camarão',
       ],
@@ -56,479 +57,221 @@ const SERVICES = {
       ],
     }
   },
-
-  // ── ALMOÇO OU JANTAR COM COQUETEL VOLANTE ─────────────────
-  almoco: {
-    name: 'Almoço / Jantar com Coquetel Volante',
-    menu: {
-      'Canapés (escolher 2)': [
-        'Canapés de Aspargos',
-        'Canapés de azeitona preta',
-        'Canapés de tomate seco',
-        'Canapés de peito de peru',
-        'Canapés de Presunto',
-      ],
-      'Salgados Assados': [
-        'Quiche de alho poró',
-        'Quiche de queijo',
-        'Quiche de tomate seco',
-        'Folhado de abacaxi',
-        'Folhado Alho poró com catupiry',
-        'Folhado Bacalhau',
-        'Folhado Banana',
-        'Folhado Camarão',
-        'Folhado Carne de sol com mandioca',
-        'Folhado Castanha',
-        'Folhado Chocolate',
-        'Folhado Frango com mel',
-        'Folhado Maçã',
-        'Folhado Romeu e Julieta',
-      ],
-      'Salgados Fritos': [
-        'Bombom de frango',
-        'Bombom de aipim com carne seca',
-        'Bombom de bacalhau',
-        'Pastel de carne e queijo',
-        'Bombom de azeitona',
-      ],
-      'Empratados (Volante na Barquete)': [
-        'Escondidinho de carne seca',
-        'Escondidinho de camarão',
-      ],
-      'Saladas (escolher 2)': [
-        'Salada Tropical (alface americana, crespa, rúcula, mimosa, melão, manga, kiwi, kane-cama, morango e tomate cereja) — Molho de Mostarda com Mel',
-        'Salada Tricolor de Peito de Peru (macarrão fusilli tricolor, peito de peru, queijo minas, tomate, cebola roxa, azeitonas verdes, maionese de leite, azeite, limão, mostarda, salsa)',
-        'Legumes Sauté (cenoura, vagem francesa, batata)',
-        'Salada Waldorf (repolho, cenoura, maçã, melão, uvas passas, batata palha e iogurte natural)',
-        'Batata Sautê',
-        'Legumes Sauteados',
-      ],
-      'Arroz (escolher 2)': [
-        'Arroz branco',
-        'Arroz com brócolis',
-        'Arroz com castanhas',
-      ],
-      'Carnes (1 vermelha + 1 frango ou 1 peixe)': [
-        'Filé de frango grelhado ao creme de lemon pepper',
-        'Filé de frango recheado ao molho 4 queijos',
-        'Filé mignon ao molho madeira com champignons',
-        'Maminha ao molho mostarda',
-        'Escalope de filé mignon ao molho rôti, tomate seco e champignon',
-        'Posta de pescada amarela com molho de camarão',
-        'Bacalhau ao Zé do Pipo',
-      ],
-      'Massa (escolher 1)': [
-        'Rondelli tomate seco ao molho napolitano',
-        'Capeletti de frango ao molho branco',
-        'Penne ao sugo',
-        'Conchiglione recheado com bacalhau ao molho de nozes',
-      ],
-      'Bebidas': [
-        'Coca-Cola comum e zero',
-        'Guaraná Antarctica comum e zero',
-        'Água mineral sem gás',
-        'Suco de abacaxi com hortelã',
-        'Suco de acerola',
-      ],
-      'Mesa de Café': [
-        'Petit-fours variados',
-      ],
-      'Equipe': [
-        'Cozinheiro',
-        'Garçons',
-        'Copeiros',
-      ],
-    }
-  },
-
-  // ── JANTAR (alias idêntico ao almoço para manter compatibilidade) ─
-  jantar: {
-    name: 'Buffet de Jantar',
-    menu: {
-      'Canapés (escolher 2)': [
-        'Canapés de Aspargos',
-        'Canapés de azeitona preta',
-        'Canapés de tomate seco',
-        'Canapés de peito de peru',
-        'Canapés de Presunto',
-      ],
-      'Salgados Assados': [
-        'Quiche de alho poró',
-        'Quiche de queijo',
-        'Quiche de tomate seco',
-        'Folhado de abacaxi',
-        'Folhado Alho poró com catupiry',
-        'Folhado Bacalhau',
-        'Folhado Banana',
-        'Folhado Camarão',
-        'Folhado Carne de sol com mandioca',
-        'Folhado Castanha',
-        'Folhado Chocolate',
-        'Folhado Frango com mel',
-        'Folhado Maçã',
-        'Folhado Romeu e Julieta',
-      ],
-      'Salgados Fritos': [
-        'Bombom de frango',
-        'Bombom de aipim com carne seca',
-        'Bombom de bacalhau',
-        'Pastel de carne e queijo',
-        'Bombom de azeitona',
-      ],
-      'Empratados (Volante na Barquete)': [
-        'Escondidinho de carne seca',
-        'Escondidinho de camarão',
-      ],
-      'Saladas (escolher 2)': [
-        'Salada Tropical — Molho de Mostarda com Mel',
-        'Salada Tricolor de Peito de Peru',
-        'Legumes Sauté',
-        'Salada Waldorf',
-        'Batata Sautê',
-        'Legumes Sauteados',
-      ],
-      'Arroz (escolher 2)': [
-        'Arroz branco',
-        'Arroz com brócolis',
-        'Arroz com castanhas',
-      ],
-      'Carnes (1 vermelha + 1 frango ou 1 peixe)': [
-        'Filé de frango grelhado ao creme de lemon pepper',
-        'Filé de frango recheado ao molho 4 queijos',
-        'Filé mignon ao molho madeira com champignons',
-        'Maminha ao molho mostarda',
-        'Escalope de filé mignon ao molho rôti, tomate seco e champignon',
-        'Posta de pescada amarela com molho de camarão',
-        'Bacalhau ao Zé do Pipo',
-      ],
-      'Massa (escolher 1)': [
-        'Rondelli tomate seco ao molho napolitano',
-        'Capeletti de frango ao molho branco',
-        'Penne ao sugo',
-        'Conchiglione recheado com bacalhau ao molho de nozes',
-      ],
-      'Bebidas': [
-        'Coca-Cola comum e zero',
-        'Guaraná Antarctica comum e zero',
-        'Água mineral sem gás',
-        'Suco de abacaxi com hortelã',
-        'Suco de acerola',
-      ],
-      'Mesa de Café': [
-        'Petit-fours variados',
-      ],
-      'Equipe': [
-        'Cozinheiro',
-        'Garçons',
-        'Copeiros',
-      ],
-    }
-  },
-
-  // ── CHURRASCO ────────────────────────────────────────────
   churrasco: {
     name: 'Buffet de Churrasco',
     menu: {
-      'Entradas': [
-        'Carne de sol',
-        'Linguiça de frango e suína',
-        'Coração de frango',
-        'Frango desossado',
-        'Pão com alho',
+      'Carnes': [
+        'Picanha bovina',
+        'Frango grelhado',
+        'Linguiça artesanal',
+        'Costela de porco',
       ],
-      'Prato Principal': [
-        'Picanha',
-        'Maminha',
-        'Fraldinha',
-        'Alcatra',
-        'Carne de sol',
-        'Costela suína',
-        'Lombinho suíno',
-        'Linguiça de frango e suína',
-        'Frango desossado',
-        'Coração de frango',
-      ],
-      'Guarnições': [
-        'Arroz',
-        'Feijão tropeiro',
-        'Farofa de cuscuz',
-        'Mandioca com manteiga',
+      'Acompanhamentos': [
+        'Arroz branco',
+        'Farofa especial da casa',
         'Vinagrete',
-        'Pão com alho',
-        'Salada verde',
-      ],
-      'Sobremesa': [
-        'Banana caramelizada',
-        'Abacaxi assado',
-        'Sorvete de creme',
+        'Pão de alho',
+        'Salada verde mista',
       ],
       'Bebidas': [
-        'Refrigerantes comum e zero',
-        'Sucos — dois sabores',
+        'Água mineral (com e sem gás)',
+        'Refrigerante',
+        'Suco de frutas natural',
+        'Cerveja',
       ],
       'Equipe': [
-        '1 Churrasqueiro',
-        '1 Garçom',
-        '1 Copeira',
-      ],
-      'Observações': [
-        'Mínimo 30 convidados pagantes',
-        'Fornecemos descartáveis; pratos de louça e talheres de inox',
-        'Não fornecemos material de decoração',
-        'Duração do evento: 5h a contar do horário estipulado pelo cliente',
+        'Churrasqueiro especializado',
+        'Garçons (1 por 15 convidados)',
+        'Copeiros',
       ],
     }
   },
-
-  // ── FEIJOADA ─────────────────────────────────────────────
   feijoada: {
     name: 'Buffet de Feijoada',
     menu: {
-      'Entradas': [
-        'Caldinho de feijão',
-        'Pastéizinhos de queijo e carne',
-        'Linguiçinhas com pães',
-        'Torresmo à pururuca',
-        'Kibe',
-      ],
-      'Prato Principal — Feijoada': [
-        'Feijão preto',
-        'Costelinha defumada',
-        'Lombinho defumado',
-        'Carne seca',
-        'Paio',
-        'Calabresa',
-      ],
-      'Guarnições': [
-        'Arroz',
-        'Farofa',
-        'Torresmo à pururuca',
-        'Couve',
-        'Laranja',
-        'Molho de pimenta',
-      ],
-      'Bebidas': [
-        'Refrigerantes comum e zero',
-        'Sucos — dois sabores',
-      ],
-      'Equipe': [
-        '1 Cozinheiro',
-        '1 Garçom',
-        '1 Copeira',
-      ],
-      'Observações': [
-        'Mínimo 35 convidados pagantes',
-        'Copos de vidro, pratos de louça, talheres de inox e réchauds',
-        'Não fornecemos material de decoração',
-        'Duração do evento: 5h a contar do horário estipulado pelo cliente',
-      ],
-    }
-  },
-
-  // ── COFFEE BREAK ─────────────────────────────────────────
-  coffee: {
-    name: 'Coffee Break',
-    menu: {
-      'Salgados Fritos': [
-        'Rizole de milho',
-        'Rizole de carne',
-        'Bolinha de queijo e alho',
-        'Kibe com queijo',
-      ],
-      'Salgados Assados': [
-        'Pão de queijo',
-        'Croissant de Espinafre',
-        'Croissant de Ricota',
-        'Croissant de Banana',
-        'Croissant de Maçã',
-        'Croissant de Goiabada',
-      ],
-      'Pães e Frios': [
-        'Pães diversos',
-        'Patê de azeitona',
-        'Patê de presunto',
-        'Presunto fatiado',
-        'Queijo fatiado',
-        'Requeijão',
-      ],
-      'Doces e Sobremesa': [
-        'Salada de frutas',
-        'Bolo de chocolate',
-        'Bolo de ninho com massa branca',
-      ],
-      'Bebidas': [
-        'Café',
-        'Refrigerantes comum e zero',
-        'Água saborizada',
-        'Suco de goiaba',
-        'Suco de manga',
-      ],
-      'Material': [
-        'Todo material para execução do evento (pratos, taças, etc.)',
-        'Mesa montada',
-      ],
-    }
-  },
-
-  // ── CREPES DOCES E SALGADOS ───────────────────────────────
-  crepe: {
-    name: 'Crepes Doces e Salgados',
-    menu: {
-      'Entradas': [
-        'Pastéizinhos de carne e queijo',
-        'Kibe com e sem catupiry',
-        'Coxinha com e sem catupiry',
-      ],
-      'Crepes Salgados': [
-        'Carne seca',
-        'Filé de frango com catupiry',
-        'Queijo',
-        'Presunto',
-        'Calabresa',
-        'Tomate seco',
-        'Palmito',
-        'Batata palha',
-        'Tomate fresco com rúcula e orégano',
-        'Cebola temperada',
-        'Milho',
-        'Azeitona',
-      ],
-      'Crepes Doces': [
-        'Banana caramelizada',
-        'Chocolate',
-        'Canela e açúcar',
-        'Doce de leite',
-        'Goiabada',
-      ],
-      'Bebidas': [
-        'Refrigerantes comum e zero',
-        'Sucos — dois sabores',
-      ],
-      'Equipe': [
-        'Copeiro',
-        'Garçom',
-        'Crepeiro',
-      ],
-      'Observações': [
-        'Mínimo 50 convidados pagantes',
-        'Valor por pessoa: R$ 60,00 (sessenta reais)',
-        'Todo material para execução do evento (menos decoração)',
-        'Taças, pratos, talheres, réchauds, etc.',
-      ],
-    }
-  },
-
-  // ── BUTECO ────────────────────────────────────────────────
-  boteco: {
-    name: 'Buffet de Buteco',
-    menu: {
-      'Ilha de Buteco': [
-        'Calabresa acebolada',
-        'Tropeirinho',
-        'Carne de sol com mandioca',
-        'Linguiça apimentada com pães',
-        'Frango à passarinho ao alho',
-        'Pastéis de queijo e carne',
-        'Quibe com e sem queijo',
-        'Fritas',
-        'Torresmo à pururuca',
-        'Carreteiro',
-      ],
-      'Caldos': [
-        'Abóbora com carne seca',
-        'Costela com mandioca',
-      ],
-      'Empratados': [
-        'Escondidinho de carne seca',
-        'Isca de frango béchamel de baroa',
-      ],
-      'Equipe': [
-        'Cozinheiro',
-        'Copeiros',
-        'Garçom',
-      ],
-      'Observações': [
-        'Valor por pessoa: R$ 65,00 (sem bebidas)',
-        'Todo material para execução do evento (pratos, talheres, copos, guardanapos, etc.)',
-        'Não fornecemos material de decoração',
-      ],
-    }
-  },
-
-  // ── FESTA JUNINA ─────────────────────────────────────────
-  junina: {
-    name: 'Buffet de Festa Junina',
-    menu: {
-      'Comidas Típicas Doces': [
-        'Canjica cremosa',
-        'Pamonha (doce e sal)',
-        'Cural de milho',
-        'Bolo de milho',
-        'Bolo de fubá',
-        'Bolo de chocolate',
-      ],
-      'Espetinhos': [
-        'Frango com bacon',
-        'Queijo coalho',
-        'Carne',
-        'Salsichão',
-        'Coração',
+      'Feijoada Completa': [
+        'Feijão preto com carnes nobres',
+        'Costela defumada',
         'Linguiça',
-      ],
-      'Comidas Típicas Salgadas': [
-        'Carreteiro',
-        'Galinhada',
-        'Milho verde',
-        'Farofa',
-        'Vinagrete',
-        'Cachorro quente',
-        'Pipoca',
-      ],
-      'Pastéis': [
-        'Pastel de carne',
-        'Pastel de queijo',
-      ],
-      'Caldos': [
-        'Caldo verde',
-        'Caldo de frango com milho',
-      ],
-      'Bebidas': [
-        'Quentão',
-        'Sucos — dois sabores',
-        'Refrigerantes comum e zero',
-        'Água sem gás',
-      ],
-    }
-  },
-
-  // ── BUFFET DE MASSAS (mantido como extra) ────────────────
-  massa: {
-    name: 'Buffet de Massas',
-    menu: {
-      'Massas': [
-        'Rondelli tomate seco ao molho napolitano',
-        'Capeletti de frango ao molho branco',
-        'Penne ao sugo',
-        'Conchiglione recheado com bacalhau ao molho de nozes',
+        'Paio',
+        'Lombo salgado',
       ],
       'Acompanhamentos': [
+        'Arroz branco',
+        'Couve refogada',
+        'Farofa',
+        'Torresmo',
+        'Laranja fatiada',
+        'Molho de pimenta',
+      ],
+      'Sobremesa': [
+        'Pudim de leite condensado',
+        'Doce de abóbora',
+      ],
+      'Bebidas': [
+        'Água mineral',
+        'Caipirinha de limão',
+        'Refrigerante',
+        'Cerveja gelada',
+      ],
+    }
+  },
+  jantar: {
+    name: 'Buffet de Jantar',
+    menu: {
+      'Entradas': [
+        'Salada verde mista',
+        'Carpaccio de filé',
+        'Patê de berinjela',
+      ],
+      'Pratos Principais': [
+        'Medalhão de filé mignon ao molho madeira',
+        'Salmão grelhado ao molho de maracujá',
+        'Risoto de funghi',
+      ],
+      'Acompanhamentos': [
+        'Arroz branco',
+        'Purê de batata trufado',
+        'Legumes grelhados',
+      ],
+      'Sobremesa': [
+        'Mousse de chocolate belga',
+        'Torta de frutas vermelhas',
+        'Petit-fours',
+      ],
+      'Bebidas': [
+        'Água mineral',
+        'Vinho tinto e branco',
+        'Espumante',
+        'Refrigerante',
+        'Suco natural',
+      ],
+    }
+  },
+  almoco: {
+    name: 'Buffet de Almoço',
+    menu: {
+      'Entradas': [
         'Salada verde',
-        'Pão ciabatta',
-        'Antepastos variados',
+        'Salada de macarrão',
+        'Arroz de forno',
+      ],
+      'Pratos Quentes': [
+        'Frango à parmegiana',
+        'Carne assada ao molho',
+        'Peixe grelhado',
+      ],
+      'Acompanhamentos': [
+        'Arroz branco',
+        'Feijão tropeiro',
+        'Macarrão ao sugo',
+        'Legumes no vapor',
+      ],
+      'Sobremesa': [
+        'Pudim',
+        'Sagu com creme',
+        'Frutas da estação',
+      ],
+    }
+  },
+  crepe: {
+    name: 'Crepes Gourmet',
+    menu: {
+      'Crepes Salgados': [
+        'Frango com catupiry',
+        'Carne seca com cheddar',
+        'Camarão ao alho e óleo',
+        'Quatro queijos',
+        'Rúcula com tomate seco e mussarela',
+      ],
+      'Crepes Doces': [
+        'Nutella com morango',
+        'Doce de leite com banana',
+        'Romeu e Julieta',
+        'Brigadeiro gourmet',
+        'Frutas vermelhas com creme chantilly',
       ],
       'Bebidas': [
         'Água mineral',
         'Refrigerante',
         'Suco de frutas',
       ],
-      'Equipe': [
-        'Cozinheiro',
-        'Garçons',
-        'Copeiros',
+    }
+  },
+  massa: {
+    name: 'Buffet de Massas',
+    menu: {
+      'Massas': [
+        'Fettuccine ao molho de queijos',
+        'Penne ao pomodoro',
+        'Ravioli de ricota ao molho branco',
+        'Lasanha à bolonhesa',
+      ],
+      'Molhos': [
+        'Molho bolonhesa',
+        'Molho branco',
+        'Molho ao sugo',
+        'Molho pesto',
+      ],
+      'Acompanhamentos': [
+        'Pão ciabatta',
+        'Salada verde',
+        'Antepastos variados',
+      ],
+      'Sobremesa': [
+        'Tiramisu',
+        'Panna cotta com frutas vermelhas',
       ],
     }
   },
-
+  boteco: {
+    name: 'Buffet de Comida de Boteco',
+    menu: {
+      'Petiscos': [
+        'Bolinho de bacalhau',
+        'Coxinha de frango',
+        'Isca de frango',
+        'Mandioca frita',
+        'Queijo coalho grelhado',
+      ],
+      'Pratos': [
+        'Feijão tropeiro',
+        'Carne de panela',
+        'Frango ao molho',
+      ],
+      'Bebidas': [
+        'Cerveja gelada',
+        'Caipirinha',
+        'Refrigerante',
+        'Água mineral',
+      ],
+    }
+  },
+  junina: {
+    name: 'Buffet de Festa Junina',
+    menu: {
+      'Comidas Típicas': [
+        'Canjica cremosa',
+        'Pamonha',
+        'Cural de milho',
+        'Bolo de milho',
+        'Pé de moleque',
+        'Cocada branca e queimada',
+      ],
+      'Salgados': [
+        'Espetinho de frango',
+        'Espetinho de queijo coalho',
+        'Milho verde cozido',
+        'Batata doce assada',
+      ],
+      'Bebidas': [
+        'Quentão',
+        'Vinho quente',
+        'Suco de frutas',
+        'Refrigerante',
+      ],
+    }
+  },
 };
 
 /* ============================================================
@@ -540,7 +283,7 @@ let currentMenu = {}; // categoria → [itens]
    UTILITÁRIOS
    ============================================================ */
 const $ = id => document.getElementById(id);
-const fmt = n => new Intl.NumberFormat('pt-BR', { style:'currency', currency:'BRL' }).format(n);
+const fmt = n => new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(n);
 const fmtDate = s => {
   if (!s) return '';
   const [y, m, d] = s.split('-');
@@ -548,10 +291,10 @@ const fmtDate = s => {
 };
 const fmtTime = t => {
   if (!t) return '';
-  return t.substring(0,5); // HH:MM
+  return t.substring(0, 5); // HH:MM
 };
 
-function showToast(msg, type='success') {
+function showToast(msg, type = 'success') {
   const t = $('toast');
   t.textContent = msg;
   t.className = `toast ${type} show`;
@@ -563,7 +306,7 @@ function showToast(msg, type='success') {
    ============================================================ */
 function renderMenuEditor() {
   const wrapper = $('menu-editor-wrapper');
-  const editor  = $('menu-editor');
+  const editor = $('menu-editor');
   if (!Object.keys(currentMenu).length) { wrapper.classList.add('hidden'); return; }
   wrapper.classList.remove('hidden');
 
@@ -703,13 +446,13 @@ function bindEditorEvents() {
 
 function escHtml(s) {
   return String(s)
-    .replace(/&/g,'&amp;')
-    .replace(/"/g,'&quot;')
-    .replace(/</g,'&lt;')
-    .replace(/>/g,'&gt;');
+    .replace(/&/g, '&amp;')
+    .replace(/"/g, '&quot;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;');
 }
 function slugify(s) {
-  return s.toLowerCase().replace(/\s+/g,'-').replace(/[^a-z0-9\-]/g,'');
+  return s.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9\-]/g, '');
 }
 
 /* ============================================================
@@ -717,34 +460,34 @@ function slugify(s) {
    ============================================================ */
 function getFormValues() {
   return {
-    cliente:       $('cliente').value.trim(),
-    telefone:      $('telefone').value.trim(),
-    email:         $('email').value.trim(),
-    local:         $('local').value.trim(),
-    dataEvento:    $('data-evento').value,
-    horario:       $('horario').value,
-    duracao:       $('duracao').value.trim(),
-    qtdPessoas:    $('qtd-pessoas').value.trim(),
-    tipoServico:   $('tipo-servico').value,
-    servicoNome:   $('tipo-servico').options[$('tipo-servico').selectedIndex]?.text || '',
-    menu:          JSON.parse(JSON.stringify(currentMenu)),
-    valorPP:       parseFloat($('valor-pp').value) || 0,
-    valorTotal:    parseFloat($('valor-total').value) || 0,
-    observacoes:   $('observacoes').value.trim(),
+    cliente: $('cliente').value.trim(),
+    telefone: $('telefone').value.trim(),
+    email: $('email').value.trim(),
+    local: $('local').value.trim(),
+    dataEvento: $('data-evento').value,
+    horario: $('horario').value,
+    duracao: $('duracao').value.trim(),
+    qtdPessoas: $('qtd-pessoas').value.trim(),
+    tipoServico: $('tipo-servico').value,
+    servicoNome: $('tipo-servico').options[$('tipo-servico').selectedIndex]?.text || '',
+    menu: JSON.parse(JSON.stringify(currentMenu)),
+    valorPP: parseFloat($('valor-pp').value) || 0,
+    valorTotal: parseFloat($('valor-total').value) || 0,
+    observacoes: $('observacoes').value.trim(),
   };
 }
 
 function validate(data) {
   const errs = [];
-  if (!data.cliente)     errs.push('cliente');
-  if (!data.telefone)    errs.push('telefone');
-  if (!data.dataEvento)  errs.push('data-evento');
-  if (!data.qtdPessoas)  errs.push('qtd-pessoas');
+  if (!data.cliente) errs.push('cliente');
+  if (!data.telefone) errs.push('telefone');
+  if (!data.dataEvento) errs.push('data-evento');
+  if (!data.qtdPessoas) errs.push('qtd-pessoas');
   if (!data.tipoServico) errs.push('tipo-servico');
-  if (!data.valorTotal)  errs.push('valor-total');
+  if (!data.valorTotal) errs.push('valor-total');
 
   // highlight
-  ['cliente','telefone','data-evento','qtd-pessoas','tipo-servico','valor-total'].forEach(id => {
+  ['cliente', 'telefone', 'data-evento', 'qtd-pessoas', 'tipo-servico', 'valor-total'].forEach(id => {
     const el = $(id);
     if (el) el.classList.toggle('error', errs.some(e => e === id || `${id}`.startsWith(e)));
   });
@@ -771,7 +514,7 @@ function buildPropostaHTML(data) {
   const hoje = new Date().toLocaleDateString('pt-BR');
 
   // Cardápio
-  const menuEntries = Object.entries(data.menu).filter(([,items]) => items.length);
+  const menuEntries = Object.entries(data.menu).filter(([, items]) => items.length);
   const menuHTML = menuEntries.map(([cat, items]) => `
     <div class="cat-block">
       <p class="cat-block__name">${cat}</p>
@@ -868,7 +611,7 @@ function buildPropostaHTML(data) {
 
 function showPreview(data) {
   const wrapper = $('preview-wrapper');
-  const doc     = $('proposta-doc');
+  const doc = $('proposta-doc');
   doc.innerHTML = buildPropostaHTML(data);
   wrapper.classList.add('visible');
   wrapper.scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -883,17 +626,17 @@ async function gerarPDF(data) {
     return;
   }
   const { jsPDF } = window.jspdf;
-  const doc = new jsPDF({ orientation:'portrait', unit:'mm', format:'a4' });
+  const doc = new jsPDF({ orientation: 'portrait', unit: 'mm', format: 'a4' });
 
   const W = 210, H = 297;
   const ml = 18, mr = 18, mt = 20;
   const cw = W - ml - mr;
   let y = mt;
 
-  const gold  = [138, 124, 58];
-  const brown = [122, 46,  14];
-  const dark  = [26,  26,  20];
-  const slate = [92,  92,  74];
+  const gold = [138, 124, 58];
+  const brown = [122, 46, 14];
+  const dark = [26, 26, 20];
+  const slate = [92, 92, 74];
   const muted = [138, 138, 116];
 
   function checkPage(need = 20) {
@@ -909,7 +652,7 @@ async function gerarPDF(data) {
 
   function sectionTitle(txt) {
     checkPage(14);
-    doc.setFontSize(11); doc.setFont('helvetica','bold');
+    doc.setFontSize(11); doc.setFont('helvetica', 'bold');
     doc.setTextColor(...brown);
     doc.text(txt.toUpperCase(), ml, y);
     y += 3;
@@ -920,32 +663,32 @@ async function gerarPDF(data) {
   doc.setFillColor(44, 33, 8);
   doc.rect(0, 0, W, 38, 'F');
 
-  doc.setFontSize(18); doc.setFont('helvetica','bold');
+  doc.setFontSize(18); doc.setFont('helvetica', 'bold');
   doc.setTextColor(255, 255, 255);
-  doc.text('EULER PASSOS BUFFET', W / 2, 16, { align:'center' });
+  doc.text('EULER PASSOS BUFFET', W / 2, 16, { align: 'center' });
 
-  doc.setFontSize(9); doc.setFont('helvetica','normal');
+  doc.setFontSize(9); doc.setFont('helvetica', 'normal');
   doc.setTextColor(184, 168, 74);
-  doc.text('(61) 99905-3461', W / 2, 23, { align:'center' });
+  doc.text('(61) 99905-3461', W / 2, 23, { align: 'center' });
 
   const num = `PROP-${Date.now().toString().slice(-6)}`;
   doc.setFontSize(7.5); doc.setTextColor(180, 160, 100);
-  doc.text(`Proposta nº ${num}  ·  Emitida em ${new Date().toLocaleDateString('pt-BR')}`, W / 2, 30, { align:'center' });
+  doc.text(`Proposta nº ${num}  ·  Emitida em ${new Date().toLocaleDateString('pt-BR')}`, W / 2, 30, { align: 'center' });
 
   y = 46;
 
   // ── Dados do Cliente ──────────────────────────────
   sectionTitle('Dados do Cliente');
-  doc.setFontSize(9); doc.setFont('helvetica','normal'); doc.setTextColor(...dark);
+  doc.setFontSize(9); doc.setFont('helvetica', 'normal'); doc.setTextColor(...dark);
 
   const infoRows = [
     ['Cliente', data.cliente],
     ['Telefone', data.telefone],
-    data.email    ? ['E-mail',   data.email]   : null,
-    data.local    ? ['Local',    data.local]    : null,
+    data.email ? ['E-mail', data.email] : null,
+    data.local ? ['Local', data.local] : null,
     ['Data do Evento', fmtDate(data.dataEvento)],
-    data.horario  ? ['Horário',  fmtTime(data.horario)]  : null,
-    data.duracao  ? ['Duração',  data.duracao]  : null,
+    data.horario ? ['Horário', fmtTime(data.horario)] : null,
+    data.duracao ? ['Duração', data.duracao] : null,
     ['Nº Convidados', data.qtdPessoas + ' pessoas'],
   ].filter(Boolean);
 
@@ -954,9 +697,9 @@ async function gerarPDF(data) {
   infoRows.forEach((row, i) => {
     checkPage(10);
     const xOff = col === 0 ? ml : ml + half + 4;
-    doc.setFont('helvetica','bold'); doc.setTextColor(...muted);
+    doc.setFont('helvetica', 'bold'); doc.setTextColor(...muted);
     doc.setFontSize(7); doc.text(row[0].toUpperCase(), xOff, y);
-    doc.setFont('helvetica','normal'); doc.setTextColor(...dark);
+    doc.setFont('helvetica', 'normal'); doc.setTextColor(...dark);
     doc.setFontSize(9); doc.text(row[1], xOff, y + 4);
     col++;
     if (col === 2) { col = 0; y += 12; }
@@ -967,13 +710,13 @@ async function gerarPDF(data) {
   // ── Serviço ───────────────────────────────────────
   sectionTitle('Serviço: ' + data.servicoNome);
 
-  const menuEntries = Object.entries(data.menu).filter(([,items]) => items.length);
+  const menuEntries = Object.entries(data.menu).filter(([, items]) => items.length);
   menuEntries.forEach(([cat, items]) => {
     checkPage(16);
-    doc.setFontSize(9.5); doc.setFont('helvetica','bold'); doc.setTextColor(...brown);
+    doc.setFontSize(9.5); doc.setFont('helvetica', 'bold'); doc.setTextColor(...brown);
     doc.text(cat, ml + 2, y);
     y += 5;
-    doc.setFont('helvetica','normal'); doc.setFontSize(8.5); doc.setTextColor(...slate);
+    doc.setFont('helvetica', 'normal'); doc.setFontSize(8.5); doc.setTextColor(...slate);
     items.forEach(item => {
       checkPage(6);
       const lines = doc.splitTextToSize(`• ${item}`, cw - 8);
@@ -988,10 +731,10 @@ async function gerarPDF(data) {
   // ── Valor ─────────────────────────────────────────
   checkPage(24);
   sectionTitle('Valor da Proposta');
-  doc.setFontSize(16); doc.setFont('helvetica','bold'); doc.setTextColor(...gold);
+  doc.setFontSize(16); doc.setFont('helvetica', 'bold'); doc.setTextColor(...gold);
   doc.text(fmt(data.valorTotal), ml, y);
   if (data.valorPP) {
-    doc.setFontSize(8); doc.setFont('helvetica','normal'); doc.setTextColor(...slate);
+    doc.setFontSize(8); doc.setFont('helvetica', 'normal'); doc.setTextColor(...slate);
     doc.text(`${fmt(data.valorPP)} por pessoa × ${data.qtdPessoas} convidados`, ml, y + 7);
     y += 7;
   }
@@ -999,7 +742,7 @@ async function gerarPDF(data) {
 
   // ── Observações ───────────────────────────────────
   sectionTitle('Observações & Termos');
-  doc.setFontSize(8); doc.setFont('helvetica','normal'); doc.setTextColor(...slate);
+  doc.setFontSize(8); doc.setFont('helvetica', 'normal'); doc.setTextColor(...slate);
 
   const allObs = data.observacoes
     ? [data.observacoes, ...OBS_PADRAO]
@@ -1022,12 +765,12 @@ async function gerarPDF(data) {
     doc.setPage(p);
     doc.setDrawColor(...gold); doc.setLineWidth(.3);
     doc.line(ml, H - 14, W - mr, H - 14);
-    doc.setFontSize(7); doc.setFont('helvetica','normal'); doc.setTextColor(...muted);
+    doc.setFontSize(7); doc.setFont('helvetica', 'normal'); doc.setTextColor(...muted);
     doc.text('St. de Clubes Esportivos Sul Trecho 2 · Plano Piloto · Brasília-DF', ml, H - 10);
-    doc.text(`${p}/${total}`, W - mr, H - 10, { align:'right' });
+    doc.text(`${p}/${total}`, W - mr, H - 10, { align: 'right' });
   }
 
-  const fileName = `Proposta_EPB_${(data.cliente || 'cliente').replace(/\s+/g,'_')}_${Date.now().toString().slice(-4)}.pdf`;
+  const fileName = `Proposta_EPB_${(data.cliente || 'cliente').replace(/\s+/g, '_')}_${Date.now().toString().slice(-4)}.pdf`;
   doc.save(fileName);
   showToast(`PDF "${fileName}" gerado com sucesso!`);
 }
@@ -1042,7 +785,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Cálculo automático valor total
   function recalc() {
-    const pp  = parseFloat($('valor-pp').value) || 0;
+    const pp = parseFloat($('valor-pp').value) || 0;
     const qtd = parseFloat($('qtd-pessoas').value) || 0;
     if (pp > 0 && qtd > 0) $('valor-total').value = (pp * qtd).toFixed(2);
   }
@@ -1050,7 +793,7 @@ document.addEventListener('DOMContentLoaded', () => {
   $('qtd-pessoas').addEventListener('input', recalc);
 
   // Seleção de serviço → carrega cardápio
-  $('tipo-servico').addEventListener('change', function() {
+  $('tipo-servico').addEventListener('change', function () {
     const sid = this.value;
     if (sid && SERVICES[sid]) {
       currentMenu = JSON.parse(JSON.stringify(SERVICES[sid].menu));
@@ -1074,7 +817,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (!validate(data)) {
       showToast('Preencha os campos obrigatórios destacados.', 'error');
       // Scroll ao primeiro erro
-      document.querySelector('.form-control.error')?.scrollIntoView({ behavior:'smooth', block:'center' });
+      document.querySelector('.form-control.error')?.scrollIntoView({ behavior: 'smooth', block: 'center' });
       return;
     }
     showPreview(data);
@@ -1086,14 +829,14 @@ document.addEventListener('DOMContentLoaded', () => {
     const data = getFormValues();
     if (!validate(data)) {
       showToast('Preencha os campos obrigatórios destacados.', 'error');
-      document.querySelector('.form-control.error')?.scrollIntoView({ behavior:'smooth', block:'center' });
+      document.querySelector('.form-control.error')?.scrollIntoView({ behavior: 'smooth', block: 'center' });
       return;
     }
     $('btn-pdf').disabled = true;
     $('btn-pdf').textContent = 'Gerando…';
     try {
       await gerarPDF(data);
-    } catch(e) {
+    } catch (e) {
       showToast('Erro ao gerar PDF. Tente novamente.', 'error');
       console.error(e);
     }
