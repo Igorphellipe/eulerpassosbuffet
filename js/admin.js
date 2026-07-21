@@ -1093,6 +1093,7 @@ document.addEventListener('DOMContentLoaded', () => {
     $('btn-pdf').textContent = 'Gerando…';
     try {
       await gerarPDF(data);
+      await salvarPropostaNoSistema(data);
     } catch(e) {
       showToast('Erro ao gerar PDF. Tente novamente.', 'error');
       console.error(e);
@@ -1114,3 +1115,41 @@ document.addEventListener('DOMContentLoaded', () => {
     showToast('Formulário limpo.');
   });
 });
+
+async function salvarPropostaNoSistema(data) {
+  // 1. Calcula o valor
+  const valorCalculadoPP = data.valorPP > 0 ? data.valorPP : parseFloat((data.valorTotal / data.qtdPessoas).toFixed(2));
+
+  // 2. Monta o pacote exato
+  const novoEvento = {
+    name: data.cliente,
+    date: data.dataEvento,
+    type: data.servicoNome,
+    people: parseInt(data.qtdPessoas),
+    price: valorCalculadoPP,
+    paid: 0,
+    status: 'Proposta',
+    menu: data.menu,               // O cardápio TEM que estar aqui
+    observacoes: data.observacoes
+  };
+
+  // RASTREADOR: Vai mostrar no console do navegador se o menu está vazio ou preenchido
+  console.log("📦 Dados que estão indo para o PHP:", novoEvento);
+
+  try {
+    const response = await fetch('https://eulerpassosbuffet.com.br/api/eventos.php', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(novoEvento)
+    });
+
+    const result = await response.json();
+    console.log("↩️ Resposta do servidor:", result);
+
+    if (response.ok) {
+      showToast('Proposta salva no Gerencia Buffet com sucesso!', 'success');
+    }
+  } catch (error) {
+    console.error("❌ Erro ao salvar no banco:", error);
+  }
+}
