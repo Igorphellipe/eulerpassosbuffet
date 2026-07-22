@@ -324,10 +324,6 @@ const SERVICES = {
         'Suco de goiaba',
         'Suco de manga',
       ],
-      'Material': [
-        'Todo material para execução do evento (pratos, taças, etc.)',
-        'Mesa montada',
-      ],
     }
   },
 
