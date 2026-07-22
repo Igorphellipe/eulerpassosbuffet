@@ -48,13 +48,6 @@ const SERVICES = {
       'Mesa de Café': [
         'Petit-fours variados',
       ],
-      'Equipe': [
-        'Cozinheiro',
-        'Maître',
-        'Garçons (1 por 15 convidados)',
-        'Salgadeira',
-        'Copeiros',
-      ],
     }
   },
   churrasco: {

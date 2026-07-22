@@ -47,13 +47,6 @@ const SERVICES = {
       'Mesa de Café': [
         'Petit-fours variados',
       ],
-      'Equipe': [
-        'Cozinheiro',
-        'Maître',
-        'Garçons (1 por 15 convidados)',
-        'Salgadeira',
-        'Copeiros',
-      ],
     }
   },
 
@@ -132,11 +125,6 @@ const SERVICES = {
       ],
       'Mesa de Café': [
         'Petit-fours variados',
-      ],
-      'Equipe': [
-        'Cozinheiro',
-        'Garçons',
-        'Copeiros',
       ],
     }
   },
@@ -217,11 +205,6 @@ const SERVICES = {
       'Mesa de Café': [
         'Petit-fours variados',
       ],
-      'Equipe': [
-        'Cozinheiro',
-        'Garçons',
-        'Copeiros',
-      ],
     }
   },
 
@@ -266,17 +249,6 @@ const SERVICES = {
         'Refrigerantes comum e zero',
         'Sucos — dois sabores',
       ],
-      'Equipe': [
-        '1 Churrasqueiro',
-        '1 Garçom',
-        '1 Copeira',
-      ],
-      'Observações': [
-        'Mínimo 30 convidados pagantes',
-        'Fornecemos descartáveis; pratos de louça e talheres de inox',
-        'Não fornecemos material de decoração',
-        'Duração do evento: 5h a contar do horário estipulado pelo cliente',
-      ],
     }
   },
 
@@ -310,17 +282,6 @@ const SERVICES = {
       'Bebidas': [
         'Refrigerantes comum e zero',
         'Sucos — dois sabores',
-      ],
-      'Equipe': [
-        '1 Cozinheiro',
-        '1 Garçom',
-        '1 Copeira',
-      ],
-      'Observações': [
-        'Mínimo 35 convidados pagantes',
-        'Copos de vidro, pratos de louça, talheres de inox e réchauds',
-        'Não fornecemos material de decoração',
-        'Duração do evento: 5h a contar do horário estipulado pelo cliente',
       ],
     }
   },
@@ -404,17 +365,6 @@ const SERVICES = {
         'Refrigerantes comum e zero',
         'Sucos — dois sabores',
       ],
-      'Equipe': [
-        'Copeiro',
-        'Garçom',
-        'Crepeiro',
-      ],
-      'Observações': [
-        'Mínimo 50 convidados pagantes',
-        'Valor por pessoa: R$ 60,00 (sessenta reais)',
-        'Todo material para execução do evento (menos decoração)',
-        'Taças, pratos, talheres, réchauds, etc.',
-      ],
     }
   },
 
@@ -441,16 +391,6 @@ const SERVICES = {
       'Empratados': [
         'Escondidinho de carne seca',
         'Isca de frango béchamel de baroa',
-      ],
-      'Equipe': [
-        'Cozinheiro',
-        'Copeiros',
-        'Garçom',
-      ],
-      'Observações': [
-        'Valor por pessoa: R$ 65,00 (sem bebidas)',
-        'Todo material para execução do evento (pratos, talheres, copos, guardanapos, etc.)',
-        'Não fornecemos material de decoração',
       ],
     }
   },
@@ -520,11 +460,6 @@ const SERVICES = {
         'Água mineral',
         'Refrigerante',
         'Suco de frutas',
-      ],
-      'Equipe': [
-        'Cozinheiro',
-        'Garçons',
-        'Copeiros',
       ],
     }
   },
