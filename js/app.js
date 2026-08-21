@@ -788,6 +788,8 @@ function openModal(serviceId) {
 
   const gallerySwiper = new Swiper(container, {
     loop: total > 1,
+    centeredSlides: true,
+    initialSlide: total > 2 ? 1 : 0,
     autoplay: total > 1 ? { delay: 4000, disableOnInteraction: false } : false,
 
     navigation: {
