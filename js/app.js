@@ -632,15 +632,10 @@ function openModal(serviceId) {
       }
     });
 
-    // Header background on scroll
+    // O estado visual do header é controlado por classe para preservar contraste sobre o hero.
     const header = document.querySelector('.header');
     if (header) {
-      if (window.scrollY > 100) {
-        header.style.backdropFilter = 'blur(10px)';
-      } else {
-        header.style.backgroundColor = 'var(--color-surface)';
-        header.style.backdropFilter = 'none';
-      }
+      header.classList.toggle('header--compact', window.scrollY > 40);
     }
   });
 
