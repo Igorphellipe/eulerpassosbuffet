@@ -437,7 +437,7 @@ const SERVICES = {
     }
   },
 
-  // ── BUFFET DE MASSAS (mantido como extra) ────────────────
+  // ── BUFFET DE MASSAS ─────────────────────────────────────
   massa: {
     name: 'Buffet de Massas',
     menu: {
@@ -456,6 +456,28 @@ const SERVICES = {
         'Água mineral',
         'Refrigerante',
         'Suco de frutas',
+      ],
+    }
+  },
+
+  // ── ALMOÇO NATALINO ──────────────────────────────────────
+  natalino: {
+    name: 'Almoço Natalino',
+    menu: {
+      'Prato Principal': [
+        'Peru e/ou Chester à Califórnia',
+        'Lombo assado com carpaccio de abacaxi',
+        'Pernil com farofa natalina',
+      ],
+      'Guarnições': [
+        'Arroz branco',
+        'Salpicão de frango',
+        'Salada verde (4 folhas, tomate seco, palmito, manga) — Molho de Mel e Mostarda',
+        'Farofa natalina (uvas passas, ovos, maçã, alho laminado)',
+      ],
+      'Bebidas': [
+        'Refrigerantes comum e zero',
+        'Sucos — dois sabores',
       ],
     }
   },
