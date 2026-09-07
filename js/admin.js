@@ -1077,11 +1077,19 @@ async function salvarPropostaNoSistema(data) {
   const novoEvento = {
     name: data.cliente,
     date: data.dataEvento,
-    type: data.servicoNome,
+    type: 'Proposta',
+    tipo: data.servicoNome,
     people: parseInt(data.qtdPessoas),
     price: valorCalculadoPP,
     paid: 0,
     status: 'Proposta',
+    propostas: [{
+      tipo: data.servicoNome,
+      titulo: `Opção - ${data.servicoNome}`,
+      preco: valorCalculadoPP,
+      cardapio: data.menu,
+      pro_aprov: 0
+    }],
     menu: data.menu,               // O cardápio TEM que estar aqui
     observacoes: data.observacoes
   };
