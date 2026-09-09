@@ -460,6 +460,52 @@ const SERVICES = {
     }
   },
 
+  // Buffet típico Mineiro
+  tipicoMineiro: {
+    name: 'Buffet Típico Mineiro',
+    menu: {
+      'Enquanto os convidados chegam': [
+        'Café coado na hora',
+      ],
+      'Para beliscar': [
+        'Pão de queijo tradicional',
+        'Broa de fubá',
+        'Biscoito de queijo',
+        'Bolo de milho',
+      ],
+      'Mesa de boas-vindas': [
+        'Queijo Canastra e Minas meia cura',
+        'Salame, copa e lombo defumado',
+        'Torresmo pururuca',
+        'Linguiça artesanal acebolada',
+        'Bolinho de mandioca com carne-seca',
+        'Geleias artesanais',
+        'Doce de leite',
+        'Pimenta biquinho',
+        'Azeitonas e conservas',
+      ],
+      'Almoço — Prato principal': [
+        'Arroz de costela defumada, servido em panelas de ferro',
+      ],
+      'Almoço — Acompanhamentos': [
+        'Feijão tropeiro',
+        'Purê de mandioca',
+        'Couve refogada',
+        'Farofa de bacon',
+        'Vinagrete',
+        'Salada de folhas com tomate-cereja e queijo minas',
+        'Legumes assados na manteiga',
+      ],
+      'Mesa de café (encerramento)': [
+        'Café coado normal',
+        'Café de caramelo',
+        'Biscoitinhos mineiros',
+        'Tela de doce de leite e canudinhos',
+        'Tela de goiabada e canudinhos',
+      ],
+    }
+  },
+
   // ── ALMOÇO NATALINO ──────────────────────────────────────
   natalino: {
     name: 'Almoço Natalino',
