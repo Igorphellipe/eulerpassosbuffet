@@ -1,3 +1,1 @@
-/api/*
-!/api/*.php
-!/api/.htaccess
+/api/
