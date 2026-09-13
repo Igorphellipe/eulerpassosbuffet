@@ -534,6 +534,9 @@ const SERVICES = {
    ESTADO DO CARDÁPIO EDITÁVEL
    ============================================================ */
 let currentMenu = {}; // categoria → [itens]
+let adminEvents = [];
+let selectedAdminEvent = null;
+const EVENTS_API_URL = 'https://eulerpassosbuffet.com.br/api/eventos.php';
 
 /* ============================================================
    UTILITÁRIOS
@@ -716,6 +719,8 @@ function slugify(s) {
    ============================================================ */
 function getFormValues() {
   return {
+    eventoId:       selectedAdminEvent?.id || null,
+    tituloProposta: $('titulo-proposta').value.trim(),
     cliente:       $('cliente').value.trim(),
     telefone:      $('telefone').value.trim(),
     email:         $('email').value.trim(),
@@ -1036,6 +1041,16 @@ async function gerarPDF(data) {
    ============================================================ */
 document.addEventListener('DOMContentLoaded', () => {
 
+  document.querySelectorAll('[data-admin-tab]').forEach(tab => {
+    tab.addEventListener('click', () => {
+      activateAdminTab(tab.dataset.adminTab);
+      if (tab.dataset.adminTab === 'eventos-propostas') loadAdminEvents();
+    });
+  });
+  $('btn-refresh-events')?.addEventListener('click', loadAdminEvents);
+  $('events-search-input')?.addEventListener('input', renderEventsList);
+  loadAdminEvents();
+
   // Data mínima = hoje
   $('data-evento').min = new Date().toISOString().split('T')[0];
 
@@ -1109,6 +1124,7 @@ document.addEventListener('DOMContentLoaded', () => {
       el.classList.remove('error');
     });
     currentMenu = {};
+    selectedAdminEvent = null;
     renderMenuEditor();
     $('preview-wrapper').classList.remove('visible');
     showToast('Formulário limpo.');
@@ -1120,7 +1136,22 @@ async function salvarPropostaNoSistema(data) {
   const valorCalculadoPP = data.valorPP > 0 ? data.valorPP : parseFloat((data.valorTotal / data.qtdPessoas).toFixed(2));
 
   // 2. Monta o pacote exato
-  const novoEvento = {
+  const novaProposta = {
+      tipo: data.servicoNome,
+      titulo: data.tituloProposta || `Opção - ${data.servicoNome}`,
+      preco: valorCalculadoPP,
+      cardapio: data.menu,
+      observacoes: data.observacoes,
+      pro_aprov: 0
+  };
+  const eventoBase = selectedAdminEvent;
+  const novoEvento = eventoBase ? {
+    ...eventoBase,
+    name: data.cliente,
+    date: data.dataEvento,
+    people: parseInt(data.qtdPessoas),
+    propostas: [...(eventoBase.propostas || []), novaProposta]
+  } : {
     name: data.cliente,
     date: data.dataEvento,
     type: 'Proposta',
@@ -1129,14 +1160,8 @@ async function salvarPropostaNoSistema(data) {
     price: valorCalculadoPP,
     paid: 0,
     status: 'Proposta',
-    propostas: [{
-      tipo: data.servicoNome,
-      titulo: `Opção - ${data.servicoNome}`,
-      preco: valorCalculadoPP,
-      cardapio: data.menu,
-      pro_aprov: 0
-    }],
-    menu: data.menu,               // O cardápio TEM que estar aqui
+    propostas: [novaProposta],
+    menu: data.menu,
     observacoes: data.observacoes
   };
 
@@ -1144,8 +1169,8 @@ async function salvarPropostaNoSistema(data) {
   console.log("📦 Dados que estão indo para o PHP:", novoEvento);
 
   try {
-    const response = await fetch('https://eulerpassosbuffet.com.br/api/eventos.php', {
-      method: 'POST',
+    const response = await fetch(EVENTS_API_URL + (eventoBase ? `?id=${eventoBase.id}` : ''), {
+      method: eventoBase ? 'PUT' : 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(novoEvento)
     });
@@ -1155,8 +1180,88 @@ async function salvarPropostaNoSistema(data) {
 
     if (response.ok) {
       showToast('Proposta salva no Gerencia Buffet com sucesso!', 'success');
+      await loadAdminEvents();
+      selectedAdminEvent = null;
     }
   } catch (error) {
     console.error("❌ Erro ao salvar no banco:", error);
   }
+}
+
+function findServiceKey(type) {
+  const normalized = String(type || '').normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
+  return Object.keys(SERVICES).find(key => SERVICES[key].name.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase() === normalized) || '';
+}
+
+function fillFormFromEvent(event) {
+  selectedAdminEvent = event;
+  const proposals = Array.isArray(event.propostas) ? event.propostas : [];
+  const proposal = proposals.find(item => Number(item.pro_aprov) === 1) || proposals[proposals.length - 1] || {};
+  const serviceKey = findServiceKey(proposal.tipo || event.type);
+
+  $('cliente').value = event.name || '';
+  $('data-evento').value = event.date || '';
+  $('qtd-pessoas').value = event.people || '';
+  $('tipo-servico').value = serviceKey;
+  $('valor-pp').value = proposal.preco || event.price || '';
+  $('valor-total').value = proposal.preco && event.people ? (Number(proposal.preco) * Number(event.people)).toFixed(2) : '';
+  $('titulo-proposta').value = `Nova opção - ${proposal.tipo || event.type || 'Serviço'}`;
+  $('observacoes').value = proposal.observacoes || event.observacoes || '';
+  currentMenu = {};
+  renderMenuEditor();
+  $('preview-wrapper').classList.remove('visible');
+  activateAdminTab('nova-proposta');
+  document.querySelector('.proposal-form-section')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  showToast(`Evento "${event.name}" selecionado. Crie a nova proposta.`);
+}
+
+function renderEventsList() {
+  const list = $('events-list');
+  if (!list) return;
+  const searchTerm = ($('events-search-input')?.value || '').trim().toLocaleLowerCase();
+  const visibleEvents = adminEvents.filter(event => String(event.name || '').toLocaleLowerCase().includes(searchTerm));
+  if (!visibleEvents.length) {
+    list.innerHTML = '<p class="events-list__status">Nenhum evento ou proposta encontrado.</p>';
+    return;
+  }
+  list.innerHTML = visibleEvents.map(event => {
+    const proposals = Array.isArray(event.propostas) ? event.propostas : [];
+    const proposalsText = proposals.length ? `${proposals.length} proposta${proposals.length === 1 ? '' : 's'}` : 'Sem propostas cadastradas';
+    const proposalTitles = proposals.map(proposal => proposal.titulo || 'Proposta sem título').join(' · ');
+    return `<article class="event-list-item">
+      <div>
+        <strong>${escHtml(event.name || 'Evento sem nome')}</strong>
+        <span>${event.date ? fmtDate(event.date) : 'Sem data'} · ${escHtml(event.type || 'Sem serviço')} · ${proposalsText}</span>
+        ${proposalTitles ? `<small>${escHtml(proposalTitles)}</small>` : ''}
+      </div>
+      <button type="button" class="btn btn--secondary" data-select-event="${escHtml(event.id)}">Nova proposta</button>
+    </article>`;
+  }).join('');
+  list.querySelectorAll('[data-select-event]').forEach(button => {
+    button.addEventListener('click', () => {
+      const event = adminEvents.find(item => String(item.id) === button.dataset.selectEvent);
+      if (event) fillFormFromEvent(event);
+    });
+  });
+}
+
+async function loadAdminEvents() {
+  const list = $('events-list');
+  if (list) list.innerHTML = '<p class="events-list__status">Carregando eventos...</p>';
+  try {
+    const response = await fetch(EVENTS_API_URL);
+    if (!response.ok) throw new Error(`Falha ao carregar eventos: ${response.status}`);
+    const data = await response.json();
+    adminEvents = Array.isArray(data) ? data : [];
+    renderEventsList();
+  } catch (error) {
+    console.error('Erro ao carregar eventos do admin:', error);
+    if (list) list.innerHTML = '<p class="events-list__status is-error">Não foi possível carregar os eventos.</p>';
+  }
+}
+
+function activateAdminTab(tabName) {
+  document.querySelectorAll('[data-admin-tab]').forEach(tab => tab.classList.toggle('is-active', tab.dataset.adminTab === tabName));
+  $('events-panel')?.classList.toggle('hidden', tabName !== 'eventos-propostas');
+  document.querySelectorAll('[data-admin-section]').forEach(section => section.classList.toggle('hidden', tabName !== section.dataset.adminSection));
 }

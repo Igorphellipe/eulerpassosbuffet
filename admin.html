@@ -22,12 +22,38 @@
     <p class="header__sub">Geração de Propostas Comerciais</p>
   </header>
 
+  <nav class="admin-tabs" aria-label="Navegação do administrador">
+    <button type="button" class="admin-tab is-active" data-admin-tab="nova-proposta">Nova proposta</button>
+    <button type="button" class="admin-tab" data-admin-tab="eventos-propostas">Eventos e propostas</button>
+  </nav>
+
+  <section class="card events-panel hidden" id="events-panel">
+    <div class="section-heading">
+      <div>
+        <h2 class="card__title">Eventos e propostas</h2>
+        <p class="section-copy">Selecione um evento para criar uma nova opção de cardápio sem perder as propostas anteriores.</p>
+      </div>
+      <button type="button" class="btn btn--outline" id="btn-refresh-events">Atualizar lista</button>
+    </div>
+    <label class="events-search" for="events-search-input">
+      <span>Pesquisar evento pelo nome</span>
+      <input type="search" id="events-search-input" class="form-control" placeholder="Digite o nome do cliente ou evento...">
+    </label>
+    <div id="events-list" class="events-list">
+      <p class="events-list__status">Carregando eventos...</p>
+    </div>
+  </section>
+
   <!-- ══ CARD 1: DADOS DO CLIENTE & EVENTO ══ -->
-  <div class="card">
+  <div class="card proposal-form-section" data-admin-section="nova-proposta">
     <h2 class="card__title">Dados do Cliente &amp; Evento</h2>
     <form id="admin-form" novalidate>
 
       <div class="form-grid">
+        <div class="form-group form-full">
+          <label class="form-label" for="titulo-proposta">Título da Proposta</label>
+          <input type="text" id="titulo-proposta" class="form-control" placeholder="Ex: Opção 2 — Buffet de Churrasco">
+        </div>
         <div class="form-group">
           <label class="form-label" for="cliente">Nome do Cliente <span class="req">*</span></label>
           <input type="text" id="cliente" class="form-control" placeholder="Nome completo" required>
@@ -65,7 +91,7 @@
   </div>
 
   <!-- ══ CARD 2: SERVIÇO E CARDÁPIO ══ -->
-  <div class="card">
+  <div class="card proposal-form-section" data-admin-section="nova-proposta">
     <h2 class="card__title">Serviço &amp; Cardápio</h2>
 
     <div class="form-group" style="margin-bottom:24px">
@@ -94,7 +120,7 @@
   </div>
 
   <!-- ══ CARD 3: VALORES ══ -->
-  <div class="card">
+  <div class="card proposal-form-section" data-admin-section="nova-proposta">
     <h2 class="card__title">Valores &amp; Observações</h2>
     <div class="form-grid">
       <div class="form-group">
@@ -125,7 +151,7 @@
   </div>
 
   <!-- ══ PREVIEW DA PROPOSTA ══ -->
-  <div class="preview-wrapper" id="preview-wrapper">
+  <div class="preview-wrapper proposal-form-section" id="preview-wrapper" data-admin-section="nova-proposta">
     <div class="card" style="padding:0; overflow:hidden;">
       <h2 class="card__title" style="padding: 28px 40px 0; margin-bottom:0;">Preview da Proposta</h2>
       <div style="padding: 20px 40px 32px;">
@@ -139,5 +165,6 @@
 <!-- Toast -->
 <div class="toast" id="toast"></div>
 </body>
+<script src="js/admin-auth.js"></script>
 <script src="js/admin.js"></script>
 </html>

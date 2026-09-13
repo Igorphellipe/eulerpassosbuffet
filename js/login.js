@@ -1,34 +1,32 @@
-// login.js - validação simples (apenas para uso local/teste)
-// Credenciais de teste (substitua por integração segura no futuro)
-const LOGIN_CREDENTIALS = {
-  username: 'admin',
-  password: 'senha123'
-};
+const AUTH_URL = 'api/auth.php';
 
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', async () => {
   const form = document.getElementById('login-form');
   const errorEl = document.getElementById('login-error');
 
   // Se já estiver autenticado, redireciona para admin
   try {
-    if (sessionStorage.getItem('adminAuth') === 'true') {
-      window.location.href = 'admin.html';
-      return;
-    }
+    const response = await fetch(AUTH_URL, { credentials: 'same-origin' });
+    const result = await response.json();
+    if (response.ok && result.authenticated) window.location.href = 'admin.html';
   } catch (e) { /* ignore */ }
 
-  form.addEventListener('submit', (e) => {
+  form.addEventListener('submit', async (e) => {
     e.preventDefault();
     const user = document.getElementById('username').value.trim();
     const pass = document.getElementById('password').value;
 
-    if (user === LOGIN_CREDENTIALS.username && pass === LOGIN_CREDENTIALS.password) {
-      // marca sessão e redireciona
-      try {
-        sessionStorage.setItem('adminAuth', 'true');
-      } catch (err) { console.warn('sessionStorage indisponível', err); }
+    try {
+      const response = await fetch(AUTH_URL, {
+        method: 'POST',
+        credentials: 'same-origin',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ username: user, password: pass })
+      });
+      if (!response.ok) throw new Error('Falha na autenticação');
       window.location.href = 'admin.html';
-    } else {
+    } catch (error) {
+      console.error(error);
       errorEl.classList.remove('hidden');
       setTimeout(() => errorEl.classList.add('hidden'), 3500);
     }

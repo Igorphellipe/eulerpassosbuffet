@@ -134,6 +134,111 @@ body::before {
   position: relative;
 }
 
+.admin-tabs {
+  display: flex;
+  gap: 8px;
+  margin: 0 0 24px;
+  padding: 6px;
+  background: var(--cream-dk);
+  border: 1px solid rgba(138, 124, 58, .18);
+  border-radius: var(--radius);
+}
+
+.admin-tab {
+  flex: 1;
+  border: 0;
+  border-radius: var(--radius-sm);
+  padding: 12px 16px;
+  background: transparent;
+  color: var(--slate);
+  font: 600 .82rem 'Jost', sans-serif;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+.admin-tab.is-active {
+  background: var(--white);
+  color: var(--brown);
+  box-shadow: var(--shadow);
+}
+
+.events-panel .section-heading {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.events-panel .card__title {
+  margin-bottom: 8px;
+}
+
+.section-copy {
+  color: var(--slate);
+  font-size: .9rem;
+}
+
+.events-search {
+  display: block;
+  margin-top: 22px;
+}
+
+.events-search span {
+  display: block;
+  margin-bottom: 6px;
+  color: var(--slate);
+  font-size: .78rem;
+  font-weight: 600;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+
+.events-list {
+  display: grid;
+  gap: 10px;
+  margin-top: 24px;
+}
+
+.event-list-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 16px 18px;
+  border: 1px solid rgba(138, 124, 58, .18);
+  border-radius: var(--radius-sm);
+  background: var(--cream);
+}
+
+.event-list-item strong,
+.event-list-item span {
+  display: block;
+}
+
+.event-list-item strong {
+  color: var(--brown);
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.2rem;
+}
+
+.event-list-item span,
+.event-list-item small,
+.events-list__status {
+  color: var(--muted);
+  font-size: .82rem;
+}
+
+.event-list-item small {
+  display: block;
+  margin-top: 4px;
+  color: var(--slate);
+}
+
+.events-list__status.is-error {
+  color: var(--red-err);
+}
+
 /* ────────────────────────
    CARDS
 ──────────────────────── */
@@ -912,6 +1017,17 @@ input[type="number"].form-control::-webkit-inner-spin-button {
 
   .card {
     padding: 24px 20px;
+  }
+
+  .admin-tabs,
+  .events-panel .section-heading,
+  .event-list-item {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .event-list-item .btn {
+    width: 100%;
   }
 
   .form-grid,
