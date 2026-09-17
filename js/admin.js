@@ -536,7 +536,7 @@ const SERVICES = {
 let currentMenu = {}; // categoria → [itens]
 let adminEvents = [];
 let selectedAdminEvent = null;
-const EVENTS_API_URL = 'https://eulerpassosbuffet.com.br/api/eventos.php';
+const EVENTS_API_URL = `${window.location.origin}/api/eventos.php`;
 
 /* ============================================================
    UTILITÁRIOS
@@ -881,7 +881,7 @@ function showPreview(data) {
 /* ============================================================
    GERAR PDF VIA jsPDF (texto estruturado)
    ============================================================ */
-async function gerarPDF(data) {
+function gerarPDF(data) {
   if (typeof window.jspdf === 'undefined') {
     showToast('Biblioteca PDF não carregada. Recarregue a página.', 'error');
     return;
@@ -1106,11 +1106,18 @@ document.addEventListener('DOMContentLoaded', () => {
     $('btn-pdf').disabled = true;
     $('btn-pdf').textContent = 'Gerando…';
     try {
-      await gerarPDF(data);
-      await salvarPropostaNoSistema(data);
-    } catch(e) {
+      gerarPDF(data);
+    } catch (error) {
       showToast('Erro ao gerar PDF. Tente novamente.', 'error');
-      console.error(e);
+      console.error('Erro ao gerar PDF:', error);
+      $('btn-pdf').disabled = false;
+      return;
+    }
+    try {
+      await salvarPropostaNoSistema(data);
+    } catch (error) {
+      showToast('PDF gerado, mas não foi possível salvar a proposta.', 'error');
+      console.error('Erro ao salvar proposta:', error);
     }
     $('btn-pdf').disabled = false;
     $('btn-pdf').innerHTML = `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg> Gerar PDF`;
@@ -1171,18 +1178,18 @@ async function salvarPropostaNoSistema(data) {
   try {
     const response = await fetch(EVENTS_API_URL + (eventoBase ? `?id=${eventoBase.id}` : ''), {
       method: eventoBase ? 'PUT' : 'POST',
+      credentials: 'include',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(novoEvento)
     });
 
-    const result = await response.json();
+    const result = await response.json().catch(() => ({}));
     console.log("↩️ Resposta do servidor:", result);
 
-    if (response.ok) {
-      showToast('Proposta salva no Gerencia Buffet com sucesso!', 'success');
-      await loadAdminEvents();
-      selectedAdminEvent = null;
-    }
+    if (!response.ok) throw new Error(result.error || result.message || `API retornou HTTP ${response.status}`);
+    showToast('Proposta salva no Gerencia Buffet com sucesso!', 'success');
+    await loadAdminEvents();
+    selectedAdminEvent = null;
   } catch (error) {
     console.error("❌ Erro ao salvar no banco:", error);
   }
@@ -1249,7 +1256,7 @@ async function loadAdminEvents() {
   const list = $('events-list');
   if (list) list.innerHTML = '<p class="events-list__status">Carregando eventos...</p>';
   try {
-    const response = await fetch(EVENTS_API_URL);
+    const response = await fetch(EVENTS_API_URL, { credentials: 'include' });
     if (!response.ok) throw new Error(`Falha ao carregar eventos: ${response.status}`);
     const data = await response.json();
     adminEvents = Array.isArray(data) ? data : [];
