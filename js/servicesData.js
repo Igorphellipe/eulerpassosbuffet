@@ -1,143 +1,681 @@
 /**
  * servicesData.js - Dados Centralizados dos Serviços
- * 
+ *
  * Este arquivo contém todos os dados dos serviços e cardápios do Euler Passos Buffet.
  * É compartilhado entre a landing page (app.js) e a área administrativa (admin.js),
  * evitando duplicação e garantindo consistência.
- * 
+ *
+ * ⚠️  FONTE ÚNICA DE VERDADE — edite apenas aqui.
+ *     Os cardápios exibidos no site (index) e no admin são lidos deste arquivo.
+ *
  * Estrutura de cada serviço:
- * - id: identificador único
+ * - id: identificador único (deve coincidir com data-service nos cards HTML)
  * - name: nome do serviço
- * - description: descrição breve
- * - hasOpcionais: indica se o serviço possui campos opcionais (selectFields)
- * - menu: objeto com categorias e itens do cardápio
+ * - description: descrição breve exibida no modal do site
+ * - hasOpcionais: se true, o admin exibe o editor de cardápio; o site monta selectFields
+ * - menu: objeto com categorias → [itens]
  * - selectFields: (opcional) campos de seleção múltipla para serviços customizáveis
  */
 
 // Dados dos serviços - Fonte única de verdade
 const servicesData = {
-  churrasco: {
-    id: "churrasco",
-    name: "Churrasco",
-    description: "O sabor que chama atenção",
+
+  // ── COQUETEL VOLANTE ──────────────────────────────────────
+  coquetel: {
+    id: 'coquetel',
+    name: 'Coquetel Volante',
+    description: 'Pequenas porções, grandes momentos.',
     hasOpcionais: false,
     menu: {
-      ENTRADAS: ["Carne de Sol", "Linguiça de Frango e Suina", "Coração de Frango", "Frango Desossado", "Pão de alho"],
-      PRATO_PRINCIPAL: ["Picanha", "Maminha", "Fraldinha", "Alcatra", "Carne de Sol", "Costela Suína", "Lombinho Suíno", "Linguiça de Frango e Suína", "Frango desossado", "Coração de Frango"],
-      GUARNIÇÕES: ["Arroz", "Feijão tropeiro", "Mandioca com manteiga", "Vinagrete", "Pão com alho", "Salada verde", "Farofa de Cuscuz", 'Molho Mel e Mostarda'],
-      BEBIDAS: ["Coca Cola Comum", "Coca Cola Zero Açucar", "Guaraná", "Suco de Caju", "Suco de Abacaxi"]
+      'Canapés': [
+        'Canapés de azeitona preta',
+        'Canapés de peito de peru',
+      ],
+      'Salgados Assados': [
+        'Quiche de alho poró',
+        'Quiche de queijo',
+        'Quiche de tomate seco',
+        'Folhado de abacaxi',
+        'Folhado Alho poró com catupiry',
+        'Folhado Bacalhau',
+        'Folhado Banana',
+        'Folhado Camarão',
+        'Folhado Carne de sol com mandioca',
+        'Folhado Castanha',
+        'Folhado Chocolate',
+        'Folhado Frango com mel',
+        'Folhado Maçã',
+        'Folhado Romeu e Julieta',
+      ],
+      'Salgados Fritos': [
+        'Bombom de frango',
+        'Bombom de aipim com carne seca',
+        'Bombom de bacalhau',
+        'Pastel de carne e queijo',
+        'Bombom de azeitona',
+        'Bombom de queijo',
+        'Bombom de queijo com alho',
+      ],
+      'Empratados (Volante na Barquete)': [
+        'Escondidinho de carne seca',
+        'Escondidinho de camarão',
+      ],
+      'Bebidas': [
+        'Água mineral (com e sem gás)',
+        'Coquetel de frutas — Morango e Maracujá',
+        'Suco de frutas — Abacaxi com Hortelã e Maracujá',
+        'Refrigerante — Guaraná Antarctica e Coca-Cola',
+        'Cerveja — Antártica Original ou Chopp',
+      ],
+      'Mesa de Café': [
+        'Petit-fours variados',
+      ],
     }
   },
-  crepe: {
-    id: "crepe",
-    name: "Crepe",
-    description: "Crepes doces e salgados gourmet",
-    hasOpcionais: false,
-    menu: {
-      CREPES_SALGADOS: ["Filé ao Molho Madeira", "Frango Desfiado com Catupiry", "Queijo Mussarela", "Presunto", "Calabresa", "Tomate Seco com Rúcula", "Palmito", "Batata Palha", "Tomate Fresco", "Orégano", "Cebola em Tempero", "Milho", "Azeitonas"],
-      CREPES_DOCES: ["Banana Caramelada", "Canela e Açúcar", "Morango", "Chocolate"],
-      BEBIDAS: ["Coca Cola Comum", "Coca Cola Zero Açucar", "Guaraná", "Suco de Caju", "Suco de Abacaxi"]
-    }
-  },
-  massa: {
-    id: "massa",
-    name: "Massas",
-    description: "Massas artesanais com molhos especiais",
+
+  // ── ALMOÇO OU JANTAR COM COQUETEL VOLANTE ─────────────────
+  almoco: {
+    id: 'almoco',
+    name: 'Almoço / Jantar com Coquetel Volante',
+    description: 'Leveza, sabor e variedade.',
     hasOpcionais: true,
     menu: {
-      ENTRADAS: ["SALGADOS FRITOS", "Bombom de Azeitona", "Bombom de Frango", "Bombom de Provolone", "Bobom de Carne Seca", "Delícia de Queijo", "Delícia de Bacalhau", "SALGADOS ASSADOS", "Folhado de Frango", "Folhado de Bacalhau", "Folhado de Aipim com Carne de Sol", "Dadinho de Tapioca"], 
-      MASSAS: ["Penne", "Espaguete", "Tailarim", "Parafuso", "Gravata"],
-      MOLHOS: ["Molho Pesto", "Molho Branco", "Molho Bolonhesa", "Molho Sugo", "Molho Quatro Queijos", "Molho Rustico de Tomate"],
-      ACOMPANHAMENTOS: ["Isca de Filé ao Molho Madeira", "Frango Desfiado", "Calabresa", "Presunto", "Milho", "Azeitonas", "Cebola em Tempero", "Catupiry", "Cheddar", "Bacon", "Ervilha Fresca", "Orégano", "Manjericão", "Tomate Seco"],
-      BEBIDAS: ["Coca Cola Comum", "Coca Cola Zero Açucar", "Guaraná", "Suco de Caju", "Suco de Abacaxi"]
+      'Canapés (escolher 2)': [
+        'Canapés de Aspargos',
+        'Canapés de azeitona preta',
+        'Canapés de tomate seco',
+        'Canapés de peito de peru',
+        'Canapés de Presunto',
+      ],
+      'Salgados Assados': [
+        'Quiche de alho poró',
+        'Quiche de queijo',
+        'Quiche de tomate seco',
+        'Folhado de abacaxi',
+        'Folhado Alho poró com catupiry',
+        'Folhado Bacalhau',
+        'Folhado Banana',
+        'Folhado Camarão',
+        'Folhado Carne de sol com mandioca',
+        'Folhado Castanha',
+        'Folhado Chocolate',
+        'Folhado Frango com mel',
+        'Folhado Maçã',
+        'Folhado Romeu e Julieta',
+      ],
+      'Salgados Fritos': [
+        'Bombom de frango',
+        'Bombom de aipim com carne seca',
+        'Bombom de bacalhau',
+        'Pastel de carne e queijo',
+        'Bombom de azeitona',
+      ],
+      'Empratados (Volante na Barquete)': [
+        'Escondidinho de carne seca',
+        'Escondidinho de camarão',
+      ],
+      'Saladas (escolher 2)': [
+        'Salada Tropical (alface americana, crespa, rúcula, mimosa, melão, manga, kiwi, kane-cama, morango e tomate cereja) — Molho de Mostarda com Mel',
+        'Salada Tricolor de Peito de Peru (macarrão fusilli tricolor, peito de peru, queijo minas, tomate, cebola roxa, azeitonas verdes, maionese de leite, azeite, limão, mostarda, salsa)',
+        'Legumes Sauté (cenoura, vagem francesa, batata)',
+        'Salada Waldorf (repolho, cenoura, maçã, melão, uvas passas, batata palha e iogurte natural)',
+        'Batata Sautê',
+        'Legumes Sauteados',
+      ],
+      'Arroz (escolher 2)': [
+        'Arroz branco',
+        'Arroz com brócolis',
+        'Arroz com castanhas',
+      ],
+      'Carnes (1 vermelha + 1 frango ou 1 peixe)': [
+        'Filé de frango grelhado ao creme de lemon pepper',
+        'Filé de frango recheado ao molho 4 queijos',
+        'Filé mignon ao molho madeira com champignons',
+        'Maminha ao molho mostarda',
+        'Escalope de filé mignon ao molho rôti, tomate seco e champignon',
+        'Posta de pescada amarela com molho de camarão',
+        'Bacalhau ao Zé do Pipo',
+      ],
+      'Massa (escolher 1)': [
+        'Rondelli tomate seco ao molho napolitano',
+        'Capeletti de frango ao molho branco',
+        'Penne ao sugo',
+        'Conchiglione recheado com bacalhau ao molho de nozes',
+      ],
+      'Bebidas': [
+        'Coca-Cola comum e zero',
+        'Guaraná Antarctica comum e zero',
+        'Água mineral sem gás',
+        'Suco de abacaxi com hortelã',
+        'Suco de acerola',
+      ],
+      'Mesa de Café': [
+        'Petit-fours variados',
+      ],
     },
     selectFields: [
-      { id: "Massa", label: "Escolha 3 Opções de Massas", options: ["Penne", "Espaguete", "Tailarim", "Parafuso", "Gravata"] },
-      { id: "Molho", label: "Escolha 3 Opções de Molho", options: ["Molho Pesto", "Molho Branco", "Molho Bolonhesa", "Molho Sugo", "Molho Quatro Queijos", "Molho Rustico de Tomate"] },
-      { id: "Acompanhamento", label: "Escolha 8 Opções de Acompanhamento", options: ["Isca de Filé ao Molho Madeira", "Frango Desfiado", "Calabresa", "Presunto", "Milho", "Azeitonas", "Cebola em Tempero", "Catupiry", "Cheddar", "Bacon", "Ervilha Fresca", "Orégano", "Manjericão", "Tomate Seco"] }
+      {
+        id: 'Canapés',
+        label: 'Escolha 2 Opções de Canapés',
+        options: ['Canapés de Aspargos', 'Canapés de azeitona preta', 'Canapés de tomate seco', 'Canapés de peito de peru', 'Canapés de Presunto']
+      },
+      {
+        id: 'Saladas',
+        label: 'Escolha 2 Opções de Salada',
+        options: [
+          'Salada Tropical — Molho de Mostarda com Mel',
+          'Salada Tricolor de Peito de Peru',
+          'Legumes Sauté',
+          'Salada Waldorf',
+          'Batata Sautê',
+          'Legumes Sauteados',
+        ]
+      },
+      {
+        id: 'Arroz',
+        label: 'Escolha 2 Opções de Arroz',
+        options: ['Arroz branco', 'Arroz com brócolis', 'Arroz com castanhas']
+      },
+      {
+        id: 'Carnes',
+        label: 'Escolha as Carnes (1 vermelha + 1 frango ou 1 peixe)',
+        options: [
+          'Filé de frango grelhado ao creme de lemon pepper',
+          'Filé de frango recheado ao molho 4 queijos',
+          'Filé mignon ao molho madeira com champignons',
+          'Maminha ao molho mostarda',
+          'Escalope de filé mignon ao molho rôti, tomate seco e champignon',
+          'Posta de pescada amarela com molho de camarão',
+          'Bacalhau ao Zé do Pipo',
+        ]
+      },
+      {
+        id: 'Massa',
+        label: 'Escolha 1 Opção de Massa',
+        options: [
+          'Rondelli tomate seco ao molho napolitano',
+          'Capeletti de frango ao molho branco',
+          'Penne ao sugo',
+          'Conchiglione recheado com bacalhau ao molho de nozes',
+        ]
+      },
     ],
   },
+
+  // ── JANTAR (alias idêntico ao almoço para manter compatibilidade) ─
   jantar: {
-    id: "jantar",
-    name: "Jantar",
-    description: "Menu executivo completo",
+    id: 'jantar',
+    name: 'Buffet de Jantar',
+    description: 'Gastronomia que impressiona.',
     hasOpcionais: true,
     menu: {
-      ENTRADAS: ["SALGADOS ASSADOS", "Folhado de Frango com Abacxi", "Folhado Romeu e Julieta", "Folhado de Bacalhau", "Folhado de Camarão", "SALGADOS FRITOS", "Bombom de Azeitona", "Bombom de Provolone", "Delícia de Queijo", "Dadinho de Tápioca", "Pasteis de Carne e Queijo", "Coxinha de Frango com Catupiry"],
-      EMPRATADOS: ["Camarão com Bechamel de Baroa", "Frango com Bechamel de Baroa", "Escondidinho de Carne Seca", "Escondidinho de Frango"],
-      PRATO_PRINCIPAL: ["File Mignon ao Molho Madeira", "Isca de Frango Recheado ao Molho Branco", "Bacalhau ao Zé do Pipo", "Lagarto ao Molho Madeira"],
-      GUARNIÇÕES: ["Arroz branco", "Arroz com Brócolis", "Batata Rustica", "Salada verde", "Molho de Mostarda e Mel"],
-      BEBIDAS: ["Coca Cola Comum", "Coca Cola Zero Açucar", "Guaraná", "Suco de Caju", "Suco de Abacaxi"]
+      'Canapés (escolher 2)': [
+        'Canapés de Aspargos',
+        'Canapés de azeitona preta',
+        'Canapés de tomate seco',
+        'Canapés de peito de peru',
+        'Canapés de Presunto',
+      ],
+      'Salgados Assados': [
+        'Quiche de alho poró',
+        'Quiche de queijo',
+        'Quiche de tomate seco',
+        'Folhado de abacaxi',
+        'Folhado Alho poró com catupiry',
+        'Folhado Bacalhau',
+        'Folhado Banana',
+        'Folhado Camarão',
+        'Folhado Carne de sol com mandioca',
+        'Folhado Castanha',
+        'Folhado Chocolate',
+        'Folhado Frango com mel',
+        'Folhado Maçã',
+        'Folhado Romeu e Julieta',
+      ],
+      'Salgados Fritos': [
+        'Bombom de frango',
+        'Bombom de aipim com carne seca',
+        'Bombom de bacalhau',
+        'Pastel de carne e queijo',
+        'Bombom de azeitona',
+      ],
+      'Empratados (Volante na Barquete)': [
+        'Escondidinho de carne seca',
+        'Escondidinho de camarão',
+      ],
+      'Saladas (escolher 2)': [
+        'Salada Tropical — Molho de Mostarda com Mel',
+        'Salada Tricolor de Peito de Peru',
+        'Legumes Sauté',
+        'Salada Waldorf',
+        'Batata Sautê',
+        'Legumes Sauteados',
+      ],
+      'Arroz (escolher 2)': [
+        'Arroz branco',
+        'Arroz com brócolis',
+        'Arroz com castanhas',
+      ],
+      'Carnes (1 vermelha + 1 frango ou 1 peixe)': [
+        'Filé de frango grelhado ao creme de lemon pepper',
+        'Filé de frango recheado ao molho 4 queijos',
+        'Filé mignon ao molho madeira com champignons',
+        'Maminha ao molho mostarda',
+        'Escalope de filé mignon ao molho rôti, tomate seco e champignon',
+        'Posta de pescada amarela com molho de camarão',
+        'Bacalhau ao Zé do Pipo',
+      ],
+      'Massa (escolher 1)': [
+        'Rondelli tomate seco ao molho napolitano',
+        'Capeletti de frango ao molho branco',
+        'Penne ao sugo',
+        'Conchiglione recheado com bacalhau ao molho de nozes',
+      ],
+      'Bebidas': [
+        'Coca-Cola comum e zero',
+        'Guaraná Antarctica comum e zero',
+        'Água mineral sem gás',
+        'Suco de abacaxi com hortelã',
+        'Suco de acerola',
+      ],
+      'Mesa de Café': [
+        'Petit-fours variados',
+      ],
     },
     selectFields: [
-      { id: "Prato_principal", label: "Escolha 2 Opções de Prato Principal", options: ["File Mignon ao Molho Madeira", "Isca de Frango Recheado ao Molho Branco", "Bacalhau ao Zé do Pipo", "Lagarto ao Molho Madeira"] },
-      { id: "Massas", label: "Escolha  1 Opção de Massa", options: ["Penne ao Molho Sugo", "Espaguete ao Molho Bolonhesa", "Rodele de Ricota e Tomate Seco ao Quatro Queijos"] },
-      { id: "Empratados", label: "Escolha 2 Opções de Empratado", options: ["Camarão com Bechamel de Baroa", "Frango com Bechamel de Baroa", "Escondidinho de Carne Seca", "Escondidinho de Frango"] }
-    ]
+      {
+        id: 'Canapés',
+        label: 'Escolha 2 Opções de Canapés',
+        options: ['Canapés de Aspargos', 'Canapés de azeitona preta', 'Canapés de tomate seco', 'Canapés de peito de peru', 'Canapés de Presunto']
+      },
+      {
+        id: 'Saladas',
+        label: 'Escolha 2 Opções de Salada',
+        options: [
+          'Salada Tropical — Molho de Mostarda com Mel',
+          'Salada Tricolor de Peito de Peru',
+          'Legumes Sauté',
+          'Salada Waldorf',
+          'Batata Sautê',
+          'Legumes Sauteados',
+        ]
+      },
+      {
+        id: 'Arroz',
+        label: 'Escolha 2 Opções de Arroz',
+        options: ['Arroz branco', 'Arroz com brócolis', 'Arroz com castanhas']
+      },
+      {
+        id: 'Carnes',
+        label: 'Escolha as Carnes (1 vermelha + 1 frango ou 1 peixe)',
+        options: [
+          'Filé de frango grelhado ao creme de lemon pepper',
+          'Filé de frango recheado ao molho 4 queijos',
+          'Filé mignon ao molho madeira com champignons',
+          'Maminha ao molho mostarda',
+          'Escalope de filé mignon ao molho rôti, tomate seco e champignon',
+          'Posta de pescada amarela com molho de camarão',
+          'Bacalhau ao Zé do Pipo',
+        ]
+      },
+      {
+        id: 'Massa',
+        label: 'Escolha 1 Opção de Massa',
+        options: [
+          'Rondelli tomate seco ao molho napolitano',
+          'Capeletti de frango ao molho branco',
+          'Penne ao sugo',
+          'Conchiglione recheado com bacalhau ao molho de nozes',
+        ]
+      },
+    ],
   },
-  almoco: {
-    id: "almoco",
-    name: "Almoço",
-    description: "Buffet livre variado",
-    hasOpcionais: true,
-    menu:{
-      ENTRADAS: ["SALGADOS ASSADOS", "Folhado de Frango com Abacxi", "Folhado Romeu e Julieta", "Folhado de Bacalhau", "Folhado de Camarão", "SALGADOS FRITOS", "Bombom de Azeitona", "Bombom de Provolone", "Delícia de Queijo", "Dadinho de Tápioca", "Pasteis de Carne e Queijo", "Coxinha de Frango com Catupiry"],
-      EMPRATADOS: ["Camarão com Bechamel de Baroa", "Isca de Frango com Bechamel de Baroa", "Escondidinho de Carne Seca", "Escondidinho de Frango"],
-      PRATO_PRINCIPAL: ["File Mignon ao Molho Madeira", "Frango Recheado ao Molho Branco", "Bacalhau ao Zé do Pipo", "Lagarto ao Molho Madeira"],
-      GUARNIÇÕES: ["Arroz branco", "Arroz com Brócolis", "Batata Rustica", "Salada verde", "Molho de Mostarda e Mel"],
-      BEBIDAS: ["Coca Cola Comum", "Coca Cola Zero Açucar", "Guaraná", "Suco de Caju", "Suco de Abacaxi"]
-    },
-    selectFields: [
-      { id: "Prato_Principal", label: "Escolha 2 Opções de Prato Principal", options: ["File Mignon ao Molho Madeira", "Isca de Frango Recheado ao Molho Branco", "Bacalhau ao Zé do Pipo", "Lagarto ao Molho Madeira"] },
-      { id: "Massas", label: "Escolha  1 Opção de Massa", options: ["Penne ao Molho Sugo", "Espaguete ao Molho Bolonhesa", "Rodele de Ricota e Tomate Seco ao Quatro Queijos"] },
-      { id: "Empratados", label: "Escolha 2 Opções de Empratado", options: ["Camarão com Bechamel de Baroa", "Frango com Bechamel de Baroa", "Escondidinho de Carne Seca", "Escondidinho de Frango"] }
-    ]
-  },
-  coquetel: {
-    id: "coquetel",
-    name: "Coquetel Volante",
-    description: "Finger foods e canapés sofisticados",
+
+  // ── CHURRASCO ────────────────────────────────────────────
+  churrasco: {
+    id: 'churrasco',
+    name: 'Buffet de Churrasco',
+    description: 'Brasa, cortes especiais e tradição.',
     hasOpcionais: false,
     menu: {
-      FINGER_FOODS: ["Canapés de salmão", "Mini sanduíches", "Coxinhas gourmet", "Empadas variadas", "Bruschetta caprese", "Tortinhas doces", "Drinks especiais", "Espumante"],
-      SALGADOS_ASSADOS: ["Folhado de Frango", "Sushi e sashimi", "Salada de camarão", "Mini wraps", "Canapés vegetarianos", "Mini quiches", "Drinks especiais", "Espumante"],
-      BEBIDAS: ["Coca Cola Comum", "Coca Cola Zero Açucar", "Guaraná", "Suco de Caju", "Suco de Abacaxi"]
+      'Entradas': [
+        'Carne de sol',
+        'Linguiça de frango e suína',
+        'Coração de frango',
+        'Frango desossado',
+        'Pão com alho',
+      ],
+      'Prato Principal': [
+        'Picanha',
+        'Maminha',
+        'Fraldinha',
+        'Alcatra',
+        'Carne de sol',
+        'Costela suína',
+        'Lombinho suíno',
+        'Linguiça de frango e suína',
+        'Frango desossado',
+        'Coração de frango',
+      ],
+      'Guarnições': [
+        'Arroz',
+        'Feijão tropeiro',
+        'Farofa de cuscuz',
+        'Mandioca com manteiga',
+        'Vinagrete',
+        'Pão com alho',
+        'Salada verde',
+      ],
+      'Sobremesa': [
+        'Banana caramelizada',
+        'Abacaxi assado',
+        'Sorvete de creme',
+      ],
+      'Bebidas': [
+        'Refrigerantes comum e zero',
+        'Sucos — dois sabores',
+      ],
     }
   },
-  boteco: {
-    id: "boteco",
-    name: "Comida de Boteco",
-    description: "Petiscos tradicionais brasileiros",
-    hasOpcionais: false,
-    menu: {
-      ILHA_DE_BOTECO: ["Calabresa Acebolada", "Tropeirinho", "Carne de Sol com Mandioca", "Torresmo a Pururuca", "Linguiça acebolada", "Frango a Passarinho", "Pateis de Queijo e Carne", "Kibe com Queijo", "Kibe sem Queijo", "Batata Frita", "Arroz Carreteiro"],
-      CALDOS: ["Caldo de Carne Seca com Abobora", "Caldo de Costela com Mandioca"],
-      EMPRATADOS: ["Isca de Frango com Bechamel de Baroa", "Escondidinho de Carne Seca com Parmesão"],
-      BEBIDAS: ["Coca Cola Comum", "Coca Cola Zero Açucar", "Guaraná", "Suco de Caju", "Suco de Abacaxi"]
-    }
-  },
-  junina: {
-    id: "junina",
-    name: "Festa Junina",
-    description: "Comidas típicas e decoração temática",
-    hasOpcionais: false,
-    menu: {
-      PRATOS_TIPICOS: ["Cachorro Quente", "Arroz Carreteiro", "Galinhada", "Vinagrete", "Milho Cozido", "Canjica de Amendoin", "Bolo de Milho", "Bolo de Chocolate"],
-      CALDOS: ["Caldo verde", "Caldo de Frango com Milho"],
-      CHURRASQUINHOS: ["Espetinho de carne", "Espetinho de frango", "Espetinho de linguiça", "Espetinho de Coração de Frango"],
-      BEBIDAS: ["Coca Cola Comum", "Coca Cola Zero Açucar", "Guaraná", "Suco de Caju", "Suco de Abacaxi"]
-    }
-  },
+
+  // ── FEIJOADA ─────────────────────────────────────────────
   feijoada: {
-    id: "feijoada",
-    name: "Feijoada Mineira ",
-    description: "Feijoada completa com acompanhamentos tradicionais",
+    id: 'feijoada',
+    name: 'Buffet de Feijoada',
+    description: 'Um clássico cheio de afeto.',
     hasOpcionais: false,
     menu: {
-      ENTRADAS: ["Caldinho de Feijão", "Pastel de Queijo e Carne", "Linguiça Acebolada com Pães"],
-      FEIJOADA: ["Feijoada de Carne Seca", "Feijoada de Costelinha Suina e Lombinho", "Feijoada de Paio e Calabresa"],  
-      GUARNIÇÕES: ["Arroz branco", "Farofa crocante", "Couve refogada", "Laranja fatiada", "Torresmo crocante", "Molho de pimenta"],
-      BEBIDAS: ["Coca Cola Comum", "Coca Cola Zero Açucar", "Guaraná", "Suco de Caju", "Suco de Abacaxi"]
+      'Entradas': [
+        'Caldinho de feijão',
+        'Pastéizinhos de queijo e carne',
+        'Linguiçinhas com pães',
+        'Torresmo à pururuca',
+        'Kibe',
+      ],
+      'Prato Principal — Feijoada': [
+        'Feijão preto',
+        'Costelinha defumada',
+        'Lombinho defumado',
+        'Carne seca',
+        'Paio',
+        'Calabresa',
+      ],
+      'Guarnições': [
+        'Arroz',
+        'Farofa',
+        'Torresmo à pururuca',
+        'Couve',
+        'Laranja',
+        'Molho de pimenta',
+      ],
+      'Bebidas': [
+        'Refrigerantes comum e zero',
+        'Sucos — dois sabores',
+      ],
     }
-  }
+  },
+
+  // ── COFFEE BREAK ─────────────────────────────────────────
+  coffee: {
+    id: 'coffee',
+    name: 'Coffee Break',
+    description: 'Pausa com sabor e sofisticação.',
+    hasOpcionais: false,
+    menu: {
+      'Salgados Fritos': [
+        'Rizole de milho',
+        'Rizole de carne',
+        'Bolinha de queijo e alho',
+        'Kibe com queijo',
+      ],
+      'Salgados Assados': [
+        'Pão de queijo',
+        'Croissant de Espinafre',
+        'Croissant de Ricota',
+        'Croissant de Banana',
+        'Croissant de Maçã',
+        'Croissant de Goiabada',
+      ],
+      'Pães e Frios': [
+        'Pães diversos',
+        'Patê de azeitona',
+        'Patê de presunto',
+        'Presunto fatiado',
+        'Queijo fatiado',
+        'Requeijão',
+      ],
+      'Doces e Sobremesa': [
+        'Salada de frutas',
+        'Bolo de chocolate',
+        'Bolo de ninho com massa branca',
+      ],
+      'Bebidas': [
+        'Café',
+        'Refrigerantes comum e zero',
+        'Água saborizada',
+        'Suco de goiaba',
+        'Suco de manga',
+      ],
+    }
+  },
+
+  // ── CREPES DOCES E SALGADOS ───────────────────────────────
+  crepe: {
+    id: 'crepe',
+    name: 'Crepes Doces e Salgados',
+    description: 'Uma estação para surpreender.',
+    hasOpcionais: false,
+    menu: {
+      'Entradas': [
+        'Pastéizinhos de carne e queijo',
+        'Kibe com e sem catupiry',
+        'Coxinha com e sem catupiry',
+      ],
+      'Crepes Salgados': [
+        'Carne seca',
+        'Filé de frango com catupiry',
+        'Queijo',
+        'Presunto',
+        'Calabresa',
+        'Tomate seco',
+        'Palmito',
+        'Batata palha',
+        'Tomate fresco com rúcula e orégano',
+        'Cebola temperada',
+        'Milho',
+        'Azeitona',
+      ],
+      'Crepes Doces': [
+        'Banana caramelizada',
+        'Chocolate',
+        'Canela e açúcar',
+        'Doce de leite',
+        'Goiabada',
+      ],
+      'Bebidas': [
+        'Refrigerantes comum e zero',
+        'Sucos — dois sabores',
+      ],
+    }
+  },
+
+  // ── BUTECO ────────────────────────────────────────────────
+  boteco: {
+    id: 'boteco',
+    name: 'Buffet de Buteco',
+    description: 'Sabores brasileiros à mesa.',
+    hasOpcionais: false,
+    menu: {
+      'Ilha de Buteco': [
+        'Calabresa acebolada',
+        'Tropeirinho',
+        'Carne de sol com mandioca',
+        'Linguiça apimentada com pães',
+        'Frango à passarinho ao alho',
+        'Pastéis de queijo e carne',
+        'Quibe com e sem queijo',
+        'Fritas',
+        'Torresmo à pururuca',
+        'Carreteiro',
+      ],
+      'Caldos': [
+        'Abóbora com carne seca',
+        'Costela com mandioca',
+      ],
+      'Empratados': [
+        'Escondidinho de carne seca',
+        'Isca de frango béchamel de baroa',
+      ],
+    }
+  },
+
+  // ── FESTA JUNINA ─────────────────────────────────────────
+  junina: {
+    id: 'junina',
+    name: 'Buffet de Festa Junina',
+    description: 'Quitutes que aquecem a festa.',
+    hasOpcionais: false,
+    menu: {
+      'Comidas Típicas Doces': [
+        'Canjica cremosa',
+        'Pamonha (doce e sal)',
+        'Cural de milho',
+        'Bolo de milho',
+        'Bolo de fubá',
+        'Bolo de chocolate',
+      ],
+      'Espetinhos': [
+        'Frango com bacon',
+        'Queijo coalho',
+        'Carne',
+        'Salsichão',
+        'Coração',
+        'Linguiça',
+      ],
+      'Comidas Típicas Salgadas': [
+        'Carreteiro',
+        'Galinhada',
+        'Milho verde',
+        'Farofa',
+        'Vinagrete',
+        'Cachorro quente',
+        'Pipoca',
+      ],
+      'Pastéis': [
+        'Pastel de carne',
+        'Pastel de queijo',
+      ],
+      'Caldos': [
+        'Caldo verde',
+        'Caldo de frango com milho',
+      ],
+      'Bebidas': [
+        'Quentão',
+        'Sucos — dois sabores',
+        'Refrigerantes comum e zero',
+        'Água sem gás',
+      ],
+    }
+  },
+
+  // ── BUFFET DE MASSAS ─────────────────────────────────────
+  massa: {
+    id: 'massa',
+    name: 'Buffet de Massas',
+    description: 'Receitas artesanais e molhos especiais.',
+    hasOpcionais: false,
+    menu: {
+      'Massas': [
+        'Rondelli tomate seco ao molho napolitano',
+        'Capeletti de frango ao molho branco',
+        'Penne ao sugo',
+        'Conchiglione recheado com bacalhau ao molho de nozes',
+      ],
+      'Acompanhamentos': [
+        'Salada verde',
+        'Pão ciabatta',
+        'Antepastos variados',
+      ],
+      'Bebidas': [
+        'Água mineral',
+        'Refrigerante',
+        'Suco de frutas',
+      ],
+    }
+  },
+
+  // ── BUFFET TÍPICO MINEIRO ─────────────────────────────────
+  tipicoMineiro: {
+    id: 'tipicoMineiro',
+    name: 'Buffet Típico Mineiro',
+    description: 'A alma de Minas à sua mesa.',
+    hasOpcionais: false,
+    menu: {
+      'Enquanto os convidados chegam': [
+        'Café coado na hora',
+      ],
+      'Para beliscar': [
+        'Pão de queijo tradicional',
+        'Broa de fubá',
+        'Biscoito de queijo',
+        'Bolo de milho',
+      ],
+      'Mesa de boas-vindas': [
+        'Queijo Canastra e Minas meia cura',
+        'Salame, copa e lombo defumado',
+        'Torresmo pururuca',
+        'Linguiça artesanal acebolada',
+        'Bolinho de mandioca com carne-seca',
+        'Geleias artesanais',
+        'Doce de leite',
+        'Pimenta biquinho',
+        'Azeitonas e conservas',
+      ],
+      'Almoço — Prato principal': [
+        'Arroz de costela defumada, servido em panelas de ferro',
+      ],
+      'Almoço — Acompanhamentos': [
+        'Feijão tropeiro',
+        'Purê de mandioca',
+        'Couve refogada',
+        'Farofa de bacon',
+        'Vinagrete',
+        'Salada de folhas com tomate-cereja e queijo minas',
+        'Legumes assados na manteiga',
+      ],
+      'Mesa de café (encerramento)': [
+        'Café coado normal',
+        'Café de caramelo',
+        'Biscoitinhos mineiros',
+        'Tela de doce de leite e canudinhos',
+        'Tela de goiabada e canudinhos',
+      ],
+    }
+  },
+
+  // ── ALMOÇO NATALINO ──────────────────────────────────────
+  natalino: {
+    id: 'natalino',
+    name: 'Almoço Natalino',
+    description: 'Celebre o Natal com sabor e tradição.',
+    hasOpcionais: false,
+    menu: {
+      'Prato Principal': [
+        'Peru e/ou Chester à Califórnia',
+        'Lombo assado com carpaccio de abacaxi',
+        'Pernil com farofa natalina',
+      ],
+      'Guarnições': [
+        'Arroz branco',
+        'Salpicão de frango',
+        'Salada verde (4 folhas, tomate seco, palmito, manga) — Molho de Mel e Mostarda',
+        'Farofa natalina (uvas passas, ovos, maçã, alho laminado)',
+      ],
+      'Bebidas': [
+        'Refrigerantes comum e zero',
+        'Sucos — dois sabores',
+      ],
+    }
+  },
+
 };
